@@ -1,0 +1,17 @@
+《 硬件连接方式 》
+
+drv8323s驱动板：
+A、B、C -> 红、黄、黑
+
+编码器手轮接线说明【蓝色线在右侧】：
+GND、B、+5V、A、GND【蓝色】
+
+绝对编码器接线说明【红色线在右侧】：
+N\A、N\A、N\A、DATA、TRIGGER、N\A、GND、+5V【红色】
+
+hx280025c-launchboard控制板：
+【手轮】A、B -> 【H13】 1A 1B
+【绝对编码器】DATA、TRIGGER -> IO35、IO46
+
+注！！！
+hx280025c-launchboard SW1开关拨至Q1、Q2。
