@@ -1,5 +1,5 @@
 src_board/drv8323s.o: ..\src_board\drv8323s.c \
-  D:\workspace_haawking\haawking-workspace-V2.2.11Pre\Sanding_PMSMControl_HX0025EDC_v1.2\src_board\drv8323s.h \
+  D:\workspace_haawking\haawking-workspace-V2.3.3Pre\Sanding_PMSMControl_HX0025EDC_v1.2\src_board\drv8323s.h \
   ..\haawking-drivers\haawking-dsc280025_edc-board\spi.h \
   ..\haawking-drivers\haawking-dsc280025_edc-board\inc\hw_memmap.h \
   ..\haawking-drivers\haawking-dsc280025_edc-board\inc\hw_types.h \
@@ -19,7 +19,7 @@ src_board/drv8323s.o: ..\src_board\drv8323s.c \
   ..\haawking-drivers\haawking-dsc280025_edc-board\inc\hw_outputxbar.h \
   ..\haawking-drivers\haawking-dsc280025_edc-board\inc\hw_xbar.h
 
-D:\workspace_haawking\haawking-workspace-V2.2.11Pre\Sanding_PMSMControl_HX0025EDC_v1.2\src_board\drv8323s.h:
+D:\workspace_haawking\haawking-workspace-V2.3.3Pre\Sanding_PMSMControl_HX0025EDC_v1.2\src_board\drv8323s.h:
 
 ..\haawking-drivers\haawking-dsc280025_edc-board\spi.h:
 

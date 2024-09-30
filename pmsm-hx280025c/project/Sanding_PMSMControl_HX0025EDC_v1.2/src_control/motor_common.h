@@ -1,3 +1,25 @@
+//*****************************************************************************
+//
+//! \file motor_common.h
+//!
+//! \brief 电机控制结构体相关
+//!
+//! \details
+//!
+//! \author 李博克
+//!
+//! \date 2024-09-14
+//!
+//! \version V1.1
+//!
+//! \copyright 北京三鼎光电仪器有限公司。
+//
+//*****************************************************************************
+
+//*****************************************************************************
+// includes
+//*****************************************************************************
+
 #ifndef MOTOR_COMMON_H
 #define MOTOR_COMMON_H
 
@@ -8,8 +30,25 @@
 #include "traj.h"
 #include "svgen.h"
 #include "transform.h"
+
+//*****************************************************************************
+//
+// If building with a C++ compiler, make all of the definitions in this header
+// have a C binding.
+//
+//*****************************************************************************
+
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 extern HAL_Handle    halHandle;
 extern HAL_Obj       hal;
+
+//*****************************************************************************
+// defines
+//*****************************************************************************
 
 #define M_OVER_VOLTAGE_BIT          0x0001    // DC Bus Over Voltage Fault
 #define M_UNDER_VOLTAGE_BIT         0x0002    // DC Bus Under Voltage Fault
@@ -34,6 +73,7 @@ extern HAL_Obj       hal;
 #define M_MASK_ALL_FAULT_BITS       0x0000
 #define M_ENABLE_ALL_FAULT_BITS     0xFFFF
 
+//! \brief Enable all over current protection
 #define MTR_FAULT_ENABLE_OC_OUV         M_OVER_VOLTAGE_BIT                     \
                                       + M_UNDER_VOLTAGE_BIT                    \
                                       + M_MODULE_OVER_CURRENT_BIT              \
@@ -41,9 +81,7 @@ extern HAL_Obj       hal;
                                       + M_CURRENT_OFFSET_BIT                   \
                                       + M_VOLTAGE_OFFSET_BIT
 
-//
-// Enable all fault protection
-//
+//! \brief Enable all fault protection
 #define MTR_FAULT_ENABLE_ALL            M_OVER_VOLTAGE_BIT                     \
                                       + M_UNDER_VOLTAGE_BIT                    \
                                       + M_MOTOR_OVER_TEMPER_BIT                \
@@ -59,16 +97,19 @@ extern HAL_Obj       hal;
                                       + M_CURRENT_OFFSET_BIT                   \
                                       + M_VOLTAGE_OFFSET_BIT
 
-// Clear all fault protection except over/under voltage and offset error
-//
+//! \brief Clear all fault protection except over/under voltage and offset error
 #define MTR_FAULT_CLEAR                 M_OVER_VOLTAGE_BIT                     \
                                       + M_UNDER_VOLTAGE_BIT                    \
                                       + M_MOTOR_OVER_TEMPER_BIT                \
                                       + M_MODULE_OVER_TEMPER_BIT
 
+//! \brief Clear all fault protection
 #define MTR_FAULT_DISABLE_ALL           0x0000
+
+//! \brief User motor1 fault configuration
 #define MTR1_FAULT_MASK_SET             MTR_FAULT_ENABLE_OC_OUV
 
+//! \brief Set motor1 structure
 typedef struct _MOTOR_SetVars_t_
 {
     float32_t Rr_Ohm;
@@ -139,15 +180,13 @@ typedef struct _MOTOR_SetVars_t_
     uint16_t restartWaitTimeSet;
     uint16_t restartTimesSet;
 
-    uint16_t  dacCMPValH;                   // 9
-    uint16_t  dacCMPValL;                   // 10
+    uint16_t  dacCMPValH;
+    uint16_t  dacCMPValL;
 
 } MOTOR_SetVars_t;
 
 //! \brief Defines the MOTOR_SetVars_t handle
-//!
 typedef struct _MOTOR_SetVars_t_ *MOTORSETS_Handle;
-//******************************************************************************
 
 typedef struct _FAULT_MTR_BITS_
 {             // bits  description
@@ -180,139 +219,228 @@ typedef union _FAULT_MTR_REG_t
 
 typedef struct _MOTOR_Vars_t_
 {
-    float32_t direction;                    // 1.0f->forward, -1.0f->reserve
+	// 计数器
+	uint32_t ISRCount;						//!< 中断计数器
+	uint32_t levelCount_180;				//!< 全站仪180度水平计数器
+
+    uint16_t counterSpeed;
+    uint16_t counterTrajSpeed;
+    uint16_t stateRunTimeCnt;
+    uint16_t forceRunTimeDelay;
+    uint16_t alignTimeDelay;
+    uint16_t fwcTimeDelay;
+    uint16_t flyingStartTimeDelay;
+
+    uint16_t overVoltageTimeCnt;
+    uint16_t underVoltageTimeCnt;
+    uint16_t overCurrentTimesCnt;
+    uint16_t overLoadTimeCnt;
+    uint16_t motorStallTimeCnt;
+    uint16_t unbalanceTimeCnt;
+    uint16_t lostPhaseTimeCnt;
+    uint16_t overSpeedTimeCnt;
+    uint16_t startupFailTimeCnt;
+    uint16_t RsOnlineTimeCnt;
+
+//    uint16_t powerOnTimeCnt;
+    uint16_t stopWaitTimeCnt;
+    uint16_t restartTimesCnt;
+    uint16_t startSumTimesCnt;
+
+	// 用户控制
+	bool flagEnableShowMode;				//!< 启动演示模式
+
+
+	// 电机控制
+    bool flagEnableRunAndIdentify;
+    bool flagRunIdentAndOnLine;
+    bool flagEnableMotorIdentify;
+    bool flagMotorIdentified;
+    bool flagEnableRestart;
+
+    bool flagEnableForceAngle;
+    bool flagEnableOffsetCalc;
+    bool flagEnableAlignment;
+
+    bool flagSetupController;
+    bool flagEnablePosCtrl;
+    bool flagEnableSpeedCtrl;
+    bool flagEnableCurrentCtrl;
+    bool flagEnableOLPosCtrl;
+    bool flagEnableOLSpeedCtrl;
+    bool flagEnableOLCurrentCtrl;
+    bool enableSpeedCtrl;
+    bool enableCurrentCtrl;
+
+    bool flagEnableRsRecalc;
+    bool flagEnablePowerWarp;
+    bool flagBypassLockRotor;
+    bool flagEnableRsOnLine;
+    bool flagStartRsOnLine;
+    bool flagRsOnLineContinue;
+
+    bool flagEnableFlyingStart;
+    bool flagStateFlyingStart;
+    bool flagEnableBraking;
+
+    bool flagEnableIPD;
+    bool flagEnableFWC;
+    bool flagEnableMTPA;
+    bool flagUpdateMTPAParams;
+
+    bool flagClearFaults;
+    bool flagVIrmsCal;
+
+    MOTOR_Status_e motorState;
+    MCTRL_State_e  mctrlState;
+
+	// 正倒镜180度控制
+	uint8_t   fowardLevelCtrl;
+	uint8_t   backLevelCtrl;
+	uint8_t	  flagLevelPosSet;
+
+	float32_t direction;                    //!< 1.0f->forward, -1.0f->reserve
 
     // Position loop variables
     uint32_t  posCount;
-    float32_t posRef_rad;					// Refer to Mechanical angular position information, rad
-    float32_t pos_rad;						// Current mechanical Angle position information, rad
-    float32_t pos_deg;						// Current mechanical Angle position information, degree
-    float32_t posLast_deg;
-    float32_t posDelta_deg;
-    float32_t posDelta_rad;
-    float32_t posFilter_rad;				// Filtered mechanical angular position information, rad
-    bool flagPosSwitch;
-    bool flagPosStable;
+    float32_t posRef_rad;					//!< Refer to Mechanical angular position information, rad
+    float32_t pos_rad;						//!< Current mechanical Angle position information, rad
+    float32_t posRef_deg;					//!< Refer to Mechanical angular position information, degree
+    float32_t pos_deg;						//!< Current mechanical Angle position information, degree
+    float32_t posRef_min;					//!< Refer to Mechanical angular position information, minute
+    float32_t pos_min;						//!< Current mechanical Angle position information, minute
+    float32_t posRef_sec;					//!< Refer to Mechanical angular position information, second
+    float32_t pos_sec;						//!< Current mechanical Angle position information, second
+    float32_t posLast_deg;					//!<
+    float32_t posDelta_deg;					//!<
+    float32_t posDelta_rad;					//!<
+    float32_t posFilter_rad;				//!< Filtered mechanical angular position information, rad
+    bool flagPosSwitch;						//!<
+    bool flagPosStable;						//!<
 
     // Speed loop variables
-    float32_t speedRef_Hz;					// Speed reference value, Hz
-    float32_t speed_int_Hz;                 // Set speed after ramp, Hz
-    float32_t speed_Hz;						// Current speed, Hz
-    float32_t speed_rps;					// Current speed, rpm
-    float32_t speedStart_Hz;
-    float32_t speedForce_Hz;
-    float32_t speedAbs_Hz;
-    float32_t speedFilter_Hz;
-    float32_t speedFlyingStart_Hz;
+    float32_t speedRef_Hz;					//!< Speed reference value, Hz
+    float32_t speed_int_Hz;                 //!< Set speed after ramp, Hz
+    float32_t speed_Hz;						//!< Current speed, Hz
+    float32_t speed_rps;					//!< Current speed, rpm
+    float32_t speedENC_Hz;					//!< the speed from Encoder module
+    float32_t speedFilter_Hz;				//!<
+    float32_t speedAbs_Hz;					//!<
+    float32_t speedStart_Hz;				//!<
+    float32_t speedForce_Hz;				//!<
+    float32_t speedFlyingStart_Hz;			//!<
+    float32_t speedEST_Hz;					//!< the speed from EST module
+//    float32_t speedPLL_Hz;					//!< the speed from PLL module
+//    float32_t speedHall_Hz;					//!< the speed from Hall Sensor
+//    float32_t speedINT_Hz;					//!< the speed from ISBLDC module
 
-    float32_t accelerationMax_Hzps;
-    float32_t accelerationStart_Hzps;
+    float32_t accelerationMax_Hzps;			//!<
+    float32_t accelerationStart_Hzps;		//!<
 
-    float32_t angleFWC_rad;
-    float32_t angleCurrent_rad;
+    // 电角度相关变量
+    uint32_t ENCCount;						//!<
+    float32_t angleDelayed_sf;				//!<
+    float32_t angleDelta_rad;				//!< 本次控制周期相较上次控制周期的电角度delta值
+    float32_t angleDeltaFilter_rad; 		//!< angleDelta_rad经一阶滤波后得到的值
+    float32_t angleDeltaSum_rad;			//!< angleDelta_rad多次控制周期下的累加和
+    float32_t angleENC_rad;					//!< 旋转电机编码器电角度值(rad)
+    float32_t angleENCOffset_rad;			//!< 电机Id轴对齐后，电角度的偏移值
+	float32_t angleEST_rad;					//!< 旋转电机估算电角度值(rad)
+//	float32_t anglePLL_rad;					//!< the rotor angle from PLL modules
+//	float32_t angleENC_rad;					//!< the rotor angle from Encoder modules
+//	float32_t angleComp_rad;				//!< the rotor angle delay compensation value
+//	float32_t angleGen_rad;					//!< the rotor angle from Generator modules
+//	float32_t angleHall_rad;				//!< the rotor angle from Hall Sensor
+//	float32_t angleBrake_rad;				//!< the rotor angle for braking
+//	float32_t angleFWC_rad;					//!<
+	float32_t angleCurrent_rad;				//!<
+//	float32_t angleOffsetIPD_rad;			//!<
+//	float32_t angleDetectIPD_rad;			//!<
+    float32_t angleFOC_rad;					//!< 旋转电机电角度值(rad)
+    float32_t angleFOCLast_rad;				//!< 上次控制周期的旋转电机电角度值(rad)
+//    float32_t angleFOCPrev_rad;				//!< the rotor angle from previous FOC modules
 
-    float32_t angleOffsetIPD_rad;
-    float32_t angleDetectIPD_rad;
+    FAULT_MTR_REG_t faultMtrNow;
+    FAULT_MTR_REG_t faultMtrUse;
+    FAULT_MTR_REG_t faultMtrMask;
+    FAULT_MTR_REG_t faultMtrPrev;
 
-    float32_t Is_A;
-    float32_t Vs_V;
-    float32_t VsRef_pu;
-    float32_t VsRef_V;
-    float32_t oneOverDcBus_invV;    //!< the DC Bus inverse, 1/V
+    float32_t Is_A;							//!<
+    float32_t Vs_V;							//!<
+    float32_t VsRef_pu;						//!<
+    float32_t VsRef_V;						//!<
+    float32_t oneOverDcBus_invV;    		//!< the DC Bus inverse, 1/V
 
-    float32_t IdRated_A;
-    float32_t IsRef_A;
-    float32_t IsSet_A;
+    float32_t IdRated_A;					//!<
+    float32_t IsRef_A;						//!<
+    float32_t IsSet_A;						//!<
 
-    float32_t fluxCurrent_A;
-    float32_t alignCurrent_A;
-    float32_t startCurrent_A;
-    float32_t maxCurrent_A;
-    float32_t brakingCurrent_A;
+    float32_t fluxCurrent_A;				//!<
+    float32_t alignCurrent_A;				//!<
+    float32_t startCurrent_A;				//!<
+    float32_t maxCurrent_A;					//!<
+    float32_t brakingCurrent_A;				//!<
 
-    float32_t torque_Nm;
+    float32_t torque_Nm;					//!<
 
-    MATH_Vec2 Vab_out_V;             // the output control voltage on alpha&beta axis
+    MATH_Vec2 Vab_out_V;             		//!< the output control voltage on alpha&beta axis
+    MATH_Vec2 Vdq_out_V;            		//!< the output control voltage on d&q axis
+    MATH_Vec2 Vdq_offset_V;         		//!< the output offset voltage on d&q axis
+    MATH_Vec2 Iab_A;                		//!< the alpha/beta current values, A
+    MATH_Vec2 Vab_V;                		//!< the alpha/beta current values, V
 
-    MATH_Vec2 Vdq_out_V;            // the output control voltage on d&q axis
+    MATH_Vec2 Idq_in_A;						//!< the d&q axis current are converter from 3-phase sampling input current of motor
+    MATH_Vec2 IdqRef_A;						//!< the reference current on d&q rotation axis
+    MATH_Vec2 Idq_out_A;					//!< the reference output current on d&q rotation axis
 
-    MATH_Vec2 Vdq_offset_V;         // the output offset voltage on d&q axis
+    MotorNum_e motorNum;
 
-    MATH_Vec2 Iab_A;                // the alpha/beta current values, A
+    MOTORSETS_Handle motorSetsHandle;
 
-    MATH_Vec2 Vab_V;                // the alpha/beta current values, V
+    userParams_Handle   userParamsHandle;
 
-    // the d&q axis current are converter from 3-phase sampling input current of motor
-    MATH_Vec2 Idq_in_A;
+    HAL_MTR_Handle halMtrHandle;			//!< the handle for the hardware abstraction layer to motor control
 
-    // the reference current on d&q rotation axis
-    MATH_Vec2 IdqRef_A;
+    DRVICVARS_Handle drvVarsHandle;
 
-    // the reference output current on d&q rotation axis
-    MATH_Vec2 Idq_out_A;
+    SAMPLE_Mode_e sampleMode;
 
-    float32_t frswPos_sf;
+    HAL_ADCData_t adcData;
+    HAL_PWMData_t pwmData;
 
-    uint32_t ENCCount;
+    EST_InputData_t 	estInputData;
+    EST_OutputData_t 	estOutputData;
+    EST_State_e 		estState;
+    EST_Traj_State_e 	trajState;
+    EST_Handle  		estHandle;			//!< the handle for the estimator
 
-    float32_t angleDelayed_sf;
+    CLARKE_Handle clarkeHandle_V;			//!< the handle for the voltage Clarke transform
+    CLARKE_Handle clarkeHandle_I;			//!< the handle for the current Clarke transform
 
-    float32_t angleENCOffset_rad;
+    IPARK_Handle  iparkHandle_V;			//!< the handle for the inverse Park transform
 
-    // the rotor angle compensation value
-    float32_t angleDelta_rad;
+    PARK_Handle   parkHandle_I;				//!< the handle for the Park object
+    PARK_Handle   parkHandle_V;				//!< the handle for the Park object
 
-    // the rotor angle compensation value
-    float32_t angleDeltaFilter_rad;
+	SVM_Mode_e 	 svmMode;
+	TRAJ_Handle  trajHandle_spd;			//!< the handle for the speed reference trajectory
 
-    // the rotor angle delay compensation value
-    float32_t angleComp_rad;
+    PI_Handle     piHandle_pos;				//!< the handle for the speed position controller
+    PI_Handle     piHandle_spd;				//!< the handle for the speed PI controller
+    PI_Handle     piHandle_Id;				//!< the handle for the Id PI controller
+    PI_Handle     piHandle_Iq;				//!< the handle for the Iq PI controller
 
-    // the rotor angle from Generator modules
-    float32_t angleGen_rad;
+    SVGEN_Handle  svgenHandle;				//!< the handle for the space vector generator
 
-    // the rotor angle from FOC modules
-    float32_t angleFOC_rad;
+    uint16_t VIrmsIsrSet;
+    uint16_t VIrmsIsrCnt;
 
-    // the rotor angle from FOC modules
-    float32_t angleFOCLast_rad;
+    FlyingStart_Mode_e flyingStartMode;
+    BRAKE_Mode_e brakingMode;
+    OPERATE_Mode_e operateMode;
 
-    // the rotor filter angle from FOC modules
-    float32_t angleDeltaSum_rad;
-
-    // the rotor angle from previous FOC modules
-    float32_t angleFOCPrev_rad;
-
-    // the rotor angle from EST modules
-    float32_t angleEST_rad;
-
-    // the rotor angle from PLL modules
-    float32_t anglePLL_rad;
-
-    // the rotor angle from Encoder modules
-    float32_t angleENC_rad;
-
-    // the rotor angle from Hall Sensor
-    float32_t angleHall_rad;
-
-    // the rotor angle for braking
-    float32_t angleBrake_rad;
-
-    // the speed from EST module
-    float32_t speedEST_Hz;
-
-    // the speed from PLL module
-    float32_t speedPLL_Hz;
-
-    // the speed from Encoder module
-    float32_t speedENC_Hz;
-
-    // the speed from Hall Sensor
-    float32_t speedHall_Hz;
-
-    // the speed from ISBLDC module
-    float32_t speedINT_Hz;
-
+    // 有效值计算
+//    float32_t frswPos_sf;					//!<
     float32_t VIrmsIsrScale;
     float32_t IrmsCalSF;
     float32_t VrmsCalSF;
@@ -329,155 +457,9 @@ typedef struct _MOTOR_Vars_t_
     float32_t unbalanceRatio;
     float32_t powerActive_W;
     float32_t powerReal_W;
-
-    uint32_t ISRCount;
-
-    MOTORSETS_Handle motorSetsHandle;
-
-    userParams_Handle   userParamsHandle;
-
-    // the handle for the hardware abstraction layer to motor control
-    HAL_MTR_Handle halMtrHandle;
-
-    // the handle for the estimator
-
-    EST_Handle  estHandle;
-    // the handle for the voltage Clarke transform
-    CLARKE_Handle clarkeHandle_V;
-
-
-    // the handle for the current Clarke transform
-    CLARKE_Handle clarkeHandle_I;
-
-    // the handle for the inverse Park transform
-    IPARK_Handle  iparkHandle_V;
-
-    // the handle for the Park object
-    PARK_Handle   parkHandle_I;
-
-    // the handle for the Park object
-    PARK_Handle   parkHandle_V;
-
-    // the handle for the speed position controller
-    PI_Handle     piHandle_pos;
-
-    // the handle for the speed PI controller
-    PI_Handle     piHandle_spd;
-
-    // the handle for the Id PI controller
-    PI_Handle     piHandle_Id;
-
-    // the handle for the Iq PI controller
-    PI_Handle     piHandle_Iq;
-
-    // the handle for the speed reference trajectory
-    TRAJ_Handle  trajHandle_spd;
-
-    // the handle for the space vector generator
-    SVGEN_Handle  svgenHandle;
-
-    DRVICVARS_Handle drvVarsHandle;
-
-    EST_InputData_t estInputData;
-    EST_OutputData_t estOutputData;
-
-    uint16_t VIrmsIsrSet;
-    uint16_t VIrmsIsrCnt;
-
-    uint16_t overVoltageTimeCnt;
-    uint16_t underVoltageTimeCnt;
-
-    uint16_t overLoadTimeCnt;
-    uint16_t motorStallTimeCnt;
-    uint16_t unbalanceTimeCnt;
-    uint16_t lostPhaseTimeCnt;
-    uint16_t overSpeedTimeCnt;
-    uint16_t startupFailTimeCnt;
-
-    uint16_t overCurrentTimesCnt;
-
-    uint16_t powerOnTimeCnt;
-    uint16_t stopWaitTimeCnt;
-    uint16_t restartTimesCnt;
-    uint16_t startSumTimesCnt;
-
-    FAULT_MTR_REG_t faultMtrNow;
-    FAULT_MTR_REG_t faultMtrUse;
-    FAULT_MTR_REG_t faultMtrMask;
-    FAULT_MTR_REG_t faultMtrPrev;
-
-    HAL_ADCData_t adcData;
-    HAL_PWMData_t pwmData;
-
-    uint16_t stateRunTimeCnt;
-
-    uint16_t forceRunTimeDelay;
-    uint16_t alignTimeDelay;
-    uint16_t fwcTimeDelay;
-    uint16_t flyingStartTimeDelay;
-
-    uint16_t counterSpeed;
-    uint16_t counterTrajSpeed;
-
-    SAMPLE_Mode_e sampleMode;
-    MOTOR_Status_e motorState;
-    MCTRL_State_e  mctrlState;
-
-    FlyingStart_Mode_e flyingStartMode;
-    BRAKE_Mode_e brakingMode;
-    OPERATE_Mode_e operateMode;
-
-    SVM_Mode_e svmMode;
-    MotorNum_e motorNum;
-
-    EST_State_e estState;
-    EST_Traj_State_e trajState;
-
-    uint16_t RsOnlineTimeCnt;
-
-    bool flagEnableMotorIdentify;
-
-    bool flagEnableRsRecalc;
-    bool flagEnablePowerWarp;
-    bool flagBypassLockRotor;
-    bool flagEnableRsOnLine;
-    bool flagStartRsOnLine;
-    bool flagRsOnLineContinue;
-
-    bool flagEnableRestart;
-    bool flagEnableRunAndIdentify;
-    bool flagRunIdentAndOnLine;
-    bool flagMotorIdentified;
-    bool flagEnableForceAngle;
-    bool flagEnableOffsetCalc;
-    bool flagEnableAlignment;
-
-    bool flagSetupController;
-    bool flagEnablePosCtrl;
-    bool flagEnableSpeedCtrl;
-    bool flagEnableCurrentCtrl;
-    bool flagEnableOLPosCtrl;
-    bool flagEnableOLSpeedCtrl;
-    bool flagEnableOLCurrentCtrl;
-
-    bool flagEnableFlyingStart;
-    bool flagStateFlyingStart;
-    bool flagEnableBraking;
-
-    bool flagEnableIPD;
-    bool flagEnableFWC;
-    bool flagEnableMTPA;
-    bool flagUpdateMTPAParams;
-
-    bool flagClearFaults;
-    bool flagVIrmsCal;
-
-    bool enableSpeedCtrl;
-    bool enableCurrentCtrl;
 }MOTOR_Vars_t;
 
 //! \brief Defines the MOTOR_Vars_t handle
-//!
 typedef struct _MOTOR_Vars_t_ *MOTOR_Handle;
 
 //! \brief  Get the controllers Parameters
@@ -524,6 +506,8 @@ static inline void calcMotorOverCurrentThreshold(MOTOR_Handle handle)
 
     return;
 }
+
+//! \brief set up pi controller
 extern void setupControllers(MOTOR_Handle handle);
 
 //! \brief run motor monitor in main loop timer
@@ -538,17 +522,21 @@ extern void resetMotorControl(MOTOR_Handle handle);
 //! \brief  Sets up control parameters for stopping motor
 extern void stopMotorControl(MOTOR_Handle handle);
 
+//! \brief  Position check monitor
 extern void posCheckMoinitor(MOTOR_Handle handle);
 
 //! \brief  Sets up control parameters for restarting motor
 extern void restartMotorControl(MOTOR_Handle handle);
 
+//! \brief  Update global variables
 extern void updateGlobalVariables(MOTOR_Handle handle);
 
 //! \brief  Collect the current and voltage data to calculate the RMS
 extern void collectRMSData(MOTOR_Handle handle);
+
 //! \brief Rs online calibration
 extern void runRsOnLine(MOTOR_Handle handle);
+
 extern void setupClarke_I(CLARKE_Handle handle, const uint16_t numCurrentSensors);
 extern void setupClarke_V(CLARKE_Handle handle,const uint16_t numVoltageSensors);
 extern void CPU_TIME_reset(CPU_TIME_Handle handle);
@@ -561,17 +549,56 @@ static inline void updateControllers(MOTOR_Handle handle)
 
     if((obj->mctrlState >= MCTRL_FIRST_RUN) && (obj->flagMotorIdentified == true))
     {
-        // update the Id controller
-        PI_setGains(obj->piHandle_Id,objSets->Kp_Id , objSets->Ki_Id);//objSets->Kp_Id
+	   if((handle->fowardLevelCtrl == 1)||(handle->backLevelCtrl == 1))
+	   {
+	        // update the Id controller
+	        PI_setGains(obj->piHandle_Id,objSets->Kp_Id , objSets->Ki_Id);//objSets->Kp_Id
 
-        // update the Iq controller
-        PI_setGains(obj->piHandle_Iq, objSets->Kp_Iq, objSets->Ki_Iq);
+	        // update the Iq controller
+	        PI_setGains(obj->piHandle_Iq, objSets->Kp_Iq, objSets->Ki_Iq);
 
-        // update the speed controller
-        PI_setGains(obj->piHandle_spd, objSets->Kp_spd, objSets->Ki_spd);
+	        // update the speed controller
+	        PI_setGains(obj->piHandle_spd, objSets->Kp_spd, objSets->Ki_spd);
 
-        // update the position controller
-        PI_setGains(obj->piHandle_pos, objSets->Kp_pos, objSets->Ki_pos);
+	        // update the position controller
+	        PI_setGains(obj->piHandle_pos, objSets->Kp_pos, objSets->Ki_pos);
+
+	        PI_setMinMax(obj->piHandle_pos,-25,25);
+
+//	        if(handle->fowardLevelCtrl == 1)
+//			{
+//	        	PI_setMinMax(obj->piHandle_spd,0,13);
+//			}
+//	        if(handle->backLevelCtrl == 1)
+//			{
+//	        	PI_setMinMax(obj->piHandle_spd,-13,0);
+//			}
+
+	   }
+	   else
+	   {
+	        // update the Id controller
+	        PI_setGains(obj->piHandle_Id,objSets->Kp_Id , objSets->Ki_Id);//objSets->Kp_Id
+
+	        // update the Iq controller
+	        PI_setGains(obj->piHandle_Iq, objSets->Kp_Iq, objSets->Ki_Iq);
+
+	        // update the speed controller
+	        PI_setGains(obj->piHandle_spd, objSets->Kp_spd, objSets->Ki_spd);
+
+	        // update the position controller
+	        PI_setGains(obj->piHandle_pos, objSets->Kp_pos, objSets->Ki_pos);
+	   }
     }
 }
+
+//*****************************************************************************
+//
+// Mark the end of the C bindings section for C++ compilers.
+//
+//*****************************************************************************
+#ifdef __cplusplus
+}
+#endif
+
 #endif // end of MOTOR_COMMON_H definition

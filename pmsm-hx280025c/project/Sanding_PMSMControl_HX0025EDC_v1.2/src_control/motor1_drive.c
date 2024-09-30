@@ -130,8 +130,7 @@ void initMotor1CtrlParameters(MOTOR_Handle handle)
     obj->accelerationStart_Hzps = USER_MOTOR1_ACCEL_START_Hzps;
 
     obj->VsRef_pu = 0.98f * USER_M1_MAX_VS_MAG_PU;
-    obj->VsRef_V =
-            0.98f * USER_M1_MAX_VS_MAG_PU * USER_M1_NOMINAL_DC_BUS_VOLTAGE_V;
+    obj->VsRef_V = 0.98f * USER_M1_MAX_VS_MAG_PU * USER_M1_NOMINAL_DC_BUS_VOLTAGE_V;
 
     obj->fluxCurrent_A = USER_MOTOR1_FLUX_CURRENT_A;
     obj->alignCurrent_A = USER_MOTOR1_ALIGN_CURRENT_A;
@@ -676,7 +675,7 @@ void runMotor1Control(MOTOR_Handle handle)
         resetMotorControl(handle);
     }
 
-#if MTR1_IDTF
+#if MTR1_ID
     // check the trajectory generator
     if(EST_isTrajError(obj->estHandle) == true)
     {
@@ -817,10 +816,10 @@ __interrupt  void xint3ISR(void)
 }
 
 #define DELTA_ISR_TIME	0.0001f		// s
-#define DELTA_SAMPLE_TIME	0.001f	// s
-#define SPEED_SAMPLE_COUNT (uint32_t)(DELTA_SAMPLE_TIME/DELTA_ISR_TIME)
+#define DELTA_SAMPLE_TIME	0.0008f	// s
+#define SPEED_SAMPLE_COUNT (DELTA_SAMPLE_TIME/DELTA_ISR_TIME)
 uint32_t speedSampleCount = (uint32_t)(DELTA_SAMPLE_TIME/DELTA_ISR_TIME);
-
+float32_t speedSampleTime = SPEED_SAMPLE_COUNT*DELTA_ISR_TIME;
 
 // DEBUG
 float32_t debug1[200],debug2[200],debug3[200];
@@ -838,8 +837,13 @@ __interrupt CODE_SECTION( "ramfuncs") void motor1CtrlISR(void)
     MATH_Vec2 phasor;
 
     // Gets the current mechanical angular position of the motor
-//	obj->pos_deg = (float32_t)((((receivedChar[2]<<16)&0xFF0000)|((receivedChar[3]<<8)&0xFF00)|(receivedChar[4]&0xFF))/36000.0f);
-	obj->pos_deg = (float32_t)((((receivedChar[2]<<16)&0xFF0000)|((receivedChar[3]<<8)&0xFF00))/36000.0f);
+    obj->posRef_deg = obj->posRef_rad*180.0f/MATH_PI;
+	obj->pos_deg = (float32_t)((((receivedChar[2]<<16)&0xFF0000)|((receivedChar[3]<<8)&0xFF00)|(receivedChar[4]&0xFF))/36000.0f);
+//	obj->pos_deg = (float32_t)((((receivedChar[2]<<16)&0xFF0000)|((receivedChar[3]<<8)&0xFF00))/36000.0f);
+	obj->posRef_min = obj->posRef_deg*60;
+	obj->pos_min = obj->pos_deg*60;
+	obj->posRef_sec = obj->posRef_min*60;
+	obj->pos_sec = obj->pos_min*60;
 	obj->pos_rad = obj->pos_deg*MATH_PI/180.0f;
 
 	if((obj->pos_deg>obj->posLast_deg)&&(obj->direction == 1))
@@ -902,7 +906,6 @@ __interrupt CODE_SECTION( "ramfuncs") void motor1CtrlISR(void)
 	obj->estInputData.speed_ref_Hz = TRAJ_getIntValue(obj->trajHandle_spd);
 	obj->speed_int_Hz = obj->estInputData.speed_ref_Hz;
 	obj->estInputData.dcBus_V = obj->adcData.VdcBus_V;
-
 
     EST_run(obj->estHandle, &obj->estInputData, &obj->estOutputData);
 
@@ -1003,7 +1006,7 @@ __interrupt CODE_SECTION( "ramfuncs") void motor1CtrlISR(void)
     obj->ENCCount++;
 	if(obj->ENCCount >= speedSampleCount)
 	{
-        obj->speedENC_Hz = (obj->angleDeltaSum_rad/ DELTA_SAMPLE_TIME)/MATH_TWO_PI;
+        obj->speedENC_Hz = (obj->angleDeltaSum_rad/ speedSampleTime)/MATH_TWO_PI;
 //        obj->speedFilter_Hz = obj->speedFilter_Hz *0.9995f + obj->speedENC_Hz * 0.0005f;
 
         obj->ENCCount = 0;

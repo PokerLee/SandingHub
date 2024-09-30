@@ -208,7 +208,7 @@ void setupControllers(MOTOR_Handle handle)
     PI_setMinMax(obj->piHandle_Iq, 0.0f, 0.0f);
 
     // set the speed controller
-    PI_setGains(obj->piHandle_spd, 0.04, 0.01);
+    PI_setGains(obj->piHandle_spd, 0.15, 0.02);
     PI_setUi(obj->piHandle_spd, 0.0f);
     PI_setRefValue(obj->piHandle_spd, 0.0f);
     PI_setFbackValue(obj->piHandle_spd, 0.0f);
@@ -217,7 +217,7 @@ void setupControllers(MOTOR_Handle handle)
 
     // set the position controller
 //    PI_setGains(obj->piHandle_pos, 4.5f, 0.0001f);
-    PI_setGains(obj->piHandle_pos, 40.0f, 0.0f);
+    PI_setGains(obj->piHandle_pos, 80.0f, 0.0f);
     PI_setUi(obj->piHandle_pos, 0.0f);
     PI_setRefValue(obj->piHandle_pos, 0.0f);
     PI_setFbackValue(obj->piHandle_pos, 0.0f);

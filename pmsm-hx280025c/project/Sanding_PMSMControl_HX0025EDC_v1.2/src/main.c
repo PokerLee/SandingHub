@@ -69,11 +69,12 @@ volatile CPU_TIME_Obj     	cpuTime;
 volatile CPU_TIME_Handle  	cpuTimeHandle;
 volatile SYSTEM_Vars_t 		systemVars;
 //uint32_t eqep_count = 0;
+// 2.197912
 
 //*****************************************************************************
 // main function
 //*****************************************************************************
-
+// 2.2982163
 int main(void)
 {
 	// 电机相关结构体指针赋值
@@ -161,7 +162,33 @@ int main(void)
 	   // loop while the enable system flag is true
 	   systemVars.mainLoopCnt++;
 
-	   posCheckMoinitor(motorHandle_M1);
+
+//	   if((motorHandle_M1->fowardLevelCtrl!=1)&&(motorHandle_M1->backLevelCtrl!=1))
+//	   {
+//		   posCheckMoinitor(motorHandle_M1);
+//	   }
+//	   else
+//	   {
+//		   if(motorHandle_M1->fowardLevelCtrl == 1)
+//		   {
+//			   motorHandle_M1->backLevelCtrl = 0;
+//			   if(!motorHandle_M1->flagLevelPosSet)
+//			   {
+//				   motorHandle_M1->posRef_rad = MATH_incrAngle1(motorHandle_M1->pos_rad += MATH_PI, 0);
+//				   motorHandle_M1->flagLevelPosSet = 1;
+//			   }
+//		   }
+//
+//		   if(motorHandle_M1->backLevelCtrl == 1)
+//		   {
+//			   motorHandle_M1->fowardLevelCtrl = 0;
+//			   if(!motorHandle_M1->flagLevelPosSet)
+//			   {
+//				   motorHandle_M1->posRef_rad = MATH_incrAngle1(motorHandle_M1->pos_rad -= MATH_PI, 0);
+//				   motorHandle_M1->flagLevelPosSet = 1;
+//			   }
+//		   }
+//	   }
 
 	   // 1ms time base
 	   if(HAL_getCPUTimerStatus(halHandle, HAL_CPU_TIMER0))
