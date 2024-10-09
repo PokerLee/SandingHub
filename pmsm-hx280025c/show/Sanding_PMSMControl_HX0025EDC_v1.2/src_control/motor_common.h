@@ -563,7 +563,7 @@ static inline void updateControllers(MOTOR_Handle handle)
 	        // update the position controller
 	        PI_setGains(obj->piHandle_pos, objSets->Kp_pos, objSets->Ki_pos);
 
-	        PI_setMinMax(obj->piHandle_pos,-3,3);
+	        PI_setMinMax(obj->piHandle_pos,-10,10);
 
 //	        if(handle->fowardLevelCtrl == 1)
 //			{

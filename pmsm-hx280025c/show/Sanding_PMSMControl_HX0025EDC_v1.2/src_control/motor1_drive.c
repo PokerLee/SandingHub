@@ -1002,19 +1002,6 @@ __interrupt CODE_SECTION( "ramfuncs") void motor1CtrlISR(void)
 
     //************** Speed calculation **************//
     // encoder counter
-//    obj->ENCCount++;
-//
-//    if(obj->ENCCount == SPEED_SAMPLE_COUNT)
-//    {
-//    	machineAngle = mt_angle;
-//        obj->angleDelta_rad = -(machineAngle - obj->angleFOCPrev_rad);
-//        obj->angleFOCPrev_rad = machineAngle;
-//        obj->angleDelta_rad = obj->angleDelta_rad*MATH_PI/180.0f;
-//		while(obj->angleDelta_rad<0)
-//		{
-//			obj->angleDelta_rad += MATH_TWO_PI;
-//		}
-
     obj->ENCCount++;
 	if(obj->ENCCount >= speedSampleCount)
 	{
@@ -1024,14 +1011,6 @@ __interrupt CODE_SECTION( "ramfuncs") void motor1CtrlISR(void)
         obj->ENCCount = 0;
         obj->angleDeltaSum_rad = 0;
 	}
-
-//        obj->speedENC_Hz = (obj->angleDeltaFilter_rad/ DELTA_ISR_TIME)/MATH_TWO_PI;
-//        obj->speedFilter_Hz = obj->speedFilter_Hz *0.9995f + obj->speedENC_Hz * 0.0005f;
-////        obj->speedFilter_Hz = obj->speedFilter_Hz *0.875f + obj->speed_Hz * 0.125f;
-////        obj->speedAbs_Hz = fabsf(obj->speedFilter_Hz);
-//        obj->ENCCount = 0;
-////        obj->angleDeltaSum_rad = 0;
-////    }
 
     if(obj->flagEnableOLPosCtrl == true)
     {
@@ -1181,22 +1160,22 @@ __interrupt CODE_SECTION( "ramfuncs") void motor1CtrlISR(void)
     // acknowledge the ADC interrupt
     HAL_ackMtr1ADCInt();
 
-    // DEBUG
-    dbLoop++;
-    if(dbLoop >= 10)
-    {
-        if(dbCount>=200)
-        {
-        	dbCount = 0;
-        }
-
-//        debug1[dbCount] = obj->adcData.I_A.value[0];
-//        debug1[dbCount] = obj->angleDelta_rad;
-        debug1[dbCount] = obj->angleDeltaFilter_rad;
-//        debug3[dbCount] = obj->pos_rad;
-        dbCount++;
-        dbLoop = 0;
-    }
+//    // DEBUG
+//    dbLoop++;
+//    if(dbLoop >= 10)
+//    {
+//        if(dbCount>=200)
+//        {
+//        	dbCount = 0;
+//        }
+//
+////        debug1[dbCount] = obj->adcData.I_A.value[0];
+////        debug1[dbCount] = obj->angleDelta_rad;
+//        debug1[dbCount] = obj->angleDeltaFilter_rad;
+////        debug3[dbCount] = obj->pos_rad;
+//        dbCount++;
+//        dbLoop = 0;
+//    }
 
     return;
 } // end of motor1CtrlISR() function

@@ -65,7 +65,7 @@
 // globals
 //*****************************************************************************
 
-#define SHOW_MODE_START_POS	2.2982163
+#define SHOW_MODE_START_POS	2.2982512
 
 //*****************************************************************************
 // globals
@@ -109,7 +109,7 @@ int main(void)
 
 	// set the reference speed, this can be replaced or removed
 	motorVars_M1.flagEnableRunAndIdentify = true;
-	motorVars_M1.speedRef_Hz = 10.0f;
+	motorVars_M1.speedRef_Hz = 1.0f;
 	userParams_M1.flag_bypassMotorId =true;//false;//
 
 	// 初始化电机1结构体
@@ -243,7 +243,7 @@ int main(void)
 		   }
 	   }
 
-	   if(systemVars.timerBase_1ms >= 7000) // 7s
+	   if(systemVars.timerBase_1ms >= 10000) // 7s
 	   {
 		   if(motorHandle_M1->fowardLevelCtrl)
 		   {
