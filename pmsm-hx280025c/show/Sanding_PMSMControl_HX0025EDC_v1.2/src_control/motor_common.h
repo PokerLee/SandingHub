@@ -28,7 +28,12 @@
 #include "est.h"
 #include "user.h"
 #include "traj.h"
+#if MTR1_SV_MODE == 5
 #include "svgen.h"
+#endif
+#if MTR1_SV_MODE == 7
+#include "svgen.h"
+#endif
 #include "transform.h"
 
 //*****************************************************************************
@@ -134,11 +139,11 @@ typedef struct _MOTOR_SetVars_t_
     float32_t Kp_Iq;
     float32_t Ki_Iq;
 
-    float32_t Kp_fwc;
-    float32_t Ki_fwc;
-    float32_t angleFWCMax_rad;
+//    float32_t Kp_fwc;
+//    float32_t Ki_fwc;
+//    float32_t angleFWCMax_rad;
 
-    float32_t overModulation;
+//    float32_t overModulation;
     float32_t RsOnLineCurrent_A;
     float32_t magneticCurrent_A;
 
@@ -284,7 +289,7 @@ typedef struct _MOTOR_Vars_t_
     bool flagEnableBraking;
 
     bool flagEnableIPD;
-    bool flagEnableFWC;
+//    bool flagEnableFWC;
     bool flagEnableMTPA;
     bool flagUpdateMTPAParams;
 
@@ -422,7 +427,7 @@ typedef struct _MOTOR_Vars_t_
     PARK_Handle   parkHandle_I;				//!< the handle for the Park object
     PARK_Handle   parkHandle_V;				//!< the handle for the Park object
 
-	SVM_Mode_e 	 svmMode;
+//	SVM_Mode_e 	 svmMode;
 	TRAJ_Handle  trajHandle_spd;			//!< the handle for the speed reference trajectory
 
     PI_Handle     piHandle_pos;				//!< the handle for the speed position controller

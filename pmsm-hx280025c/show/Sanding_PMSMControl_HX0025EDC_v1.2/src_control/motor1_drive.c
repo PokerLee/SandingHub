@@ -1,15 +1,6 @@
-/*
- * motor1_drive.c
- *
- *  Created on: 2023Äê1ÔÂ31ÈÕ
- *      Author: Kangaihong
- */
-
 #include "sys_main.h"
 #include "motor1_drive.h"
 #include "always.h"
-
-
 
 CODE_SECTION(".data")  	volatile  	MOTOR_Handle  	motorHandle_M1;
 CODE_SECTION(".data")  	volatile 	MOTOR_Vars_t 	motorVars_M1;
@@ -51,25 +42,61 @@ void initMotor1CtrlParameters(MOTOR_Handle handle)
     MOTOR_SetVars_t *objSets = (MOTOR_SetVars_t *)(handle->motorSetsHandle);
     USER_Params *objUser = (USER_Params *)(handle->userParamsHandle);
 
+    obj->flagEnableForceAngle = true;
+    obj->flagEnableFlyingStart = false;
+    obj->flagEnableIPD = false;
+
+    obj->flagEnableSpeedCtrl = true;
+    obj->flagEnableCurrentCtrl = true;
+    obj->flagEnableAlignment = true;
+    obj->alignTimeDelay = (uint16_t)(objUser->ctrlFreq_Hz * 0.1f);          // 0.1s
+    obj->forceRunTimeDelay = (uint16_t)(objUser->ctrlFreq_Hz * 1.0f);       // 1.0s
+
+    obj->fwcTimeDelay = (uint16_t)(objUser->ctrlFreq_Hz * 2.0f);        // 2.0s
+
+    // set the driver parameters
+    HAL_MTR_setParams(obj->halMtrHandle, obj->userParamsHandle);
+
+//    objSets->Kp_fwc = USER_M1_FWC_KP;
+//    objSets->Ki_fwc = USER_M1_FWC_KI;
+//    objSets->angleFWCMax_rad = USER_M1_FWC_MAX_ANGLE_RAD;
+//    objSets->overModulation = USER_M1_MAX_VS_MAG_PU;
+
+    //************** FAST Estimator **************//
+
+    objSets->RsOnLineCurrent_A = 0.1f * USER_MOTOR1_MAX_CURRENT_A;
+    obj->estState = EST_STATE_IDLE;
+    obj->trajState = EST_TRAJ_STATE_IDLE;
+
+    // for Rs online calibration
+    obj->flagRsOnLineContinue = false;
+    obj->flagStartRsOnLine = false;
+
+    objSets->RsOnlineWaitTimeSet = USER_MOTOR1_RSONLINE_WAIT_TIME;
+    objSets->RsOnlineWorkTimeSet = USER_MOTOR1_RSONLINE_WORK_TIME;
+
     // initialize the user parameters
     USER_setParams_priv(obj->userParamsHandle);
 
     // initialize the user parameters
     USER_setMotor1Params(obj->userParamsHandle);
 
-    // set the driver parameters
-    HAL_MTR_setParams(obj->halMtrHandle, obj->userParamsHandle);
+    // set the default estimator parameters
+    EST_setParams(obj->estHandle, obj->userParamsHandle);
+    EST_setFlag_enableForceAngle(obj->estHandle,obj->flagEnableForceAngle);
+    EST_setFlag_enableRsRecalc(obj->estHandle,obj->flagEnableRsRecalc);
+    EST_setOneOverFluxGain_sf(obj->estHandle, obj->userParamsHandle, USER_M1_EST_FLUX_HF_SF);
+    EST_setFreqLFP_sf(obj->estHandle, obj->userParamsHandle, USER_M1_EST_FREQ_HF_SF);
+    EST_setBemf_sf(obj->estHandle, obj->userParamsHandle, USER_M1_EST_BEMF_HF_SF);
 
-    objSets->Kp_spd = 0.05f;
-    objSets->Ki_spd = 0.005f;
+    // if motor is an induction motor, configure default state of PowerWarp
+    if(objUser->motor_type == MOTOR_TYPE_INDUCTION)
+    {
+        EST_setFlag_enablePowerWarp(obj->estHandle, obj->flagEnablePowerWarp);
+        EST_setFlag_bypassLockRotor(obj->estHandle, obj->flagBypassLockRotor);
+    }
 
-    objSets->Kp_fwc = USER_M1_FWC_KP;
-    objSets->Ki_fwc = USER_M1_FWC_KI;
-    objSets->angleFWCMax_rad = USER_M1_FWC_MAX_ANGLE_RAD;
-
-    objSets->overModulation = USER_M1_MAX_VS_MAG_PU;
-    objSets->RsOnLineCurrent_A = 0.1f * USER_MOTOR1_MAX_CURRENT_A;
-
+    //************** Fault Monitor **************//
     objSets->lostPhaseSet_A = USER_M1_LOST_PHASE_CURRENT_A;
     objSets->unbalanceRatioSet = USER_M1_UNBALANCE_RATIO;
     objSets->overLoadSet_W = USER_M1_OVER_LOAD_POWER_W;
@@ -102,16 +129,14 @@ void initMotor1CtrlParameters(MOTOR_Handle handle)
 
     objSets->overCurrentTimesSet = USER_M1_OVER_CURRENT_TIMES_SET;
 
+    obj->stopWaitTimeCnt = 0;
+
     objSets->stopWaitTimeSet = USER_M1_STOP_WAIT_TIME_SET;
     objSets->restartWaitTimeSet = USER_M1_RESTART_WAIT_TIME_SET;
-
-
     objSets->restartTimesSet = USER_M1_START_TIMES_SET;
 
     objSets->dacCMPValH = 2048U + 1024U;    // set default positive peak value
     objSets->dacCMPValL = 2048U - 1024U;    // set default negative peak value
-
-    obj->stopWaitTimeCnt = 0;
 
     obj->adcData.voltage_sf = objUser->voltage_sf;
     obj->adcData.dcBusvoltage_sf = objUser->voltage_sf;
@@ -147,34 +172,24 @@ void initMotor1CtrlParameters(MOTOR_Handle handle)
 
     obj->flyingStartMode = FLYINGSTART_MODE_HALT;
 
-    if(objUser->flag_bypassMotorId == true)
-    {
-
-        obj->svmMode = SVM_MIN_C;
-
-        obj->flagEnableFWC = true;
-    }
-    else
-    {
-        obj->svmMode = SVM_COM_C;
-        obj->flagEnableFWC = false;
-    }
-
-    obj->flagEnableForceAngle = true;
-    obj->flagEnableFlyingStart = false;
-    obj->flagEnableIPD = false;
-
-    obj->flagEnableSpeedCtrl = true;
-    obj->flagEnableCurrentCtrl = true;
-
-    obj->estState = EST_STATE_IDLE;
-    obj->trajState = EST_TRAJ_STATE_IDLE;
-
-    obj->flagEnableAlignment = true;
-    obj->alignTimeDelay = (uint16_t)(objUser->ctrlFreq_Hz * 0.1f);          // 0.1s
-    obj->forceRunTimeDelay = (uint16_t)(objUser->ctrlFreq_Hz * 1.0f);       // 1.0s
-
-    obj->fwcTimeDelay = (uint16_t)(objUser->ctrlFreq_Hz * 2.0f);        // 2.0s
+//#if MTR1_SV_MODE == 5
+//#if MTR1_ID
+//    if(objUser->flag_bypassMotorId == true)
+//    {
+//
+//        obj->svmMode = SVM_MIN_C;
+//        obj->flagEnableFWC = true;
+//    }
+//    else
+//    {
+//        obj->svmMode = SVM_COM_C;
+//        obj->flagEnableFWC = false;
+//#else
+//        obj->svmMode = SVM_COM_C;
+//        obj->flagEnableFWC = false;
+//#endif
+//    }
+//#endif
 
     // initialize the Clarke modules
     obj->clarkeHandle_V = &clarke_V_M1;
@@ -209,6 +224,7 @@ void initMotor1CtrlParameters(MOTOR_Handle handle)
     SVGEN_setMode(obj->svgenHandle, SVM_COM_C);
 
     HAL_setTriggerPrams(&obj->pwmData, USER_SYSTEM_FREQ_MHz, 0.2f, 0.1f);
+
     // initialize the speed reference trajectory
     obj->trajHandle_spd = &traj_spd_M1;
 
@@ -218,6 +234,10 @@ void initMotor1CtrlParameters(MOTOR_Handle handle)
     TRAJ_setMinValue(obj->trajHandle_spd, -objUser->maxFrequency_Hz);
     TRAJ_setMaxValue(obj->trajHandle_spd, objUser->maxFrequency_Hz);
     TRAJ_setMaxDelta(obj->trajHandle_spd, (objUser->maxAccel_Hzps / objUser->ctrlFreq_Hz));
+
+    //
+    // DRV8323RS
+    //
 
     // turn on the DRV8323/DRV8353/DRV8316 if present
     HAL_enableDRV(obj->halMtrHandle);
@@ -243,40 +263,11 @@ void initMotor1CtrlParameters(MOTOR_Handle handle)
     drvicVars_M1.writeCmd = 1;
     HAL_writeDRVData(obj->halMtrHandle, &drvicVars_M1);
 
-    // disable the PWM
-    HAL_disablePWM(obj->halMtrHandle);
-
-    drvicVars_M1.writeCmd = 1;
-    HAL_writeDRVData(obj->halMtrHandle, &drvicVars_M1);
-
-
-//    // initialize the estimator
-//    obj->estHandle = EST_initEst(MTR_1);
-
-    // set the default estimator parameters
-    EST_setParams(obj->estHandle, obj->userParamsHandle);
-    EST_setFlag_enableForceAngle(obj->estHandle,obj->flagEnableForceAngle);
-    EST_setFlag_enableRsRecalc(obj->estHandle,obj->flagEnableRsRecalc);
-    EST_setOneOverFluxGain_sf(obj->estHandle,
-                                  obj->userParamsHandle, USER_M1_EST_FLUX_HF_SF);
-    EST_setFreqLFP_sf(obj->estHandle, obj->userParamsHandle, USER_M1_EST_FREQ_HF_SF);
-    EST_setBemf_sf(obj->estHandle,
-                   obj->userParamsHandle, USER_M1_EST_BEMF_HF_SF);
-
-
-    // if motor is an induction motor, configure default state of PowerWarp
-    if(objUser->motor_type == MOTOR_TYPE_INDUCTION)
-    {
-        EST_setFlag_enablePowerWarp(obj->estHandle, obj->flagEnablePowerWarp);
-        EST_setFlag_bypassLockRotor(obj->estHandle, obj->flagBypassLockRotor);
-    }
-
-    // for Rs online calibration
-    obj->flagRsOnLineContinue = false;
-    obj->flagStartRsOnLine = false;
-
-    objSets->RsOnlineWaitTimeSet = USER_MOTOR1_RSONLINE_WAIT_TIME;
-    objSets->RsOnlineWorkTimeSet = USER_MOTOR1_RSONLINE_WORK_TIME;
+//    // disable the PWM
+//    HAL_disablePWM(obj->halMtrHandle);
+//
+//    drvicVars_M1.writeCmd = 1;
+//    HAL_writeDRVData(obj->halMtrHandle, &drvicVars_M1);
 
     // setup the controllers, speed, d/q-axis current pid regulator
     setupControllers(handle);
@@ -541,8 +532,8 @@ void runMotor1Control(MOTOR_Handle handle)
             {
                 obj->flagMotorIdentified = false;
                 obj->flagSetupController = false;
-                obj->svmMode = SVM_COM_C;
-                obj->flagEnableFWC = false;
+//                obj->svmMode = SVM_COM_C;
+//                obj->flagEnableFWC = false;
                 obj->flagEnableMTPA = false;
 
                 obj->speedRef_Hz = objUser->fluxExcFreq_Hz;
@@ -638,7 +629,7 @@ void runMotor1Control(MOTOR_Handle handle)
 
                 PI_setMinMax(obj->piHandle_spd, -obj->maxCurrent_A, obj->maxCurrent_A);
 
-                SVGEN_setMode(obj->svgenHandle, obj->svmMode);
+//                SVGEN_setMode(obj->svgenHandle, obj->svmMode);
 
                 if(obj->motorState >= MOTOR_CL_RUNNING)
                 {
@@ -834,19 +825,18 @@ uint32_t timer2CountLast = 0;
 uint32_t delataISR = 0;
 float32_t fDelataISR = 0.0f;
 
-//157,737,684
 __interrupt CODE_SECTION( "ramfuncs") void motor1CtrlISR(void)
 {
+    MOTOR_Vars_t *obj = (MOTOR_Vars_t *)motorHandle_M1;
+    USER_Params *objUser = (USER_Params *)(obj->userParamsHandle);
+    MATH_Vec2 phasor;
+
+    obj->ISRCount++;
+
 	timer2Count = HAL_readTimerCnt(halHandle,HAL_CPU_TIMER2);;
 	delataISR = timer2CountLast - timer2Count;
 	fDelataISR = (float32_t)delataISR/160000000.0f;
 	timer2CountLast = timer2Count;
-
-	motorVars_M1.ISRCount++;
-
-    MOTOR_Vars_t *obj = (MOTOR_Vars_t *)motorHandle_M1;
-    USER_Params *objUser = (USER_Params *)(obj->userParamsHandle);
-    MATH_Vec2 phasor;
 
     // Gets the current mechanical angular position of the motor
     obj->posRef_deg = obj->posRef_rad*180.0f/MATH_PI;
@@ -937,9 +927,34 @@ __interrupt CODE_SECTION( "ramfuncs") void motor1CtrlISR(void)
     // Running state
     if(obj->motorState >= MOTOR_CL_RUNNING)
     {
-    	obj->angleFOC_rad = -MATH_incrAngle2(obj->pos_rad*USER_MOTOR1_NUM_POLE_PAIRS ,-obj->angleENCOffset_rad, 14);
+    	obj->angleFOC_rad = -(obj->pos_rad*USER_MOTOR1_NUM_POLE_PAIRS - obj->angleENCOffset_rad);
+    	obj->angleFOC_rad = MATH_incrAngle1(obj->angleFOC_rad,0);
+//    	obj->angleFOC_rad = -MATH_incrAngle2(obj->pos_rad*USER_MOTOR1_NUM_POLE_PAIRS ,-obj->angleENCOffset_rad, 14);
 //    	obj->angleFOC_rad = -(obj->pos_rad*USER_MOTOR1_NUM_POLE_PAIRS - obj->angleENCOffset_rad);
+
     	obj->angleDelta_rad = obj->angleFOC_rad - obj->angleFOCLast_rad;
+
+    	if(obj->direction == 1.0)
+    	{
+        	if(((obj->angleDelta_rad >= 0) && (obj->angleDelta_rad <= MATH_PI))||
+        			((obj->angleDelta_rad < 0)&& (obj->angleDelta_rad <= -MATH_PI)))
+        	{
+        		obj->angleDelta_rad = MATH_incrAngle1(obj->angleDelta_rad,0);
+        	}
+//        	else if(obj->angleDelta_rad < 0)
+//        	{
+//        		obj->angleDelta_rad = MATH_incrAngle2(obj->angleDelta_rad,0);
+//        	}
+    	}
+    	else if(obj->direction == -1.0)
+    	{
+        	if(((obj->angleDelta_rad <= 0) && (obj->angleDelta_rad >= -MATH_PI))
+        			||((obj->angleDelta_rad > 0)&& (obj->angleDelta_rad >= MATH_PI)))
+        	{
+        		obj->angleDelta_rad = MATH_incrAngle2(obj->angleDelta_rad,0);
+        	}
+    	}
+
     	obj->angleFOCLast_rad = obj->angleFOC_rad;
     	obj->angleDeltaSum_rad += obj->angleDelta_rad;
 
@@ -976,12 +991,12 @@ __interrupt CODE_SECTION( "ramfuncs") void motor1CtrlISR(void)
         {
             obj->angleENCOffset_rad = MATH_incrAngle1(obj->pos_deg*USER_MOTOR1_NUM_POLE_PAIRS*MATH_PI/180.0f, 0);
             obj->stateRunTimeCnt = 0;
-            obj->Idq_out_A.value[0] = 0.0f;
+//            obj->Idq_out_A.value[0] = 0.0f;
             PI_setUi(obj->piHandle_spd, 0.0);
         }
         else if(obj->flagEnableAlignment == false)
         {
-        	obj->angleENCOffset_rad = 4.566216;
+        	obj->angleENCOffset_rad = 6.1354795;//0.28429508 // 2.0108056 // 1.9874787 // 4.566216
         	obj->stateRunTimeCnt = 0;
         	obj->motorState = MOTOR_CL_RUNNING;
             obj->Idq_out_A.value[0] = 0.0f;
@@ -1138,12 +1153,20 @@ __interrupt CODE_SECTION( "ramfuncs") void motor1CtrlISR(void)
     // run the inverse Park module
     IPARK_run(obj->iparkHandle_V, &obj->Vdq_out_V, &obj->Vab_out_V);
 
+#if MTR1_SV_MODE == 5
     // setup the space vector generator (SVGEN) module
     SVGEN_setup(obj->svgenHandle, obj->oneOverDcBus_invV);
 
     // run the space vector generator (SVGEN) module
     SVGEN_run(obj->svgenHandle, &obj->Vab_out_V, &(obj->pwmData.Vabc_pu));
+#endif
+#if MTR1_SV_MODE == 7
+    // setup the space vector generator (SVGEN) module
+    SVGEN_setup(obj->svgenHandle, obj->oneOverDcBus_invV);
 
+    // run the space vector generator (SVGEN) module
+    SVGEN_run(obj->svgenHandle, &obj->Vab_out_V, &(obj->pwmData.Vabc_pu));
+#endif
     if(HAL_getPwmEnableStatus(obj->halMtrHandle) == false)
     {
         // clear PWM data
@@ -1160,22 +1183,23 @@ __interrupt CODE_SECTION( "ramfuncs") void motor1CtrlISR(void)
     // acknowledge the ADC interrupt
     HAL_ackMtr1ADCInt();
 
-//    // DEBUG
-//    dbLoop++;
-//    if(dbLoop >= 10)
-//    {
-//        if(dbCount>=200)
-//        {
-//        	dbCount = 0;
-//        }
-//
-////        debug1[dbCount] = obj->adcData.I_A.value[0];
-////        debug1[dbCount] = obj->angleDelta_rad;
-//        debug1[dbCount] = obj->angleDeltaFilter_rad;
-////        debug3[dbCount] = obj->pos_rad;
-//        dbCount++;
-//        dbLoop = 0;
-//    }
+    // DEBUG
+    dbLoop++;
+    if(dbLoop >= 10)
+    {
+        if(dbCount>=200)
+        {
+        	dbCount = 0;
+        }
+
+//        debug1[dbCount] = obj->adcData.I_A.value[0];
+//        debug1[dbCount] = obj->angleDelta_rad;
+        debug1[dbCount] = obj->angleFOC_rad;
+        debug2[dbCount] = obj->pos_rad;
+//        debug3[dbCount] = obj->pos_rad;
+        dbCount++;
+        dbLoop = 0;
+    }
 
     return;
 } // end of motor1CtrlISR() function

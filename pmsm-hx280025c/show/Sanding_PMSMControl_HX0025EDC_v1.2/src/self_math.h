@@ -280,18 +280,18 @@ MATH_incrAngle1(const float32_t angle_rad, const float32_t angleDelta_rad)
 //
 //*****************************************************************************
 static __UNUSED ALWAYSINLINE float32_t
-MATH_incrAngle2(const float32_t angle_rad, const float32_t angleDelta_rad, const uint32_t pairs)
+MATH_incrAngle2(const float32_t angle_rad, const float32_t angleDelta_rad)
 {
     float32_t angleNew_rad;
 	angleNew_rad = angle_rad + angleDelta_rad;
 
-    while((angleNew_rad > MATH_TWO_PI * pairs)||(angleNew_rad < 0))
+    while((angleNew_rad < -MATH_TWO_PI)||(angleNew_rad > 0))
     {
-    	if(angleNew_rad > MATH_TWO_PI * pairs)
+    	if(angleNew_rad > 0)
     	{
     		angleNew_rad -= MATH_TWO_PI;
     	}
-    	if(angleNew_rad < 0)
+    	if(angleNew_rad < -MATH_TWO_PI)
     	{
     		angleNew_rad += MATH_TWO_PI;
     	}
@@ -299,6 +299,27 @@ MATH_incrAngle2(const float32_t angle_rad, const float32_t angleDelta_rad, const
 
     return(angleNew_rad);
 }
+
+//static __UNUSED ALWAYSINLINE float32_t
+//MATH_incrAngle2(const float32_t angle_rad, const float32_t angleDelta_rad, const uint32_t pairs)
+//{
+//    float32_t angleNew_rad;
+//	angleNew_rad = angle_rad + angleDelta_rad;
+//
+//    while((angleNew_rad > MATH_TWO_PI * pairs)||(angleNew_rad < 0))
+//    {
+//    	if(angleNew_rad > MATH_TWO_PI * pairs)
+//    	{
+//    		angleNew_rad -= MATH_TWO_PI;
+//    	}
+//    	if(angleNew_rad < 0)
+//    	{
+//    		angleNew_rad += MATH_TWO_PI;
+//    	}
+//    }
+//
+//    return(angleNew_rad);
+//}
 
 //*****************************************************************************
 //

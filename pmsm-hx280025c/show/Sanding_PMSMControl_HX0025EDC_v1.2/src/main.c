@@ -109,7 +109,7 @@ int main(void)
 
 	// set the reference speed, this can be replaced or removed
 	motorVars_M1.flagEnableRunAndIdentify = true;
-	motorVars_M1.speedRef_Hz = 1.0f;
+	motorVars_M1.speedRef_Hz = 3.0f;
 	userParams_M1.flag_bypassMotorId =true;//false;//
 
 	// 初始化电机1结构体
@@ -124,6 +124,7 @@ int main(void)
 	motorVars_M1.flagEnableSpeedCtrl = true;
 	motorVars_M1.flagEnableCurrentCtrl = true;
 	motorVars_M1.flagEnableAlignment = false;
+	motorVars_M1.flagEnableOLCurrentCtrl = false;
 
 	// 初始化CPU模块（计数器）
 
@@ -243,7 +244,14 @@ int main(void)
 		   }
 	   }
 
-	   if(systemVars.timerBase_1ms >= 10000) // 7s
+	   if(motorHandle_M1->flagEnableShowMode == false)
+	   {
+		   if(systemVars.timerBase_1ms >= 5)
+		   {
+			   systemVars.timerBase_1ms = 0;
+		   }
+	   }
+	   else if(systemVars.timerBase_1ms >= 10000) // 7s
 	   {
 		   if(motorHandle_M1->fowardLevelCtrl)
 		   {

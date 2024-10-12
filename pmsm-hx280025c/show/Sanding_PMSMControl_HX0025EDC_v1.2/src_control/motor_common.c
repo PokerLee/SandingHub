@@ -253,6 +253,11 @@ void runMotorMonitor(MOTOR_Handle handle)
     MOTOR_Vars_t *obj = (MOTOR_Vars_t *)handle;
     MOTOR_SetVars_t *objSets = (MOTOR_SetVars_t *)(handle->motorSetsHandle);
 
+    if(obj->stopWaitTimeCnt > 0)
+    {
+        obj->stopWaitTimeCnt--;
+    }
+
     if(obj->flagEnableRsOnLine == true)
     {
         if(obj->flagRsOnLineContinue == true)
@@ -276,11 +281,6 @@ void runMotorMonitor(MOTOR_Handle handle)
         {
             obj->RsOnlineTimeCnt--;
         }
-    }
-
-    if(obj->stopWaitTimeCnt > 0)
-    {
-        obj->stopWaitTimeCnt--;
     }
 
     // Check if DC bus voltage is over threshold
@@ -339,7 +339,7 @@ void runMotorMonitor(MOTOR_Handle handle)
         {
             if(obj->overLoadTimeCnt > objSets->overLoadTimeSet)
             {
-            //    obj->faultMtrNow.bit.overLoad = 1;
+                obj->faultMtrNow.bit.overLoad = 1;
                 obj->overLoadTimeCnt = 0;
             }
             else
@@ -352,105 +352,104 @@ void runMotorMonitor(MOTOR_Handle handle)
             obj->overLoadTimeCnt--;
         }
 
-        // Motor Stall
-        if( (obj->Is_A > objSets->stallCurrentSet_A)
-                && (obj->speedAbs_Hz < objSets->speedFailMinSet_Hz))
+        // Motor Over speed
+        if(obj->speedAbs_Hz > objSets->speedFailMaxSet_Hz)
         {
-            if(obj->motorStallTimeCnt > objSets->motorStallTimeSet)
+            if(obj->overSpeedTimeCnt > objSets->overSpeedTimeSet)
             {
-        //        obj->faultMtrNow.bit.motorStall = 1;
-                obj->motorStallTimeCnt = 0;
+                obj->faultMtrNow.bit.overSpeed = 1;
+                obj->overSpeedTimeCnt = 0;
             }
             else
             {
-                obj->motorStallTimeCnt++;
+                obj->overSpeedTimeCnt++;
             }
         }
-        else if(obj->motorStallTimeCnt > 0)
+        else if(obj->overSpeedTimeCnt > 0)
         {
-            obj->motorStallTimeCnt--;
+            obj->overSpeedTimeCnt--;
         }
 
-        // (obj->torque_Nm < objSets->toqueFailMinSet_Nm)
-        // Motor Lost Phase Fault Check
-        if( (obj->speedAbs_Hz > objSets->speedFailMinSet_Hz) &&
-            ( (obj->Irms_A[0] < objSets->lostPhaseSet_A) ||
-              (obj->Irms_A[1] < objSets->lostPhaseSet_A) ||
-              (obj->Irms_A[2] < objSets->lostPhaseSet_A)) )
-        {
-            if(obj->lostPhaseTimeCnt > objSets->lostPhaseTimeSet)
-            {
-                obj->faultMtrNow.bit.motorLostPhase = 1;
-                obj->lostPhaseTimeCnt = 0;
-            }
-            else
-            {
-                obj->lostPhaseTimeCnt++;
-            }
-        }
-        else if(obj->lostPhaseTimeCnt > 0)
-        {
-            obj->lostPhaseTimeCnt--;
-        }
+//        // Motor Stall
+//        if( (obj->Is_A > objSets->stallCurrentSet_A)
+//                && (obj->speedAbs_Hz < objSets->speedFailMinSet_Hz))
+//        {
+//            if(obj->motorStallTimeCnt > objSets->motorStallTimeSet)
+//            {
+//                obj->faultMtrNow.bit.motorStall = 1;
+//                obj->motorStallTimeCnt = 0;
+//            }
+//            else
+//            {
+//                obj->motorStallTimeCnt++;
+//            }
+//        }
+//        else if(obj->motorStallTimeCnt > 0)
+//        {
+//            obj->motorStallTimeCnt--;
+//        }
 
-        // Only when the torque is great than a setting value
-        if(obj->Is_A > objSets->IsFailedChekSet_A)
-        {
-            // Motor Phase Current Unbalance
-            if(obj->unbalanceRatio > objSets->unbalanceRatioSet)
-            {
-                if(obj->unbalanceTimeCnt > objSets->unbalanceTimeSet)
-                {
-               //     obj->faultMtrNow.bit.currentUnbalance = 1;
-                    obj->unbalanceTimeCnt = 0;
-                }
-                else
-                {
-                    obj->unbalanceTimeCnt++;
-                }
-            }
-            else if(obj->unbalanceTimeCnt > 0)
-            {
-                obj->unbalanceTimeCnt--;
-            }
+//        // Motor Lost Phase Fault Check
+//        if( (obj->speedAbs_Hz > objSets->speedFailMinSet_Hz) &&
+//            ( (obj->Irms_A[0] < objSets->lostPhaseSet_A) ||
+//              (obj->Irms_A[1] < objSets->lostPhaseSet_A) ||
+//              (obj->Irms_A[2] < objSets->lostPhaseSet_A)) )
+//        {
+//            if(obj->lostPhaseTimeCnt > objSets->lostPhaseTimeSet)
+//            {
+//                obj->faultMtrNow.bit.motorLostPhase = 1;
+//                obj->lostPhaseTimeCnt = 0;
+//            }
+//            else
+//            {
+//                obj->lostPhaseTimeCnt++;
+//            }
+//        }
+//        else if(obj->lostPhaseTimeCnt > 0)
+//        {
+//            obj->lostPhaseTimeCnt--;
+//        }
 
-            // Motor Startup Failed
-            if( (obj->Is_A < objSets->stallCurrentSet_A)
-               && (obj->speedAbs_Hz < objSets->speedFailMinSet_Hz))
-            {
-                if(obj->startupFailTimeCnt > objSets->startupFailTimeSet)
-                {
-            //        obj->faultMtrNow.bit.startupFailed = 1;
-                    obj->startupFailTimeCnt = 0;
-                }
-                else
-                {
-                    obj->startupFailTimeCnt++;
-                }
-            }
-            else if(obj->startupFailTimeCnt > 0)
-            {
-                obj->startupFailTimeCnt--;
-            }
-
-            // Motor Over speed
-            if(obj->speedAbs_Hz > objSets->speedFailMaxSet_Hz)
-            {
-                if(obj->overSpeedTimeCnt > objSets->overSpeedTimeSet)
-                {
-                    obj->faultMtrNow.bit.overSpeed = 1;
-                    obj->overSpeedTimeCnt = 0;
-                }
-                else
-                {
-                    obj->overSpeedTimeCnt++;
-                }
-            }
-            else if(obj->overSpeedTimeCnt > 0)
-            {
-                obj->overSpeedTimeCnt--;
-            }
-        } // obj->Is_A > objSets->IsFailedChekSet_A
+//        // Only when the torque is great than a setting value
+//        if(obj->Is_A > objSets->IsFailedChekSet_A)
+//        {
+//            // Motor Phase Current Unbalance
+//            if(obj->unbalanceRatio > objSets->unbalanceRatioSet)
+//            {
+//                if(obj->unbalanceTimeCnt > objSets->unbalanceTimeSet)
+//                {
+//               //     obj->faultMtrNow.bit.currentUnbalance = 1;
+//                    obj->unbalanceTimeCnt = 0;
+//                }
+//                else
+//                {
+//                    obj->unbalanceTimeCnt++;
+//                }
+//            }
+//            else if(obj->unbalanceTimeCnt > 0)
+//            {
+//                obj->unbalanceTimeCnt--;
+//            }
+//
+//            // Motor Startup Failed
+//            if( (obj->Is_A < objSets->stallCurrentSet_A)
+//               && (obj->speedAbs_Hz < objSets->speedFailMinSet_Hz))
+//            {
+//                if(obj->startupFailTimeCnt > objSets->startupFailTimeSet)
+//                {
+//            //        obj->faultMtrNow.bit.startupFailed = 1;
+//                    obj->startupFailTimeCnt = 0;
+//                }
+//                else
+//                {
+//                    obj->startupFailTimeCnt++;
+//                }
+//            }
+//            else if(obj->startupFailTimeCnt > 0)
+//            {
+//                obj->startupFailTimeCnt--;
+//            }
+//        } // obj->Is_A > objSets->IsFailedChekSet_A
     } // obj->operateState == OPERATE_State_Run
 
     return;

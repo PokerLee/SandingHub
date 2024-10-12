@@ -482,13 +482,13 @@ extern "C"
 #define USER_MOTOR1_FORCE_DELTA_A          (0.05f)          // A
 #define USER_MOTOR1_ALIGN_DELTA_A          (0.01f)          // A
 #define USER_MOTOR1_FLUX_CURRENT_A         (1.5f)           // A
-#define USER_MOTOR1_ALIGN_CURRENT_A        (4.0f)//(1.5f)           // A
+#define USER_MOTOR1_ALIGN_CURRENT_A        (5.0f)           // A
 #define USER_MOTOR1_STARTUP_CURRENT_A      (2.0f)           // A
 #define USER_MOTOR1_TORQUE_CURRENT_A       (0.7f)           // A
-#define USER_MOTOR1_OVER_CURRENT_A         (15.0f)           // A
+#define USER_MOTOR1_OVER_CURRENT_A         (15.0f)          // A
 
 #define USER_MOTOR1_BRAKE_CURRENT_A        (1.0f)           // A
-#define USER_MOTOR1_BRAKE_TIME_DELAY       (12000U)        // 60s/5ms
+#define USER_MOTOR1_BRAKE_TIME_DELAY       (12000U)         // 60s/5ms
 
 #define USER_MOTOR1_SPEED_START_Hz         (20.0f)
 #define USER_MOTOR1_SPEED_FORCE_Hz         (15.0f)

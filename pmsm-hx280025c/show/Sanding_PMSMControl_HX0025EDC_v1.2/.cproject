@@ -170,6 +170,8 @@
                                     <listOptionValue builtIn="false" value="MTR1_ABS_ENC=1"/>
                                     									
                                     <listOptionValue builtIn="false" value="MTR1_ID=1"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="MTR1_SV_MODE=5"/>
                                     								
                                 </option>
                                 								
