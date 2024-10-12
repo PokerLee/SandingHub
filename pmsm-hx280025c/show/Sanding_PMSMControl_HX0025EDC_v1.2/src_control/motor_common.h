@@ -363,7 +363,7 @@ typedef struct _MOTOR_Vars_t_
 //	float32_t angleDetectIPD_rad;			//!<
     float32_t angleFOC_rad;					//!< 旋转电机电角度值(rad)
     float32_t angleFOCLast_rad;				//!< 上次控制周期的旋转电机电角度值(rad)
-//    float32_t angleFOCPrev_rad;				//!< the rotor angle from previous FOC modules
+//    float32_t angleFOCPrev_rad;			//!< the rotor angle from previous FOC modules
 
     FAULT_MTR_REG_t faultMtrNow;
     FAULT_MTR_REG_t faultMtrUse;

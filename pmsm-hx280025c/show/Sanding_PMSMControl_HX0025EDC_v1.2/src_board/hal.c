@@ -53,7 +53,7 @@ void HAL_enableCtrlInts()
 {
     // Acknowledge interrupt from PIE group
     Interrupt_clearACKGroup(MTR1_INT_ACK_GROUP);
-    Interrupt_clearACKGroup(INTERRUPT_ACK_GROUP12);
+//    Interrupt_clearACKGroup(INTERRUPT_ACK_GROUP12);
 
     // Enable external interrupt
     Interrupt_enable(INT_XINT3);
@@ -1164,7 +1164,8 @@ void HAL_setupSCIA(HAL_Handle halHandle)
 	SCI_setConfig(obj->sciHandle, DEVICE_LSPCLK_FREQ, 921600, (SCI_CONFIG_WLEN_8|SCI_CONFIG_STOP_ONE|SCI_CONFIG_PAR_NONE));
 	SCI_disableLoopback(obj->sciHandle);
 	SCI_performSoftwareReset(obj->sciHandle);
-	SCI_disableFIFO(obj->sciHandle);
+	SCI_enableFIFO(obj->sciHandle);
+	SCI_setFIFOInterruptLevel(obj->sciHandle,SCI_FIFO_TX0,SCI_FIFO_RX5);
 	SCI_enableModule(obj->sciHandle);
 
     return;

@@ -783,8 +783,8 @@ void runMotor1Control(MOTOR_Handle handle)
     // update the global variables
     updateGlobalVariables(handle);
 
-    // trigger XINT for absolute encoder
-    Interrupt_clearACKGroup(INTERRUPT_ACK_GROUP12);
+//    // trigger XINT for absolute encoder
+//    Interrupt_clearACKGroup(INTERRUPT_ACK_GROUP12);
 
     return;
 }   // end of the runMotor1Control() function
@@ -796,10 +796,11 @@ void runMotor1Control(MOTOR_Handle handle)
 __interrupt  void xint3ISR(void)
 {
     xint1Count++;
+
     uint8_t i = 0;
     for(i=0;i<ARR_LEN;i++)
     {
-		receivedChar[i] = SCI_readCharBlockingNonFIFO(SCIA_BASE);
+		receivedChar[i] = SCI_readCharBlockingFIFO(SCIA_BASE);
     }
 
 //    // trigger XINT for absolute encoder
@@ -807,8 +808,8 @@ __interrupt  void xint3ISR(void)
 }
 
 // 16 0.0135713 // 32 0.0271426
-#define DELTA_ISR_TIME	8.482062E-4f		// s
-#define DELTA_SAMPLE_TIME	0.0271426f	// s
+#define DELTA_ISR_TIME	1.0E-4f		// s
+#define DELTA_SAMPLE_TIME	0.01f	// s
 #define SPEED_SAMPLE_COUNT (uint32_t)(DELTA_SAMPLE_TIME/DELTA_ISR_TIME)
 uint32_t speedSampleCount = (uint32_t)(DELTA_SAMPLE_TIME/DELTA_ISR_TIME);
 float32_t speedSampleTime = SPEED_SAMPLE_COUNT*DELTA_ISR_TIME;
@@ -832,6 +833,9 @@ __interrupt CODE_SECTION( "ramfuncs") void motor1CtrlISR(void)
     MATH_Vec2 phasor;
 
     obj->ISRCount++;
+
+    // trigger XINT for absolute encoder
+    Interrupt_clearACKGroup(INTERRUPT_ACK_GROUP12);
 
 	timer2Count = HAL_readTimerCnt(halHandle,HAL_CPU_TIMER2);;
 	delataISR = timer2CountLast - timer2Count;
@@ -929,8 +933,6 @@ __interrupt CODE_SECTION( "ramfuncs") void motor1CtrlISR(void)
     {
     	obj->angleFOC_rad = -(obj->pos_rad*USER_MOTOR1_NUM_POLE_PAIRS - obj->angleENCOffset_rad);
     	obj->angleFOC_rad = MATH_incrAngle1(obj->angleFOC_rad,0);
-//    	obj->angleFOC_rad = -MATH_incrAngle2(obj->pos_rad*USER_MOTOR1_NUM_POLE_PAIRS ,-obj->angleENCOffset_rad, 14);
-//    	obj->angleFOC_rad = -(obj->pos_rad*USER_MOTOR1_NUM_POLE_PAIRS - obj->angleENCOffset_rad);
 
     	obj->angleDelta_rad = obj->angleFOC_rad - obj->angleFOCLast_rad;
 
@@ -941,10 +943,6 @@ __interrupt CODE_SECTION( "ramfuncs") void motor1CtrlISR(void)
         	{
         		obj->angleDelta_rad = MATH_incrAngle1(obj->angleDelta_rad,0);
         	}
-//        	else if(obj->angleDelta_rad < 0)
-//        	{
-//        		obj->angleDelta_rad = MATH_incrAngle2(obj->angleDelta_rad,0);
-//        	}
     	}
     	else if(obj->direction == -1.0)
     	{
@@ -957,17 +955,6 @@ __interrupt CODE_SECTION( "ramfuncs") void motor1CtrlISR(void)
 
     	obj->angleFOCLast_rad = obj->angleFOC_rad;
     	obj->angleDeltaSum_rad += obj->angleDelta_rad;
-
-//      obj->angleFOC_rad = obj->angleEST_rad;
-//    	obj->angleFOC_rad = -MATH_incrAngle1(obj->pos_rad*USER_MOTOR1_NUM_POLE_PAIRS, -obj->angleENCOffset_rad);
-
-////    	obj->angleDelta_rad = -MATH_incrAngle1(obj->pos_rad*USER_MOTOR1_NUM_POLE_PAIRS, -obj->angleENCOffset_rad) - obj->angleFOC_rad;
-////    	obj->angleDelta_rad = -obj->angleFOC_rad - MATH_incrAngle1(obj->posFilter_rad*USER_MOTOR1_NUM_POLE_PAIRS, -obj->angleENCOffset_rad);
-//    	obj->angleDelta_rad = -MATH_incrAngle2(obj->posFilter_rad*USER_MOTOR1_NUM_POLE_PAIRS, -obj->angleENCOffset_rad, 14) - obj->angleFOC_rad ;
-//    	obj->angleDeltaFilter_rad = obj->angleDeltaFilter_rad *0.985f + obj->angleDelta_rad * 0.015f;
-////    	obj->angleFOC_rad += obj->angleDeltaFilter_rad;
-//    	obj->angleFOC_rad += obj->angleDelta_rad;
-//    	obj->angleDeltaSum_rad += obj->angleDelta_rad;
     }
     else if(obj->motorState == MOTOR_OL_START)
     {
@@ -1167,16 +1154,17 @@ __interrupt CODE_SECTION( "ramfuncs") void motor1CtrlISR(void)
     // run the space vector generator (SVGEN) module
     SVGEN_run(obj->svgenHandle, &obj->Vab_out_V, &(obj->pwmData.Vabc_pu));
 #endif
-    if(HAL_getPwmEnableStatus(obj->halMtrHandle) == false)
-    {
-        // clear PWM data
-        obj->pwmData.Vabc_pu.value[0] = 0.0f;
-        obj->pwmData.Vabc_pu.value[1] = 0.0f;
-        obj->pwmData.Vabc_pu.value[2] = 0.0f;
-    }
+//    if(HAL_getPwmEnableStatus(obj->halMtrHandle) == false)
+//    {
+//        // clear PWM data
+//        obj->pwmData.Vabc_pu.value[0] = 0.0f;
+//        obj->pwmData.Vabc_pu.value[1] = 0.0f;
+//        obj->pwmData.Vabc_pu.value[2] = 0.0f;
+//    }
 
     // write the PWM compare values
     HAL_writePWMData(obj->halMtrHandle, &obj->pwmData);
+
     // Collect current and voltage data to calculate the RMS value
     collectRMSData(motorHandle_M1);
 
