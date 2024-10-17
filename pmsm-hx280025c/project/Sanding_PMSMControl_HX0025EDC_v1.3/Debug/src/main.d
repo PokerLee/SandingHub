@@ -97,7 +97,7 @@ src/main.o: ..\src\main.c \
   D:\workspace_haawking\haawking-workspace-V2.3.3Pre\Sanding_PMSMControl_HX0025EDC_v1.3\src_board\user_mtr1.h \
   D:\workspace_haawking\haawking-workspace-V2.3.3Pre\Sanding_PMSMControl_HX0025EDC_v1.3\src_control\user_common.h \
   D:\workspace_haawking\haawking-workspace-V2.3.3Pre\Sanding_PMSMControl_HX0025EDC_v1.3\src_control\traj.h \
-  D:\workspace_haawking\haawking-workspace-V2.3.3Pre\Sanding_PMSMControl_HX0025EDC_v1.3\src_control\svgen.h \
+  D:\workspace_haawking\haawking-workspace-V2.3.3Pre\Sanding_PMSMControl_HX0025EDC_v1.3\src_control\svpwm.h \
   D:\workspace_haawking\haawking-workspace-V2.3.3Pre\Sanding_PMSMControl_HX0025EDC_v1.3\src_control\transform.h \
   D:\workspace_haawking\haawking-workspace-V2.3.3Pre\Sanding_PMSMControl_HX0025EDC_v1.3\src_control\motor1_drive.h
 
@@ -301,7 +301,7 @@ D:\workspace_haawking\haawking-workspace-V2.3.3Pre\Sanding_PMSMControl_HX0025EDC
 
 D:\workspace_haawking\haawking-workspace-V2.3.3Pre\Sanding_PMSMControl_HX0025EDC_v1.3\src_control\traj.h:
 
-D:\workspace_haawking\haawking-workspace-V2.3.3Pre\Sanding_PMSMControl_HX0025EDC_v1.3\src_control\svgen.h:
+D:\workspace_haawking\haawking-workspace-V2.3.3Pre\Sanding_PMSMControl_HX0025EDC_v1.3\src_control\svpwm.h:
 
 D:\workspace_haawking\haawking-workspace-V2.3.3Pre\Sanding_PMSMControl_HX0025EDC_v1.3\src_control\transform.h:
 

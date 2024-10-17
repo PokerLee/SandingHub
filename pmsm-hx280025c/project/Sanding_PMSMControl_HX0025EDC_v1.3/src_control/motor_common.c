@@ -128,7 +128,7 @@ void resetMotorControl(MOTOR_Handle handle)
     obj->startupFailTimeCnt = 0;
     obj->overSpeedTimeCnt = 0;
 
-    SVGEN_setMode(obj->svgenHandle, SVM_COM_C);
+//    SVGEN_setMode(obj->svgenHandle, SVM_COM_C);
     return;
 }
 
@@ -597,7 +597,7 @@ void restartMotorControl(MOTOR_Handle handle)
 
     obj->speed_int_Hz = 0.0f;
 
-    SVGEN_setMode(obj->svgenHandle, SVM_COM_C);
+//    SVGEN_setMode(obj->svgenHandle, SVM_COM_C);
 
     obj->flagRunIdentAndOnLine = true;
     obj->stateRunTimeCnt = 0;
@@ -618,7 +618,7 @@ void stopMotorControl(MOTOR_Handle handle)
     obj->motorState = MOTOR_STOP_IDLE;
     obj->mctrlState = MCTRL_NORM_STOP;
 
-    SVGEN_setMode(obj->svgenHandle, SVM_COM_C);
+//    SVGEN_setMode(obj->svgenHandle, SVM_COM_C);
 
     obj->restartTimesCnt = 0;
 

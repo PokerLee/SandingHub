@@ -11,7 +11,7 @@ void initMotor1Handles(MOTOR_Handle handle)
     obj->motorSetsHandle = (MOTORSETS_Handle)&motorSetVars_M1;
     obj->userParamsHandle = (userParams_Handle)&userParams_M1;
     obj->estHandle = (EST_Handle)est_motor_1;
-    obj->halMtrHandle = (HAL_MTR_Handle)(HAL_MTR1_init(&halMtr_M1, sizeof(halMtr_M1)));
+    obj->halMtrHandle = (HAL_MTR_Handle)(HAL_MTR1_init((void *)&halMtr_M1, sizeof(halMtr_M1)));
     return;
 }
 
@@ -22,23 +22,19 @@ void initMotor1CtrlParameters(MOTOR_Handle handle)
     MOTOR_SetVars_t *objSets = (MOTOR_SetVars_t *)(handle->motorSetsHandle);
     USER_Params *objUser = (USER_Params *)(handle->userParamsHandle);
 
-    obj->flagEnableForceAngle = true;
-//    obj->flagEnableFlyingStart = false;
-//    obj->flagEnableIPD = false;
-
-    obj->flagEnableAlignment = true;
+	obj->flagEnableShowMode = true;
+	obj->flagEnableOffsetCalc = true;
+	obj->flagEnableAlignment = false;
+	obj->enablePosCtrl = true;
+	obj->enableSpeedCtrl = true;
+	obj->enableCurrentCtrl = true;
+	obj->enableOpenLoopCtrl = false;
+    obj->flagEnableForceAngle = true
+    		;
     obj->alignTimeDelay = (uint16_t)(objUser->ctrlFreq_Hz * 0.1f);          // 0.1s
-    obj->forceRunTimeDelay = (uint16_t)(objUser->ctrlFreq_Hz * 1.0f);       // 1.0s
-
-    obj->fwcTimeDelay = (uint16_t)(objUser->ctrlFreq_Hz * 2.0f);        // 2.0s
 
     // set the driver parameters
     HAL_MTR_setParams(obj->halMtrHandle, obj->userParamsHandle);
-
-//    objSets->Kp_fwc = USER_M1_FWC_KP;
-//    objSets->Ki_fwc = USER_M1_FWC_KI;
-//    objSets->angleFWCMax_rad = USER_M1_FWC_MAX_ANGLE_RAD;
-//    objSets->overModulation = USER_M1_MAX_VS_MAG_PU;
 
     //************** FAST Estimator **************//
 
@@ -169,6 +165,11 @@ void initMotor1CtrlParameters(MOTOR_Handle handle)
 //    }
 //#endif
 
+
+    //
+    // FOC Transform
+    //
+
     // initialize the Clarke modules
     obj->clarkeHandle_V = &clarke_V_M1;
 
@@ -196,10 +197,17 @@ void initMotor1CtrlParameters(MOTOR_Handle handle)
     obj->piHandle_spd = &pi_spd_M1;
     obj->piHandle_pos = &pi_pos_M1;
 
+    //
+    // SVPWM
+    //
     // initialize the space vector generator module
     obj->svgenHandle = &svgen_M1;
 
-    SVGEN_setMode(obj->svgenHandle, SVM_COM_C);
+    obj->svgenHandle->Ts = 0.0001;
+    obj->svgenHandle->period = 8000;
+    obj->svgenHandle->udc = 24.0f;
+
+//    SVGEN_setMode(obj->svgenHandle, SVM_COM_C);
 
     HAL_setTriggerPrams(&obj->pwmData, USER_SYSTEM_FREQ_MHz, 0.2f, 0.1f);
 
@@ -239,6 +247,7 @@ void initMotor1CtrlParameters(MOTOR_Handle handle)
     HAL_disablePWM(obj->halMtrHandle);
 
     drvicVars_M1.writeCmd = 1;
+
     HAL_writeDRVData(obj->halMtrHandle, &drvicVars_M1);
 
     // setup the controllers, speed, d/q-axis current pid regulator
@@ -790,7 +799,7 @@ void runMotor1Control(MOTOR_Handle handle)
 
 
 //
-// xint3ISR - External Interrupt 1 ISR
+// xint3ISR - External Interrupt 3 ISR
 //
 __interrupt  void xint3ISR(void)
 {
@@ -882,22 +891,21 @@ __interrupt CODE_SECTION( "ramfuncs") void motor1CtrlISR(void)
 
 	obj->oneOverDcBus_invV = 1.0f/obj->adcData.VdcBus_V;
 #if MTR1_FAST
-//    &obj->estInputData.Vab_V = &obj->Vab_V;
-//    &obj->estInputData.Iab_A = &obj->Iab_A;
+    &obj->estInputData.Vab_V = &obj->Vab_V;
+    &obj->estInputData.Iab_A = &obj->Iab_A;
 
 	// store the input data into a buffer
-	//    obj->oneOverDcBus_invV = obj->estOutputData.oneOverDcBus_invV;
+	    obj->oneOverDcBus_invV = obj->estOutputData.oneOverDcBus_invV;
 
-
-//	obj->estInputData.speed_ref_Hz = TRAJ_getIntValue(obj->trajHandle_spd);
-//	obj->speed_int_Hz = obj->estInputData.speed_ref_Hz;
-//	obj->estInputData.dcBus_V = obj->adcData.VdcBus_V;
-//	EST_run(obj->estHandle, &obj->estInputData, &obj->estOutputData);
-//	obj->oneOverDcBus_invV = obj->estOutputData.oneOverDcBus_invV;
+	obj->estInputData.speed_ref_Hz = TRAJ_getIntValue(obj->trajHandle_spd);
+	obj->speed_int_Hz = obj->estInputData.speed_ref_Hz;
+	obj->estInputData.dcBus_V = obj->adcData.VdcBus_V;
+	EST_run(obj->estHandle, &obj->estInputData, &obj->estOutputData);
+	obj->oneOverDcBus_invV = obj->estOutputData.oneOverDcBus_invV;
 
     // compute angle with delay compensation
-//	obj->angleESTDelta_rad = objUser->angleDelayed_sf_sec * obj->estOutputData.fm_lp_rps;
-//	obj->angleEST_rad =MATH_incrAngle(obj->estOutputData.angle_rad, obj->angleDelta_rad);
+	obj->angleESTDelta_rad = objUser->angleDelayed_sf_sec * obj->estOutputData.fm_lp_rps;
+	obj->angleEST_rad =MATH_incrAngle(obj->estOutputData.angle_rad, obj->angleDelta_rad);
 #endif
 
 	if(obj->flagRunIdentAndOnLine == true)
@@ -1060,21 +1068,24 @@ __interrupt CODE_SECTION( "ramfuncs") void motor1CtrlISR(void)
 		    //************** Speed calculation **************//
 		    obj->speed_int_Hz = TRAJ_getIntValue(obj->trajHandle_spd);
 #if MTR1_FAST
-		    //    obj->speedEST_Hz = EST_getFm_lp_Hz(obj->estHandle);
-#endif
+			obj->speedEST_Hz = EST_getFm_lp_Hz(obj->estHandle);
+			obj->speed_Hz = obj->speedEST_Hz;
+#else
 		    // encoder counter
 		    obj->ENCCount++;
-			if(obj->ENCCount >= speedSampleCount)
+			if(obj->ENCCount >= 100)
 			{
-		        obj->speedENC_Hz = (obj->angleDeltaSum_rad/ speedSampleTime)/MATH_TWO_PI;
+		        obj->speedENC_Hz = (obj->angleDeltaSum_rad/ (obj->ISRPeriodCountDelta_f*100))/MATH_TWO_PI;
 		        obj->ENCCount = 0;
 		        obj->angleDeltaSum_rad = 0;
 			}
+			obj->speed_Hz = obj->speedENC_Hz;
+#endif
 
-		    obj->speed_Hz = obj->speedENC_Hz;
 		    obj->speedFilter_Hz = obj->speedFilter_Hz *0.8f + obj->speed_Hz * 0.2f;
 		    obj->speedAbs_Hz = fabsf(obj->speedFilter_Hz);
 
+		    //************** Motor control mode select **************//
 		    switch(obj->operateMode)
 		    {
 		    	case OPERATE_MODE_POS:
@@ -1175,10 +1186,12 @@ __interrupt CODE_SECTION( "ramfuncs") void motor1CtrlISR(void)
 #endif
 #if MTR1_SV_MODE == 7
     // setup the space vector generator (SVGEN) module
-    SVGEN_setup(obj->svgenHandle, obj->oneOverDcBus_invV);
+//    SVGEN_setup(obj->svgenHandle, obj->oneOverDcBus_invV);
 
+    obj->svgenHandle->Ts = obj->ISRPeriodCountDelta_f;
+    obj->svgenHandle->udc = obj->adcData.VdcBus_V;
     // run the space vector generator (SVGEN) module
-    SVGEN_run(obj->svgenHandle, &obj->Vab_out_V, &(obj->pwmData.Vabc_pu));
+    SVPWM_run(obj->svgenHandle, &obj->Vab_out_V, &(obj->pwmData.Vabc_pu));
 #endif
 
     if(HAL_getPwmEnableStatus(obj->halMtrHandle) == false)

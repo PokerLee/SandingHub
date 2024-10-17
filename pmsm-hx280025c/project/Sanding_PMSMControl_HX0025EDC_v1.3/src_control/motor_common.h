@@ -32,7 +32,7 @@
 #include "svgen.h"
 #endif
 #if MTR1_SV_MODE == 7
-#include "svgen.h"
+#include "svpwm.h"
 #endif
 #include "transform.h"
 
@@ -236,9 +236,9 @@ typedef struct _MOTOR_Vars_t_
     uint16_t counterSpeed;
     uint16_t counterTrajSpeed;
     uint16_t stateRunTimeCnt;
-    uint16_t forceRunTimeDelay;
+//    uint16_t forceRunTimeDelay;
     uint16_t alignTimeDelay;
-    uint16_t fwcTimeDelay;
+//    uint16_t fwcTimeDelay;
     uint16_t flyingStartTimeDelay;
 
     uint16_t overVoltageTimeCnt;

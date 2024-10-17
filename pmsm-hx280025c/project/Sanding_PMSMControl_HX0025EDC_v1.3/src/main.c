@@ -142,7 +142,7 @@ int main(void)
 	HAL_setParams(halHandle);
 
 	// set the reference speed, this can be replaced or removed
-	motorVars_M1.flagEnableRunAndIdentify = true;
+	motorVars_M1.flagEnableRunAndIdentify = false;
 	motorVars_M1.speedRef_Hz = 3.0f;
 	userParams_M1.flag_bypassMotorId =true;//false;//
 
