@@ -94,7 +94,7 @@ extern "C"
 #define USER_M1_FAULT_CHECK_CURRENT_A       (15.2f)
 
 //! \brief motor failed maximum speed threshold
-#define USER_M1_FAIL_SPEED_MAX_HZ           (350.0f)
+#define USER_M1_FAIL_SPEED_MAX_HZ           (15.0f)
 
 //! \brief motor failed minimum speed threshold
 #define USER_M1_FAIL_SPEED_MIN_HZ           (5.0f)

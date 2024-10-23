@@ -180,7 +180,7 @@ void setupControllers(MOTOR_Handle handle)
     /* setup controller */
     // set the Id controller
 //    PI_setGains(obj->piHandle_Id, Kp_Id, Ki_Id);
-    PI_setGains(obj->piHandle_Id, 0.07, 0.015);
+    PI_setGains(obj->piHandle_Id, 0.3, 1.0E-5);
     PI_setUi(obj->piHandle_Id, 0.0f);
     PI_setRefValue(obj->piHandle_Id, 0.0f);
     PI_setFbackValue(obj->piHandle_Id, 0.0f);
@@ -189,7 +189,7 @@ void setupControllers(MOTOR_Handle handle)
 
     // set the Iq controller
 //    PI_setGains(obj->piHandle_Iq, Kp_Iq, Ki_Iq);
-    PI_setGains(obj->piHandle_Iq, 0.07, 0.015);
+    PI_setGains(obj->piHandle_Iq, 0.3, 1.0E-5);
     PI_setUi(obj->piHandle_Iq, 0.0f);
     PI_setRefValue(obj->piHandle_Iq, 0.0f);
     PI_setFbackValue(obj->piHandle_Iq, 0.0f);
@@ -197,7 +197,7 @@ void setupControllers(MOTOR_Handle handle)
     PI_setMinMax(obj->piHandle_Iq, 0.0f, 0.0f);
 
     // set the speed controller
-    PI_setGains(obj->piHandle_spd, 0.6, 0.01);
+    PI_setGains(obj->piHandle_spd, 2.0, 0.01);
     PI_setUi(obj->piHandle_spd, 0.0f);
     PI_setRefValue(obj->piHandle_spd, 0.0f);
     PI_setFbackValue(obj->piHandle_spd, 0.0f);
@@ -206,7 +206,7 @@ void setupControllers(MOTOR_Handle handle)
 
     // set the position controller
 //    PI_setGains(obj->piHandle_pos, 4.5f, 0.0001f);
-    PI_setGains(obj->piHandle_pos, 5.0f, 1.0E-6f);
+    PI_setGains(obj->piHandle_pos, 30.0f, 0.0f);
     PI_setUi(obj->piHandle_pos, 0.0f);
     PI_setRefValue(obj->piHandle_pos, 0.0f);
     PI_setFbackValue(obj->piHandle_pos, 0.0f);
@@ -509,74 +509,106 @@ void calculateRMSData(MOTOR_Handle handle)
 
 int eqep_count = 0;
 int eqep_lastCount = 0;
+int eqepTrimAngleCount = 0;
+
+int eqep_trimOvertime = 100000;
+float32_t eqep_trimAngle = 0.0001f;
 void posCheckMoinitor(MOTOR_Handle handle)
 {
 	MOTOR_Vars_t *obj = (MOTOR_Vars_t *)handle;
 
-	if(fabsf(obj->posDelta_rad)>=USER_MOTOR1_POS_DELTA_MAX)
-	{
-		if(obj->flagPosSwitch == 1)
-		{
-			obj->posCount = 0;
-			obj->flagPosStable = 0;
-			obj->flagPosSwitch = 0;
-//			EQEP_setSWPositionInit(MTR1_EQEP_ENCODER_BASE,true);
-		}
-		else
-		{
-			obj->posCount++;
-		}
-
-		if(obj->posCount>=USER_MOTOR1_POS_COUNT)
-		{
-			obj->posCount = 0;
-//			HAL_disablePWM(obj->halMtrHandle);
-			obj->flagRunIdentAndOnLine = false;
-		}
-	}
-	else if((fabsf(obj->posDelta_rad)<USER_MOTOR1_POS_DELTA_MAX))
-	{
-		if(obj->flagPosSwitch == 0)
-		{
-			obj->posCount = 0;
-			obj->flagPosSwitch = 1;
-		}
-		else
-		{
-			obj->posCount++;
-		}
-
-		if(obj->posCount>=USER_MOTOR1_POS_COUNT)
-		{
-			obj->posCount = 0;
-			if(obj->flagPosStable == 0)
-			{
-				obj->posRef_rad = obj->pos_rad;
-				PI_setUi(obj->piHandle_spd, 0.0);
-			}
+//	if(fabsf(obj->posDelta_rad)>=USER_MOTOR1_POS_DELTA_MAX)
+//	{
+//		if(obj->flagPosSwitch == 1)
+//		{
+//			obj->posCount = 0;
+//			obj->flagPosStable = 0;
+//			obj->flagPosSwitch = 0;
+////			EQEP_setSWPositionInit(MTR1_EQEP_ENCODER_BASE,true);
+//		}
+//		else
+//		{
+//			obj->posCount++;
+//		}
+//
+//		if(obj->posCount>=USER_MOTOR1_POS_COUNT)
+//		{
+//			obj->posCount = 0;
+//			obj->flagRunIdentAndOnLine = false;
+//		}
+//	}
+//	if((fabsf(obj->posDelta_rad)<USER_MOTOR1_POS_DELTA_MAX))
+//	{
+//		if(obj->flagPosSwitch == 0)
+//		{
+//			obj->posCount = 0;
+//			obj->flagPosSwitch = 1;
+//		}
+//		else
+//		{
+//			obj->posCount++;
+//		}
+//
+//		if(obj->posCount>=USER_MOTOR1_POS_COUNT)
+//		{
+//			obj->posCount = 0;
+//			if(obj->flagPosStable == 0)
+//			{
+//				obj->posRef_rad = obj->pos_rad;
+//				PI_setUi(obj->piHandle_spd, 0.0);
+//			}
 
 			eqep_count = EQEP_getPosition(MTR1_EQEP_ENCODER_BASE);
-			if(((eqep_count-eqep_lastCount)>100.0f) || ((eqep_count-eqep_lastCount)<-100.0f))
+			// ÊÖÂÖ³ÙÖÍµ÷½Ú
+			if(((eqep_count-eqep_lastCount)>1.0f) || ((eqep_count-eqep_lastCount)<-1.0f))
 			{
 				if(eqep_count-eqep_lastCount>0)
 				{
-					obj->posRef_rad += 0.005;
+					if(obj->direction == 0)
+					{
+						PI_setUi(obj->piHandle_spd, 0.0);
+					}
+					obj->direction = 1;
+					obj->posRef_rad += eqep_trimAngle;
 				}
 				else
 				{
-					obj->posRef_rad -= 0.005;
+					if(obj->direction == 1)
+					{
+						PI_setUi(obj->piHandle_spd, 0.0);
+					}
+					obj->direction = 0;
+					obj->posRef_rad -= eqep_trimAngle;
 				}
 
 				eqep_lastCount = eqep_count;
 			}
 
-			obj->posRef_rad = MATH_incrAngle1(obj->posRef_rad, 0);
+//			if(obj->posRef_rad == obj->posRefPrev_rad)
+//			{
+//				eqepTrimAngleCount++;
+//				if(eqepTrimAngleCount>=eqep_trimOvertime)
+//				{
+//					eqepTrimAngleCount = 0;
+////					obj->posRef_rad = obj->pos_rad;
+//
+//					PI_setUi(obj->piHandle_spd, 0.0);
+//					PI_setUi(obj->piHandle_Iq, 0.0);
+//					PI_setUi(obj->piHandle_Id, 0.0);
+//				}
+//			}
+//			else
+//			{
+//				eqepTrimAngleCount = 0;
+//			}
 
-			obj->flagPosStable = 1;
-//			HAL_enablePWM(obj->halMtrHandle);
-			obj->flagRunIdentAndOnLine = true;
-		}
-	}
+			obj->posRef_rad = MATH_incrAngle1(obj->posRef_rad, 0);
+//			obj->posRefPrev_rad = obj->posRef_rad;
+
+//			obj->flagPosStable = 1;
+//			obj->flagRunIdentAndOnLine = true;
+//		}
+//	}
 }
 
 // Sets up control parameters for restarting motor

@@ -1,6 +1,32 @@
+//*****************************************************************************
+//
+//! \file motor1_drive.c
+//!
+//! \brief 电机控制结构体相关
+//!
+//! \details
+//!
+//! \author 李博克
+//!
+//! \date 2024-09-14
+//!
+//! \version V1.1
+//!
+//! \copyright 北京三鼎光电仪器有限公司。
+//
+//*****************************************************************************
+
+//*****************************************************************************
+// includes
+//*****************************************************************************
+
 #include "sys_main.h"
 #include "motor1_drive.h"
 #include "always.h"
+
+//*****************************************************************************
+// function prototypes
+//*****************************************************************************
 
 void initMotor1Handles(MOTOR_Handle handle)
 {
@@ -576,11 +602,11 @@ void runMotor1Control(MOTOR_Handle handle)
         {
             if(obj->speedRef_Hz > 0.0f)
             {
-                obj->direction = 1.0f;
+                obj->directionRef = 1.0f;
             }
             else
             {
-                obj->direction = -1.0f;
+                obj->directionRef = -1.0f;
             }
 
             // enable or disable force angle
@@ -740,11 +766,11 @@ void runMotor1Control(MOTOR_Handle handle)
 
 		if(obj->speedRef_Hz > 0.0f)
 		{
-			obj->direction = 1.0f;
+			obj->directionRef = 1.0f;
 		}
 		else
 		{
-			obj->direction = -1.0f;
+			obj->directionRef = -1.0f;
 		}
 
 		TRAJ_setTargetValue(obj->trajHandle_spd, obj->speedRef_Hz);
@@ -975,7 +1001,7 @@ __interrupt CODE_SECTION( "ramfuncs") void motor1CtrlISR(void)
 			obj->stateRunTimeCnt++;
 
 	        obj->angleFOC_rad = 0.0f;
-	        obj->enableSpeedCtrl = false;
+//	        obj->enableSpeedCtrl = false;
 
 	        obj->IsRef_A = 0.0f;
 	        obj->Idq_out_A.value[0] = obj->alignCurrent_A;
@@ -1017,9 +1043,35 @@ __interrupt CODE_SECTION( "ramfuncs") void motor1CtrlISR(void)
 		    	obj->enableSpeedCtrl = false;
 		    	obj->enableCurrentCtrl = false;
 
-		        testFoc_rad+=testDelta_rad;
-		        MATH_incrAngle1(testFoc_rad,0);
+				//************** Electrical Angle calculation **************//
+//				obj->angleFOC_rad = -(obj->pos_rad*USER_MOTOR1_NUM_POLE_PAIRS - obj->angleENCOffset_rad);
+//				obj->angleFOC_rad = MATH_incrAngle1(obj->angleFOC_rad,0);
+//
+//				obj->angleDelta_rad = obj->angleFOC_rad - obj->angleFOCPrev_rad;
+//
+//				// 电角度防抖处理
+//				if(obj->directionRef == 1.0)
+//				{
+//					if(((obj->angleDelta_rad >= 0) && (obj->angleDelta_rad <= MATH_PI))||
+//							((obj->angleDelta_rad < 0)&& (obj->angleDelta_rad <= -MATH_PI)))
+//					{
+//						obj->angleDelta_rad = MATH_incrAngle1(obj->angleDelta_rad,0);
+//					}
+//				}
+//				else if(obj->directionRef == -1.0)
+//				{
+//					if(((obj->angleDelta_rad <= 0) && (obj->angleDelta_rad >= -MATH_PI))
+//							||((obj->angleDelta_rad > 0)&& (obj->angleDelta_rad >= MATH_PI)))
+//					{
+//						obj->angleDelta_rad = MATH_incrAngle2(obj->angleDelta_rad,0);
+//					}
+//				}
+//
+//				obj->angleFOCPrev_rad = obj->angleFOC_rad;
+//				obj->angleDeltaSum_rad += obj->angleDelta_rad;
 
+				testFoc_rad+=testDelta_rad;
+		        MATH_incrAngle1(testFoc_rad,0);
 		        obj->angleFOC_rad = testFoc_rad;
 
 		        obj->IsRef_A = obj->IsSet_A;
@@ -1045,7 +1097,7 @@ __interrupt CODE_SECTION( "ramfuncs") void motor1CtrlISR(void)
 			obj->angleDelta_rad = obj->angleFOC_rad - obj->angleFOCPrev_rad;
 
 			// 电角度防抖处理
-			if(obj->direction == 1.0)
+			if(obj->directionRef == 1.0)
 			{
 				if(((obj->angleDelta_rad >= 0) && (obj->angleDelta_rad <= MATH_PI))||
 						((obj->angleDelta_rad < 0)&& (obj->angleDelta_rad <= -MATH_PI)))
@@ -1053,7 +1105,7 @@ __interrupt CODE_SECTION( "ramfuncs") void motor1CtrlISR(void)
 					obj->angleDelta_rad = MATH_incrAngle1(obj->angleDelta_rad,0);
 				}
 			}
-			else if(obj->direction == -1.0)
+			else if(obj->directionRef == -1.0)
 			{
 				if(((obj->angleDelta_rad <= 0) && (obj->angleDelta_rad >= -MATH_PI))
 						||((obj->angleDelta_rad > 0)&& (obj->angleDelta_rad >= MATH_PI)))
@@ -1102,7 +1154,8 @@ __interrupt CODE_SECTION( "ramfuncs") void motor1CtrlISR(void)
 	                if(obj->counterSpeed >= objUser->numCtrlTicksPerSpeedTick)
 		            {
 	                	obj->counterSpeed = 0;
-		            	PI_run(obj->piHandle_spd,obj->speed_int_Hz,obj->speedFilter_Hz,(float32_t *)&obj->IsRef_A);
+//		            	PI_run(obj->piHandle_spd,obj->speed_int_Hz,obj->speedFilter_Hz,(float32_t *)&obj->IsRef_A);
+	                	PI_run(obj->piHandle_spd,obj->speed_int_Hz,obj->speed_Hz,(float32_t *)&obj->IsRef_A);
 		            }
 		    		break;
 		    	case OPERATE_MODE_SPEED:
@@ -1111,7 +1164,8 @@ __interrupt CODE_SECTION( "ramfuncs") void motor1CtrlISR(void)
 	                if(obj->counterSpeed >= objUser->numCtrlTicksPerSpeedTick)
 		            {
 	                	obj->counterSpeed = 0;
-		            	PI_run(obj->piHandle_spd,obj->speed_int_Hz,obj->speedFilter_Hz,(float32_t *)&obj->IsRef_A);
+//		            	PI_run(obj->piHandle_spd,obj->speed_int_Hz,obj->speedFilter_Hz,(float32_t *)&obj->IsRef_A);
+		            	PI_run(obj->piHandle_spd,obj->speed_int_Hz,obj->speed_Hz,(float32_t *)&obj->IsRef_A);
 		            }
 		    		break;
 		    	case OPERATE_MODE_TORQUE:

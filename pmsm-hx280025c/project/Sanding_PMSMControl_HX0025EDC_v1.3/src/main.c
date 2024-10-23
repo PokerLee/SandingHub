@@ -65,7 +65,7 @@
 // globals
 //*****************************************************************************
 
-#define SHOW_MODE_START_POS	2.2982512
+#define SHOW_MODE_START_POS	2.2173629
 
 //*****************************************************************************
 // globals
@@ -142,8 +142,9 @@ int main(void)
 	HAL_setParams(halHandle);
 
 	// set the reference speed, this can be replaced or removed
-	motorVars_M1.flagEnableRunAndIdentify = false;
+	motorVars_M1.flagEnableRunAndIdentify = true;
 	motorVars_M1.speedRef_Hz = 3.0f;
+	motorVars_M1.posRef_rad = SHOW_MODE_START_POS;
 	userParams_M1.flag_bypassMotorId =true;//false;//
 
 	// 初始化电机1结构体
@@ -152,7 +153,7 @@ int main(void)
 	// 初始化电机1控制参数
 	initMotor1CtrlParameters(motorHandle_M1);
 
-	motorVars_M1.flagEnableShowMode = true;
+	motorVars_M1.flagEnableShowMode = false;
 	motorVars_M1.flagEnableOffsetCalc = true;
 	motorVars_M1.flagEnableAlignment = false;
 	motorVars_M1.enablePosCtrl = true;
@@ -211,6 +212,12 @@ int main(void)
 	   // loop while the enable system flag is true
 	   systemVars.mainLoopCnt++;
 
+	   if((motorHandle_M1->flagEnableShowMode == false)&&
+			   (motorHandle_M1->enablePosCtrl == true))
+	   {
+		   posCheckMoinitor(motorHandle_M1);
+	   }
+
 	   // 1ms time base
 	   if(HAL_getCPUTimerStatus(halHandle, HAL_CPU_TIMER0))
 	   {
@@ -237,7 +244,10 @@ int main(void)
 				   calculateRMSData(motorHandle_M1);
 				   break;
 			   case 3:
-//				   posCheckMoinitor(motorHandle_M1);
+//				   if(motorHandle_M1->flagEnableShowMode == false)
+//				   {
+//					   posCheckMoinitor(motorHandle_M1);
+//				   }
 				   break;
 			   case 4:
 				   // calculate motor protection value

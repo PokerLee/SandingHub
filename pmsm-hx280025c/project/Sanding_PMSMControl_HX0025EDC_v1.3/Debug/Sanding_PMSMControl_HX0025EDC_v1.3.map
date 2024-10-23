@@ -16,13 +16,7 @@ Discarded input sections
  .text          0x0000000000000000        0x2 ./src_control/motor1_drive.o
  .llvm_addrsig  0x0000000000000000       0xac ./src_control/motor1_drive.o
  .text          0x0000000000000000        0x2 ./src_control/motor_common.o
- .text.posCheckMoinitor
-                0x0000000000000000      0x1c2 ./src_control/motor_common.o
- .text.EQEP_getPosition
-                0x0000000000000000       0x2e ./src_control/motor_common.o
- .text.EQEP_isBaseValid
-                0x0000000000000000       0x1e ./src_control/motor_common.o
- .llvm_addrsig  0x0000000000000000       0x3c ./src_control/motor_common.o
+ .llvm_addrsig  0x0000000000000000       0x3e ./src_control/motor_common.o
  .text          0x0000000000000000        0x2 ./src_board/drv8323s.o
  .text.DRV8323_getPeakSourCurHS
                 0x0000000000000000       0x1e ./src_board/drv8323s.o
@@ -88,7 +82,7 @@ Discarded input sections
  .text          0x0000000000000000        0x2 ./src_board/user_mtr1.o
  .llvm_addrsig  0x0000000000000000        0x0 ./src_board/user_mtr1.o
  .text          0x0000000000000000        0x2 ./src/main.o
- .llvm_addrsig  0x0000000000000000       0x4b ./src/main.o
+ .llvm_addrsig  0x0000000000000000       0x4e ./src/main.o
  .text          0x0000000000000000        0x4 ./haawking-drivers/haawking-dsc280025_edc-board/common/crt.o
  .text          0x0000000000000000      0x2d6 ./haawking-drivers/haawking-dsc280025_edc-board/common/hx_fintdiv.o
  .debug_info    0x0000000000000000      0x591 ./haawking-drivers/haawking-dsc280025_edc-board/common/hx_fintdiv.o
@@ -2471,31 +2465,31 @@ _IQasinTable    0x00000000007e3fbc        0x0
                 0x0000000000001000                __global_sp$ = (. + 0x800)
                 0x0000000000010000                . = 0x10000
 
-.sdata          0x0000000000010000     0x2092 load address 0x0000000000608390
+.sdata          0x0000000000010000     0x208e load address 0x0000000000608510
                 0x0000000000010000                __data_start = .
                 0x0000000000010800                __global_pointer$ = (. + 0x800)
  *(.data)
- .data          0x0000000000010000      0x730 ./src/main.o
+ .data          0x0000000000010000      0x738 ./src/main.o
                 0x0000000000010000                cpuTime
                 0x0000000000010024                cpuTimeHandle
                 0x0000000000010028                motorVars_M1
-                0x00000000000102f8                motorHandle_M1
-                0x00000000000102fc                userParams_M1
-                0x0000000000010510                systemVars
-                0x0000000000010520                motorSetVars_M1
-                0x00000000000105c4                halMtr_M1
-                0x0000000000010608                drvicVars_M1
-                0x000000000001062c                clarke_V_M1
-                0x0000000000010638                clarke_I_M1
-                0x0000000000010644                ipark_V_M1
-                0x000000000001064c                park_I_M1
-                0x0000000000010654                park_V_M1
-                0x000000000001065c                svgen_M1
-                0x000000000001068c                pi_Id_M1
-                0x00000000000106b0                pi_Iq_M1
-                0x00000000000106d4                pi_spd_M1
-                0x00000000000106f8                pi_pos_M1
-                0x000000000001071c                traj_spd_M1
+                0x0000000000010300                motorHandle_M1
+                0x0000000000010304                userParams_M1
+                0x0000000000010518                systemVars
+                0x0000000000010528                motorSetVars_M1
+                0x00000000000105cc                halMtr_M1
+                0x0000000000010610                drvicVars_M1
+                0x0000000000010634                clarke_V_M1
+                0x0000000000010640                clarke_I_M1
+                0x000000000001064c                ipark_V_M1
+                0x0000000000010654                park_I_M1
+                0x000000000001065c                park_V_M1
+                0x0000000000010664                svgen_M1
+                0x0000000000010694                pi_Id_M1
+                0x00000000000106b8                pi_Iq_M1
+                0x00000000000106dc                pi_spd_M1
+                0x0000000000010700                pi_pos_M1
+                0x0000000000010724                traj_spd_M1
  *(.data.*)
  *(.srodata.cst16)
  *(.srodata.cst8)
@@ -2503,42 +2497,44 @@ _IQasinTable    0x00000000007e3fbc        0x0
  *(.srodata.cst2)
  *(.srodata*)
  *(.sdata .sdata.* .gnu.linkonce.s.*)
- .sdata         0x0000000000010730       0xb0 ./src_control/motor1_drive.o
-                0x00000000000107d4                speedSampleCount
-                0x00000000000107d8                speedSampleTime
-                0x00000000000107dc                testDelta_rad
- .sdata         0x00000000000107e0       0x38 ./src_control/motor_common.o
- .sdata         0x0000000000010818        0xc ./src_board/hal.o
- .sdata         0x0000000000010824       0x10 ./src_board/user_mtr1.o
- .sdata         0x0000000000010834       0x14 ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
+ .sdata         0x0000000000010738       0xb0 ./src_control/motor1_drive.o
+                0x00000000000107dc                speedSampleCount
+                0x00000000000107e0                speedSampleTime
+                0x00000000000107e4                testDelta_rad
+ .sdata         0x00000000000107e8       0x34 ./src_control/motor_common.o
+                0x0000000000010814                eqep_trimOvertime
+                0x0000000000010818                eqep_trimAngle
+ .sdata         0x000000000001081c        0xc ./src_board/hal.o
+ .sdata         0x0000000000010828       0x10 ./src_board/user_mtr1.o
+ .sdata         0x0000000000010838       0x14 ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
  *(LS4567)
  *(ramfuncs)
- ramfuncs       0x0000000000010848     0x1542 ./src_control/motor1_drive.o
-                0x0000000000010848                motor1CtrlISR
- *fill*         0x0000000000011d8a        0x2 
- ramfuncs       0x0000000000011d8c       0x26 ./haawking-drivers/haawking-dsc280025_edc-board/SysCtl_delay.o
-                0x0000000000011d8c                SysCtl_delay
- *fill*         0x0000000000011db2        0x2 
- ramfuncs       0x0000000000011db4      0x2de ./haawking-drivers/haawking-dsc280025_edc-board/flash.o
-                0x0000000000011db4                Flash_initModule
-                0x000000000001202e                Flash_powerDown
-                0x0000000000012060                Flash_wakeFromLPM
-                0x0000000000012098                __data_end = ALIGN (0x8)
+ ramfuncs       0x000000000001084c     0x153c ./src_control/motor1_drive.o
+                0x000000000001084c                motor1CtrlISR
+ ramfuncs       0x0000000000011d88       0x26 ./haawking-drivers/haawking-dsc280025_edc-board/SysCtl_delay.o
+                0x0000000000011d88                SysCtl_delay
+ *fill*         0x0000000000011dae        0x2 
+ ramfuncs       0x0000000000011db0      0x2de ./haawking-drivers/haawking-dsc280025_edc-board/flash.o
+                0x0000000000011db0                Flash_initModule
+                0x000000000001202a                Flash_powerDown
+                0x000000000001205c                Flash_wakeFromLPM
+                0x0000000000012090                __data_end = ALIGN (0x8)
 
-.sbss           0x0000000000012100       0x1c load address 0x000000000060a490
+.sbss           0x0000000000012100       0x20 load address 0x000000000060a610
                 0x0000000000012100                __bss_start = .
  *(.sbss .sbss.* .gnu.linkonce.sb.*)
  .sbss          0x0000000000012100       0x10 ./src_control/motor1_drive.o
                 0x0000000000012100                xint3Count
                 0x0000000000012104                receivedChar
                 0x000000000001210c                testFoc_rad
- .sbss          0x0000000000012110        0xc ./src_control/motor_common.o
+ .sbss          0x0000000000012110       0x10 ./src_control/motor_common.o
                 0x0000000000012110                eqep_count
                 0x0000000000012114                eqep_lastCount
-                0x0000000000012118                halHandle
+                0x0000000000012118                eqepTrimAngleCount
+                0x000000000001211c                halHandle
  *(.scommon)
 
-.bss            0x0000000000012120      0x56c load address 0x000000000060a4b0
+.bss            0x0000000000012120      0x56c load address 0x000000000060a630
  *(.bss)
  *(.bss.*)
  .bss.hal       0x0000000000012120       0x44 ./src_control/motor_common.o
@@ -2550,7 +2546,7 @@ _IQasinTable    0x00000000007e3fbc        0x0
                 0x0000000000012690                __bss_end = ALIGN (0x8)
                 0x0000000000018000                . = 0x18000
 
-.ramgs0         0x0000000000018000        0x0 load address 0x000000000060a428
+.ramgs0         0x0000000000018000        0x0 load address 0x000000000060a5a0
                 0x0000000000018000                __gs_data_start = .
  *(ramgs0)
                 0x0000000000018000                __gs_data_end = ALIGN (0x8)
@@ -2580,7 +2576,7 @@ _IQasinTable    0x00000000007e3fbc        0x0
  .text.init     0x0000000000600010      0x1c2 ./haawking-drivers/haawking-dsc280025_edc-board/common/crt.o
                 0x0000000000600010                _ENTRY
 
-.text           0x00000000006001e0     0x81aa
+.text           0x00000000006001e0     0x832e
  *(.text)
  .text          0x00000000006001e0        0x6 ./haawking-drivers/haawking-dsc280025_edc-board/__disable_interrputs.o
                 0x00000000006001e0                __disable_interrupts
@@ -2593,831 +2589,838 @@ _IQasinTable    0x00000000007e3fbc        0x0
                 0x00000000006001ee       0x48 ./src_control/motor1_drive.o
                 0x00000000006001ee                initMotor1Handles
  .text.initMotor1CtrlParameters
-                0x0000000000600236      0x520 ./src_control/motor1_drive.o
+                0x0000000000600236      0x51c ./src_control/motor1_drive.o
                 0x0000000000600236                initMotor1CtrlParameters
  .text.TRAJ_setTargetValue
-                0x0000000000600756        0xe ./src_control/motor1_drive.o
+                0x0000000000600752        0xe ./src_control/motor1_drive.o
  .text.TRAJ_setMinValue
-                0x0000000000600764        0xe ./src_control/motor1_drive.o
+                0x0000000000600760        0xe ./src_control/motor1_drive.o
  .text.TRAJ_setMaxValue
-                0x0000000000600772        0xe ./src_control/motor1_drive.o
+                0x000000000060076e        0xe ./src_control/motor1_drive.o
  .text.TRAJ_setMaxDelta
-                0x0000000000600780        0xe ./src_control/motor1_drive.o
+                0x000000000060077c        0xe ./src_control/motor1_drive.o
  .text.HAL_disablePWM
-                0x000000000060078e       0x30 ./src_control/motor1_drive.o
+                0x000000000060078a       0x30 ./src_control/motor1_drive.o
  .text.runMotor1OffsetsCalculation
-                0x00000000006007be      0x5cc ./src_control/motor1_drive.o
-                0x00000000006007be                runMotor1OffsetsCalculation
+                0x00000000006007ba      0x5cc ./src_control/motor1_drive.o
+                0x00000000006007ba                runMotor1OffsetsCalculation
  .text.calcMotorOverCurrentThreshold
-                0x0000000000600d8a       0x54 ./src_control/motor1_drive.o
+                0x0000000000600d86       0x54 ./src_control/motor1_drive.o
  .text.ADC_setPPBReferenceOffset
-                0x0000000000600dde       0x3c ./src_control/motor1_drive.o
+                0x0000000000600dda       0x3c ./src_control/motor1_drive.o
  .text.HAL_enablePWM
-                0x0000000000600e1a       0x68 ./src_control/motor1_drive.o
+                0x0000000000600e16       0x68 ./src_control/motor1_drive.o
  .text.ADC_clearInterruptStatus
-                0x0000000000600e82       0x2e ./src_control/motor1_drive.o
+                0x0000000000600e7e       0x2e ./src_control/motor1_drive.o
  .text.ADC_getInterruptStatus
-                0x0000000000600eb0       0x2e ./src_control/motor1_drive.o
+                0x0000000000600eac       0x2e ./src_control/motor1_drive.o
  .text.runMotor1Control
-                0x0000000000600ede      0x27a ./src_control/motor1_drive.o
-                0x0000000000600ede                runMotor1Control
+                0x0000000000600eda      0x27a ./src_control/motor1_drive.o
+                0x0000000000600eda                runMotor1Control
  .text.HAL_clearMtrFaultStatus
-                0x0000000000601158       0x4e ./src_control/motor1_drive.o
+                0x0000000000601154       0x4e ./src_control/motor1_drive.o
  .text.updateControllers
-                0x00000000006011a6      0x166 ./src_control/motor1_drive.o
+                0x00000000006011a2      0x166 ./src_control/motor1_drive.o
  .text.xint3ISR
-                0x000000000060130c      0x170 ./src_control/motor1_drive.o
-                0x000000000060130c                xint3ISR
+                0x0000000000601308      0x170 ./src_control/motor1_drive.o
+                0x0000000000601308                xint3ISR
  .text.SCI_readCharBlockingFIFO
-                0x000000000060147c       0x40 ./src_control/motor1_drive.o
+                0x0000000000601478       0x40 ./src_control/motor1_drive.o
  .text.Interrupt_clearACKGroup
-                0x00000000006014bc        0xe ./src_control/motor1_drive.o
+                0x00000000006014b8        0xe ./src_control/motor1_drive.o
  .text.HAL_readTimerCnt
-                0x00000000006014ca       0x1a ./src_control/motor1_drive.o
+                0x00000000006014c6       0x1a ./src_control/motor1_drive.o
  .text.EPWM_forceTripZoneEvent
-                0x00000000006014e4       0x56 ./src_control/motor1_drive.o
+                0x00000000006014e0       0x56 ./src_control/motor1_drive.o
  .text.EPWM_isBaseValid
-                0x000000000060153a       0x5c ./src_control/motor1_drive.o
+                0x0000000000601536       0x5c ./src_control/motor1_drive.o
  .text.ADC_isBaseValid
-                0x0000000000601596       0x22 ./src_control/motor1_drive.o
+                0x0000000000601592       0x22 ./src_control/motor1_drive.o
  .text.EPWM_getTimeBasePeriod
-                0x00000000006015b8       0x28 ./src_control/motor1_drive.o
+                0x00000000006015b4       0x28 ./src_control/motor1_drive.o
  .text.EPWM_setCounterCompareValue
-                0x00000000006015e0       0x64 ./src_control/motor1_drive.o
+                0x00000000006015dc       0x64 ./src_control/motor1_drive.o
  .text.CMPSS_clearFilterLatchHigh
-                0x0000000000601644       0x32 ./src_control/motor1_drive.o
+                0x0000000000601640       0x32 ./src_control/motor1_drive.o
  .text.CMPSS_clearFilterLatchLow
-                0x0000000000601676       0x32 ./src_control/motor1_drive.o
+                0x0000000000601672       0x32 ./src_control/motor1_drive.o
  .text.EPWM_clearTripZoneFlag
-                0x00000000006016a8       0x56 ./src_control/motor1_drive.o
+                0x00000000006016a4       0x56 ./src_control/motor1_drive.o
  .text.CMPSS_isBaseValid
-                0x00000000006016fe       0x38 ./src_control/motor1_drive.o
+                0x00000000006016fa       0x38 ./src_control/motor1_drive.o
  .text.ADC_readResult
-                0x0000000000601736       0x3c ./src_control/motor1_drive.o
+                0x0000000000601732       0x3c ./src_control/motor1_drive.o
  .text.SCI_isBaseValid
-                0x0000000000601772       0x18 ./src_control/motor1_drive.o
+                0x000000000060176e       0x18 ./src_control/motor1_drive.o
  .text.SCI_getRxFIFOStatus
-                0x000000000060178a       0x2e ./src_control/motor1_drive.o
+                0x0000000000601786       0x2e ./src_control/motor1_drive.o
  .text.SCI_getRxStatus
-                0x00000000006017b8       0x24 ./src_control/motor1_drive.o
+                0x00000000006017b4       0x24 ./src_control/motor1_drive.o
  .text.CPUTimer_getTimerCount
-                0x00000000006017dc       0x24 ./src_control/motor1_drive.o
+                0x00000000006017d8       0x24 ./src_control/motor1_drive.o
  .text.CPUTimer_isBaseValid
-                0x0000000000601800       0x28 ./src_control/motor1_drive.o
+                0x00000000006017fc       0x28 ./src_control/motor1_drive.o
  .text.TRAJ_getTargetValue
-                0x0000000000601828        0xc ./src_control/motor1_drive.o
+                0x0000000000601824        0xc ./src_control/motor1_drive.o
  .text.TRAJ_getMaxDelta
-                0x0000000000601834        0xc ./src_control/motor1_drive.o
+                0x0000000000601830        0xc ./src_control/motor1_drive.o
  .text.TRAJ_getMinValue
-                0x0000000000601840        0xc ./src_control/motor1_drive.o
+                0x000000000060183c        0xc ./src_control/motor1_drive.o
  .text.TRAJ_getMaxValue
-                0x000000000060184c        0xc ./src_control/motor1_drive.o
+                0x0000000000601848        0xc ./src_control/motor1_drive.o
  .text.setupClarke_V
-                0x0000000000601858       0x40 ./src_control/motor_common.o
-                0x0000000000601858                setupClarke_V
+                0x0000000000601854       0x40 ./src_control/motor_common.o
+                0x0000000000601854                setupClarke_V
  .text.CLARKE_setScaleFactors
-                0x0000000000601898       0x18 ./src_control/motor_common.o
+                0x0000000000601894       0x18 ./src_control/motor_common.o
  .text.CLARKE_setNumSensors
-                0x00000000006018b0       0x12 ./src_control/motor_common.o
+                0x00000000006018ac       0x12 ./src_control/motor_common.o
  .text.setupClarke_I
-                0x00000000006018c2       0x50 ./src_control/motor_common.o
-                0x00000000006018c2                setupClarke_I
+                0x00000000006018be       0x50 ./src_control/motor_common.o
+                0x00000000006018be                setupClarke_I
  .text.resetMotorControl
-                0x0000000000601912       0xec ./src_control/motor_common.o
-                0x0000000000601912                resetMotorControl
+                0x000000000060190e       0xec ./src_control/motor_common.o
+                0x000000000060190e                resetMotorControl
  .text.TRAJ_setTargetValue
-                0x00000000006019fe        0xe ./src_control/motor_common.o
+                0x00000000006019fa        0xe ./src_control/motor_common.o
  .text.HAL_disablePWM
-                0x0000000000601a0c       0x30 ./src_control/motor_common.o
+                0x0000000000601a08       0x30 ./src_control/motor_common.o
  .text.setupControllers
-                0x0000000000601a3c      0x322 ./src_control/motor_common.o
-                0x0000000000601a3c                setupControllers
+                0x0000000000601a38      0x316 ./src_control/motor_common.o
+                0x0000000000601a38                setupControllers
  .text.getControllers
-                0x0000000000601d5e       0xac ./src_control/motor_common.o
+                0x0000000000601d4e       0xac ./src_control/motor_common.o
  .text.CPU_TIME_reset
-                0x0000000000601e0a       0x60 ./src_control/motor_common.o
-                0x0000000000601e0a                CPU_TIME_reset
+                0x0000000000601dfa       0x60 ./src_control/motor_common.o
+                0x0000000000601dfa                CPU_TIME_reset
  .text.runMotorMonitor
-                0x0000000000601e6a      0x22a ./src_control/motor_common.o
-                0x0000000000601e6a                runMotorMonitor
+                0x0000000000601e5a      0x22a ./src_control/motor_common.o
+                0x0000000000601e5a                runMotorMonitor
  .text.calculateRMSData
-                0x0000000000602094      0x21c ./src_control/motor_common.o
-                0x0000000000602094                calculateRMSData
+                0x0000000000602084      0x21c ./src_control/motor_common.o
+                0x0000000000602084                calculateRMSData
+ .text.posCheckMoinitor
+                0x00000000006022a0      0x128 ./src_control/motor_common.o
+                0x00000000006022a0                posCheckMoinitor
+ .text.EQEP_getPosition
+                0x00000000006023c8       0x24 ./src_control/motor_common.o
  .text.restartMotorControl
-                0x00000000006022b0       0x42 ./src_control/motor_common.o
-                0x00000000006022b0                restartMotorControl
+                0x00000000006023ec       0x42 ./src_control/motor_common.o
+                0x00000000006023ec                restartMotorControl
  .text.stopMotorControl
-                0x00000000006022f2       0x26 ./src_control/motor_common.o
-                0x00000000006022f2                stopMotorControl
+                0x000000000060242e       0x26 ./src_control/motor_common.o
+                0x000000000060242e                stopMotorControl
  .text.runRsOnLine
-                0x0000000000602318       0xd2 ./src_control/motor_common.o
-                0x0000000000602318                runRsOnLine
+                0x0000000000602454       0xd2 ./src_control/motor_common.o
+                0x0000000000602454                runRsOnLine
  .text.updateGlobalVariables
-                0x00000000006023ea      0x12a ./src_control/motor_common.o
-                0x00000000006023ea                updateGlobalVariables
+                0x0000000000602526      0x12a ./src_control/motor_common.o
+                0x0000000000602526                updateGlobalVariables
  .text.collectRMSData
-                0x0000000000602514      0x114 ./src_control/motor_common.o
-                0x0000000000602514                collectRMSData
+                0x0000000000602650      0x114 ./src_control/motor_common.o
+                0x0000000000602650                collectRMSData
  .text.EPWM_forceTripZoneEvent
-                0x0000000000602628       0x56 ./src_control/motor_common.o
+                0x0000000000602764       0x56 ./src_control/motor_common.o
  .text.EPWM_isBaseValid
-                0x000000000060267e       0x5c ./src_control/motor_common.o
+                0x00000000006027ba       0x5c ./src_control/motor_common.o
+ .text.EQEP_isBaseValid
+                0x0000000000602816       0x1e ./src_control/motor_common.o
  .text.DRV8323_init
-                0x00000000006026da       0x16 ./src_board/drv8323s.o
-                0x00000000006026da                DRV8323_init
+                0x0000000000602834       0x16 ./src_board/drv8323s.o
+                0x0000000000602834                DRV8323_init
  .text.DRV8323_resetRxTimeout
-                0x00000000006026f0        0xe ./src_board/drv8323s.o
+                0x000000000060284a        0xe ./src_board/drv8323s.o
  .text.DRV8323_resetEnableTimeout
-                0x00000000006026fe        0xe ./src_board/drv8323s.o
+                0x0000000000602858        0xe ./src_board/drv8323s.o
  .text.DRV8323_enable
-                0x000000000060270c       0xb6 ./src_board/drv8323s.o
-                0x000000000060270c                DRV8323_enable
+                0x0000000000602866       0xb6 ./src_board/drv8323s.o
+                0x0000000000602866                DRV8323_enable
  .text.GPIO_writePin
-                0x00000000006027c2       0x50 ./src_board/drv8323s.o
+                0x000000000060291c       0x50 ./src_board/drv8323s.o
  .text.DRV8323_readSPI
-                0x0000000000602812       0xf2 ./src_board/drv8323s.o
-                0x0000000000602812                DRV8323_readSPI
+                0x000000000060296c       0xf2 ./src_board/drv8323s.o
+                0x000000000060296c                DRV8323_readSPI
  .text.DRV8323_setSPIHandle
-                0x0000000000602904        0xe ./src_board/drv8323s.o
-                0x0000000000602904                DRV8323_setSPIHandle
+                0x0000000000602a5e        0xe ./src_board/drv8323s.o
+                0x0000000000602a5e                DRV8323_setSPIHandle
  .text.DRV8323_setGPIOCSNumber
-                0x0000000000602912        0xe ./src_board/drv8323s.o
-                0x0000000000602912                DRV8323_setGPIOCSNumber
+                0x0000000000602a6c        0xe ./src_board/drv8323s.o
+                0x0000000000602a6c                DRV8323_setGPIOCSNumber
  .text.DRV8323_setGPIOENNumber
-                0x0000000000602920        0xe ./src_board/drv8323s.o
-                0x0000000000602920                DRV8323_setGPIOENNumber
+                0x0000000000602a7a        0xe ./src_board/drv8323s.o
+                0x0000000000602a7a                DRV8323_setGPIOENNumber
  .text.DRV8323_setupSPI
-                0x000000000060292e       0xca ./src_board/drv8323s.o
-                0x000000000060292e                DRV8323_setupSPI
+                0x0000000000602a88       0xca ./src_board/drv8323s.o
+                0x0000000000602a88                DRV8323_setupSPI
  .text.DRV8323_buildCtrlWord
-                0x00000000006029f8       0x1c ./src_board/drv8323s.o
+                0x0000000000602b52       0x1c ./src_board/drv8323s.o
  .text.SPI_resetRxFIFO
-                0x0000000000602a14       0x36 ./src_board/drv8323s.o
+                0x0000000000602b6e       0x36 ./src_board/drv8323s.o
  .text.SPI_enableFIFO
-                0x0000000000602a4a       0x34 ./src_board/drv8323s.o
+                0x0000000000602ba4       0x34 ./src_board/drv8323s.o
  .text.SPI_writeDataBlockingNonFIFO
-                0x0000000000602a7e       0x36 ./src_board/drv8323s.o
+                0x0000000000602bd8       0x36 ./src_board/drv8323s.o
  .text.SPI_getRxFIFOStatus
-                0x0000000000602ab4       0x2e ./src_board/drv8323s.o
+                0x0000000000602c0e       0x2e ./src_board/drv8323s.o
  .text.SPI_readDataNonBlocking
-                0x0000000000602ae2       0x2a ./src_board/drv8323s.o
+                0x0000000000602c3c       0x2a ./src_board/drv8323s.o
  .text.DRV8323_writeSPI
-                0x0000000000602b0c       0x9c ./src_board/drv8323s.o
-                0x0000000000602b0c                DRV8323_writeSPI
+                0x0000000000602c66       0x9c ./src_board/drv8323s.o
+                0x0000000000602c66                DRV8323_writeSPI
  .text.DRV8323_writeData
-                0x0000000000602ba8       0xbe ./src_board/drv8323s.o
-                0x0000000000602ba8                DRV8323_writeData
+                0x0000000000602d02       0xbe ./src_board/drv8323s.o
+                0x0000000000602d02                DRV8323_writeData
  .text.GPIO_isPinValid
-                0x0000000000602c66       0x2a ./src_board/drv8323s.o
+                0x0000000000602dc0       0x2a ./src_board/drv8323s.o
  .text.SPI_isBaseValid
-                0x0000000000602c90       0x1e ./src_board/drv8323s.o
+                0x0000000000602dea       0x1e ./src_board/drv8323s.o
  .text.Interrupt_disableGlobal
-                0x0000000000602cae       0x14 ./src_board/hal.o
+                0x0000000000602e08       0x14 ./src_board/hal.o
  .text.SysCtl_disableWatchdog
-                0x0000000000602cc2       0x1e ./src_board/hal.o
+                0x0000000000602e1c       0x1e ./src_board/hal.o
  .text.HAL_enableCtrlInts
-                0x0000000000602ce0       0x36 ./src_board/hal.o
-                0x0000000000602ce0                HAL_enableCtrlInts
+                0x0000000000602e3a       0x36 ./src_board/hal.o
+                0x0000000000602e3a                HAL_enableCtrlInts
  .text.Interrupt_clearACKGroup
-                0x0000000000602d16        0xe ./src_board/hal.o
+                0x0000000000602e70        0xe ./src_board/hal.o
  .text.ADC_enableInterrupt
-                0x0000000000602d24       0x54 ./src_board/hal.o
+                0x0000000000602e7e       0x54 ./src_board/hal.o
  .text.Interrupt_enableInCPU
-                0x0000000000602d78       0x16 ./src_board/hal.o
+                0x0000000000602ed2       0x16 ./src_board/hal.o
  .text.HAL_enableDebugInt
-                0x0000000000602d8e        0x8 ./src_board/hal.o
-                0x0000000000602d8e                HAL_enableDebugInt
+                0x0000000000602ee8        0x8 ./src_board/hal.o
+                0x0000000000602ee8                HAL_enableDebugInt
  .text.HAL_enableGlobalInts
-                0x0000000000602d96        0xe ./src_board/hal.o
-                0x0000000000602d96                HAL_enableGlobalInts
+                0x0000000000602ef0        0xe ./src_board/hal.o
+                0x0000000000602ef0                HAL_enableGlobalInts
  .text.Interrupt_enableGlobal
-                0x0000000000602da4       0x14 ./src_board/hal.o
+                0x0000000000602efe       0x14 ./src_board/hal.o
  .text.HAL_init
-                0x0000000000602db8       0x7c ./src_board/hal.o
-                0x0000000000602db8                HAL_init
+                0x0000000000602f12       0x7c ./src_board/hal.o
+                0x0000000000602f12                HAL_init
  .text.HAL_MTR1_init
-                0x0000000000602e34       0x7e ./src_board/hal.o
-                0x0000000000602e34                HAL_MTR1_init
+                0x0000000000602f8e       0x7e ./src_board/hal.o
+                0x0000000000602f8e                HAL_MTR1_init
  .text.HAL_setParams
-                0x0000000000602eb2       0x30 ./src_board/hal.o
-                0x0000000000602eb2                HAL_setParams
+                0x000000000060300c       0x30 ./src_board/hal.o
+                0x000000000060300c                HAL_setParams
  .text.HAL_setupGPIOs
-                0x0000000000602ee2      0x446 ./src_board/hal.o
-                0x0000000000602ee2                HAL_setupGPIOs
+                0x000000000060303c      0x446 ./src_board/hal.o
+                0x000000000060303c                HAL_setupGPIOs
  .text.HAL_setupADCs
-                0x0000000000603328      0x1e4 ./src_board/hal.o
-                0x0000000000603328                HAL_setupADCs
+                0x0000000000603482      0x1e4 ./src_board/hal.o
+                0x0000000000603482                HAL_setupADCs
  .text.HAL_setupTimeBaseTimer
-                0x000000000060350c       0x46 ./src_board/hal.o
-                0x000000000060350c                HAL_setupTimeBaseTimer
+                0x0000000000603666       0x46 ./src_board/hal.o
+                0x0000000000603666                HAL_setupTimeBaseTimer
  .text.HAL_setupCPUUsageTimer
-                0x0000000000603552       0x36 ./src_board/hal.o
-                0x0000000000603552                HAL_setupCPUUsageTimer
+                0x00000000006036ac       0x36 ./src_board/hal.o
+                0x00000000006036ac                HAL_setupCPUUsageTimer
  .text.HAL_setupSCIA
-                0x0000000000603588       0x7a ./src_board/hal.o
-                0x0000000000603588                HAL_setupSCIA
+                0x00000000006036e2       0x7a ./src_board/hal.o
+                0x00000000006036e2                HAL_setupSCIA
  .text.HAL_setupDMA
-                0x0000000000603602       0x14 ./src_board/hal.o
-                0x0000000000603602                HAL_setupDMA
+                0x000000000060375c       0x14 ./src_board/hal.o
+                0x000000000060375c                HAL_setupDMA
  .text.HAL_MTR_setParams
-                0x0000000000603616       0x34 ./src_board/hal.o
-                0x0000000000603616                HAL_MTR_setParams
+                0x0000000000603770       0x34 ./src_board/hal.o
+                0x0000000000603770                HAL_MTR_setParams
  .text.HAL_setNumCurrentSensors
-                0x000000000060364a       0x12 ./src_board/hal.o
+                0x00000000006037a4       0x12 ./src_board/hal.o
  .text.HAL_setNumVoltageSensors
-                0x000000000060365c       0x12 ./src_board/hal.o
+                0x00000000006037b6       0x12 ./src_board/hal.o
  .text.HAL_setupPWMs
-                0x000000000060366e      0x370 ./src_board/hal.o
-                0x000000000060366e                HAL_setupPWMs
+                0x00000000006037c8      0x370 ./src_board/hal.o
+                0x00000000006037c8                HAL_setupPWMs
  .text.HAL_setupCMPSSs
-                0x00000000006039de      0x190 ./src_board/hal.o
-                0x00000000006039de                HAL_setupCMPSSs
+                0x0000000000603b38      0x190 ./src_board/hal.o
+                0x0000000000603b38                HAL_setupCMPSSs
  .text.HAL_setupQEP
-                0x0000000000603b6e       0xcc ./src_board/hal.o
-                0x0000000000603b6e                HAL_setupQEP
+                0x0000000000603cc8       0xcc ./src_board/hal.o
+                0x0000000000603cc8                HAL_setupQEP
  .text.HAL_setupSPI
-                0x0000000000603c3a       0x68 ./src_board/hal.o
-                0x0000000000603c3a                HAL_setupSPI
+                0x0000000000603d94       0x68 ./src_board/hal.o
+                0x0000000000603d94                HAL_setupSPI
  .text.HAL_setupGate
-                0x0000000000603ca2       0x2c ./src_board/hal.o
-                0x0000000000603ca2                HAL_setupGate
+                0x0000000000603dfc       0x2c ./src_board/hal.o
+                0x0000000000603dfc                HAL_setupGate
  .text.EQEP_disableInterrupt
-                0x0000000000603cce       0x36 ./src_board/hal.o
+                0x0000000000603e28       0x36 ./src_board/hal.o
  .text.EQEP_clearInterruptStatus
-                0x0000000000603d04       0x2e ./src_board/hal.o
+                0x0000000000603e5e       0x2e ./src_board/hal.o
  .text.EQEP_selectSource
-                0x0000000000603d32       0x44 ./src_board/hal.o
+                0x0000000000603e8c       0x44 ./src_board/hal.o
  .text.EQEP_setStrobeSource
-                0x0000000000603d76       0x34 ./src_board/hal.o
+                0x0000000000603ed0       0x34 ./src_board/hal.o
  .text.EQEP_setDecoderConfig
-                0x0000000000603daa       0x3c ./src_board/hal.o
+                0x0000000000603f04       0x3c ./src_board/hal.o
  .text.EQEP_setEmulationMode
-                0x0000000000603de6       0x3c ./src_board/hal.o
+                0x0000000000603f40       0x3c ./src_board/hal.o
  .text.EQEP_setPositionCounterConfig
-                0x0000000000603e22       0x40 ./src_board/hal.o
+                0x0000000000603f7c       0x40 ./src_board/hal.o
  .text.EQEP_setPosition
-                0x0000000000603e62       0x2a ./src_board/hal.o
+                0x0000000000603fbc       0x2a ./src_board/hal.o
  .text.EQEP_loadUnitTimer
-                0x0000000000603e8c       0x2a ./src_board/hal.o
+                0x0000000000603fe6       0x2a ./src_board/hal.o
  .text.EQEP_disableUnitTimer
-                0x0000000000603eb6       0x2a ./src_board/hal.o
+                0x0000000000604010       0x2a ./src_board/hal.o
  .text.EQEP_disableWatchdog
-                0x0000000000603ee0       0x2a ./src_board/hal.o
+                0x000000000060403a       0x2a ./src_board/hal.o
  .text.EQEP_setLatchMode
-                0x0000000000603f0a       0x34 ./src_board/hal.o
+                0x0000000000604064       0x34 ./src_board/hal.o
  .text.EQEP_setQMAModuleMode
-                0x0000000000603f3e       0x34 ./src_board/hal.o
+                0x0000000000604098       0x34 ./src_board/hal.o
  .text.EQEP_disableDirectionChangeDuringIndex
-                0x0000000000603f72       0x2a ./src_board/hal.o
+                0x00000000006040cc       0x2a ./src_board/hal.o
  .text.EQEP_setPositionInitMode
-                0x0000000000603f9c       0x3c ./src_board/hal.o
+                0x00000000006040f6       0x3c ./src_board/hal.o
  .text.EQEP_setSWPositionInit
-                0x0000000000603fd8       0x42 ./src_board/hal.o
+                0x0000000000604132       0x42 ./src_board/hal.o
  .text.EQEP_setInitialPosition
-                0x000000000060401a       0x2a ./src_board/hal.o
+                0x0000000000604174       0x2a ./src_board/hal.o
  .text.EQEP_enableModule
-                0x0000000000604044       0x2c ./src_board/hal.o
+                0x000000000060419e       0x2c ./src_board/hal.o
  .text.ASysCtl_disableTemperatureSensor
-                0x0000000000604070       0x18 ./src_board/hal.o
+                0x00000000006041ca       0x18 ./src_board/hal.o
  .text.ADC_setPrescaler
-                0x0000000000604088       0x3a ./src_board/hal.o
+                0x00000000006041e2       0x3a ./src_board/hal.o
  .text.ADC_setInterruptPulseMode
-                0x00000000006040c2       0x3a ./src_board/hal.o
+                0x000000000060421c       0x3a ./src_board/hal.o
  .text.ADC_setSOCPriority
-                0x00000000006040fc       0x3a ./src_board/hal.o
+                0x0000000000604256       0x3a ./src_board/hal.o
  .text.ADC_enableConverter
-                0x0000000000604136       0x34 ./src_board/hal.o
+                0x0000000000604290       0x34 ./src_board/hal.o
  .text.ADC_setInterruptSource
-                0x000000000060416a       0x62 ./src_board/hal.o
+                0x00000000006042c4       0x62 ./src_board/hal.o
  .text.ADC_setupSOC
-                0x00000000006041cc       0x74 ./src_board/hal.o
+                0x0000000000604326       0x74 ./src_board/hal.o
  .text.ASysCtl_selectCMPHPMux
-                0x0000000000604240       0x4a ./src_board/hal.o
+                0x000000000060439a       0x4a ./src_board/hal.o
  .text.ASysCtl_selectCMPLPMux
-                0x000000000060428a       0x4a ./src_board/hal.o
+                0x00000000006043e4       0x4a ./src_board/hal.o
  .text.CMPSS_enableModule
-                0x00000000006042d4       0x3e ./src_board/hal.o
+                0x000000000060442e       0x3e ./src_board/hal.o
  .text.CMPSS_configHighComparator
-                0x0000000000604312       0x3c ./src_board/hal.o
+                0x000000000060446c       0x3c ./src_board/hal.o
  .text.CMPSS_configLowComparator
-                0x000000000060434e       0x44 ./src_board/hal.o
+                0x00000000006044a8       0x44 ./src_board/hal.o
  .text.CMPSS_configOutputsHigh
-                0x0000000000604392       0x3c ./src_board/hal.o
+                0x00000000006044ec       0x3c ./src_board/hal.o
  .text.CMPSS_configOutputsLow
-                0x00000000006043ce       0x44 ./src_board/hal.o
+                0x0000000000604528       0x44 ./src_board/hal.o
  .text.CMPSS_initFilterHigh
-                0x0000000000604412       0x34 ./src_board/hal.o
+                0x000000000060456c       0x34 ./src_board/hal.o
  .text.CMPSS_initFilterLow
-                0x0000000000604446       0x34 ./src_board/hal.o
+                0x00000000006045a0       0x34 ./src_board/hal.o
  .text.CMPSS_setHysteresis
-                0x000000000060447a       0x56 ./src_board/hal.o
+                0x00000000006045d4       0x56 ./src_board/hal.o
  .text.CMPSS_configDAC
-                0x00000000006044d0       0x3c ./src_board/hal.o
+                0x000000000060462a       0x3c ./src_board/hal.o
  .text.CMPSS_setDACValueHigh
-                0x000000000060450c       0x40 ./src_board/hal.o
+                0x0000000000604666       0x40 ./src_board/hal.o
  .text.CMPSS_setDACValueLow
-                0x000000000060454c       0x40 ./src_board/hal.o
+                0x00000000006046a6       0x40 ./src_board/hal.o
  .text.CMPSS_clearFilterLatchHigh
-                0x000000000060458c       0x34 ./src_board/hal.o
+                0x00000000006046e6       0x34 ./src_board/hal.o
  .text.CMPSS_clearFilterLatchLow
-                0x00000000006045c0       0x34 ./src_board/hal.o
+                0x000000000060471a       0x34 ./src_board/hal.o
  .text.HAL_enableDRV
-                0x00000000006045f4       0x14 ./src_board/hal.o
-                0x00000000006045f4                HAL_enableDRV
+                0x000000000060474e       0x14 ./src_board/hal.o
+                0x000000000060474e                HAL_enableDRV
  .text.HAL_writeDRVData
-                0x0000000000604608       0x16 ./src_board/hal.o
-                0x0000000000604608                HAL_writeDRVData
+                0x0000000000604762       0x16 ./src_board/hal.o
+                0x0000000000604762                HAL_writeDRVData
  .text.HAL_setupDRVSPI
-                0x000000000060461e       0x16 ./src_board/hal.o
-                0x000000000060461e                HAL_setupDRVSPI
+                0x0000000000604778       0x16 ./src_board/hal.o
+                0x0000000000604778                HAL_setupDRVSPI
  .text.SPI_disableModule
-                0x0000000000604634       0x2c ./src_board/hal.o
+                0x000000000060478e       0x2c ./src_board/hal.o
  .text.SPI_disableLoopback
-                0x0000000000604660       0x2a ./src_board/hal.o
+                0x00000000006047ba       0x2a ./src_board/hal.o
  .text.SPI_setEmulationMode
-                0x000000000060468a       0x36 ./src_board/hal.o
+                0x00000000006047e4       0x36 ./src_board/hal.o
  .text.SPI_enableFIFO
-                0x00000000006046c0       0x36 ./src_board/hal.o
+                0x000000000060481a       0x36 ./src_board/hal.o
  .text.SPI_setTxFifoTransmitDelay
-                0x00000000006046f6       0x4a ./src_board/hal.o
+                0x0000000000604850       0x4a ./src_board/hal.o
  .text.SPI_enableModule
-                0x0000000000604740       0x2c ./src_board/hal.o
+                0x000000000060489a       0x2c ./src_board/hal.o
  .text.GPIO_writePin
-                0x000000000060476c       0x52 ./src_board/hal.o
+                0x00000000006048c6       0x52 ./src_board/hal.o
  .text.GPIO_setInterruptType
-                0x00000000006047be       0x24 ./src_board/hal.o
+                0x0000000000604918       0x24 ./src_board/hal.o
  .text.GPIO_enableInterrupt
-                0x00000000006047e2       0x1e ./src_board/hal.o
+                0x000000000060493c       0x1e ./src_board/hal.o
  .text.SysCtl_enablePeripheral
-                0x0000000000604800       0x3e ./src_board/hal.o
+                0x000000000060495a       0x3e ./src_board/hal.o
  .text.SysCtl_disablePeripheral
-                0x000000000060483e       0x42 ./src_board/hal.o
+                0x0000000000604998       0x42 ./src_board/hal.o
  .text.EPWM_forceTripZoneEvent
-                0x0000000000604880       0x58 ./src_board/hal.o
+                0x00000000006049da       0x58 ./src_board/hal.o
  .text.EPWM_setTimeBaseCounterMode
-                0x00000000006048d8       0x32 ./src_board/hal.o
+                0x0000000000604a32       0x32 ./src_board/hal.o
  .text.EPWM_disablePhaseShiftLoad
-                0x000000000060490a       0x2a ./src_board/hal.o
+                0x0000000000604a64       0x2a ./src_board/hal.o
  .text.EPWM_setPeriodLoadMode
-                0x0000000000604934       0x3a ./src_board/hal.o
+                0x0000000000604a8e       0x3a ./src_board/hal.o
  .text.EPWM_enableSyncOutPulseSource
-                0x000000000060496e       0x4a ./src_board/hal.o
+                0x0000000000604ac8       0x4a ./src_board/hal.o
  .text.EPWM_setClockPrescaler
-                0x00000000006049b8       0x44 ./src_board/hal.o
+                0x0000000000604b12       0x44 ./src_board/hal.o
  .text.EPWM_setCountModeAfterSync
-                0x00000000006049fc       0x42 ./src_board/hal.o
+                0x0000000000604b56       0x42 ./src_board/hal.o
  .text.EPWM_setPhaseShift
-                0x0000000000604a3e       0x40 ./src_board/hal.o
+                0x0000000000604b98       0x40 ./src_board/hal.o
  .text.EPWM_setTimeBaseCounter
-                0x0000000000604a7e       0x2a ./src_board/hal.o
+                0x0000000000604bd8       0x2a ./src_board/hal.o
  .text.EPWM_setTimeBasePeriod
-                0x0000000000604aa8       0x2e ./src_board/hal.o
+                0x0000000000604c02       0x2e ./src_board/hal.o
  .text.EPWM_setCounterCompareShadowLoadMode
-                0x0000000000604ad6       0x94 ./src_board/hal.o
+                0x0000000000604c30       0x94 ./src_board/hal.o
  .text.EPWM_setActionQualifierAction
-                0x0000000000604b6a       0x84 ./src_board/hal.o
+                0x0000000000604cc4       0x84 ./src_board/hal.o
  .text.EPWM_setDeadBandDelayMode
-                0x0000000000604bee       0x58 ./src_board/hal.o
+                0x0000000000604d48       0x58 ./src_board/hal.o
  .text.EPWM_setRisingEdgeDeadBandDelayInput
-                0x0000000000604c46       0x54 ./src_board/hal.o
+                0x0000000000604da0       0x54 ./src_board/hal.o
  .text.EPWM_setDeadBandDelayPolarity
-                0x0000000000604c9a       0x50 ./src_board/hal.o
+                0x0000000000604df4       0x50 ./src_board/hal.o
  .text.EPWM_setRisingEdgeDelayCount
-                0x0000000000604cea       0x46 ./src_board/hal.o
+                0x0000000000604e44       0x46 ./src_board/hal.o
  .text.EPWM_setFallingEdgeDelayCount
-                0x0000000000604d30       0x46 ./src_board/hal.o
+                0x0000000000604e8a       0x46 ./src_board/hal.o
  .text.EPWM_disableChopper
-                0x0000000000604d76       0x2c ./src_board/hal.o
+                0x0000000000604ed0       0x2c ./src_board/hal.o
  .text.EPWM_disableTripZoneSignals
-                0x0000000000604da2       0x3e ./src_board/hal.o
+                0x0000000000604efc       0x3e ./src_board/hal.o
  .text.EPWM_setInterruptSource
-                0x0000000000604de0       0xd8 ./src_board/hal.o
+                0x0000000000604f3a       0xd8 ./src_board/hal.o
  .text.EPWM_enableInterrupt
-                0x0000000000604eb8       0x32 ./src_board/hal.o
+                0x0000000000605012       0x32 ./src_board/hal.o
  .text.EPWM_setADCTriggerSource
-                0x0000000000604eea      0x134 ./src_board/hal.o
+                0x0000000000605044      0x134 ./src_board/hal.o
  .text.EPWM_enableADCTrigger
-                0x000000000060501e       0x44 ./src_board/hal.o
+                0x0000000000605178       0x44 ./src_board/hal.o
  .text.EPWM_setInterruptEventCount
-                0x0000000000605062       0x5e ./src_board/hal.o
+                0x00000000006051bc       0x5e ./src_board/hal.o
  .text.EPWM_setADCTriggerEventPrescale
-                0x00000000006050c0       0x82 ./src_board/hal.o
+                0x000000000060521a       0x82 ./src_board/hal.o
  .text.EPWM_clearEventTriggerInterruptFlag
-                0x0000000000605142       0x30 ./src_board/hal.o
+                0x000000000060529c       0x30 ./src_board/hal.o
  .text.EPWM_clearADCTriggerFlag
-                0x0000000000605172       0x3a ./src_board/hal.o
+                0x00000000006052cc       0x3a ./src_board/hal.o
  .text.EPWM_setCounterCompareValue
-                0x00000000006051ac       0x64 ./src_board/hal.o
+                0x0000000000605306       0x64 ./src_board/hal.o
  .text.SCI_clearOverflowStatus
-                0x0000000000605210       0x2a ./src_board/hal.o
+                0x000000000060536a       0x2a ./src_board/hal.o
  .text.SCI_resetTxFIFO
-                0x000000000060523a       0x36 ./src_board/hal.o
+                0x0000000000605394       0x36 ./src_board/hal.o
  .text.SCI_resetRxFIFO
-                0x0000000000605270       0x36 ./src_board/hal.o
+                0x00000000006053ca       0x36 ./src_board/hal.o
  .text.SCI_resetChannels
-                0x00000000006052a6       0x36 ./src_board/hal.o
+                0x0000000000605400       0x36 ./src_board/hal.o
  .text.SCI_disableLoopback
-                0x00000000006052dc       0x28 ./src_board/hal.o
+                0x0000000000605436       0x28 ./src_board/hal.o
  .text.SCI_performSoftwareReset
-                0x0000000000605304       0x34 ./src_board/hal.o
+                0x000000000060545e       0x34 ./src_board/hal.o
  .text.SCI_enableFIFO
-                0x0000000000605338       0x3e ./src_board/hal.o
+                0x0000000000605492       0x3e ./src_board/hal.o
  .text.SCI_setFIFOInterruptLevel
-                0x0000000000605376       0x40 ./src_board/hal.o
+                0x00000000006054d0       0x40 ./src_board/hal.o
  .text.SCI_enableModule
-                0x00000000006053b6       0x2a ./src_board/hal.o
+                0x0000000000605510       0x2a ./src_board/hal.o
  .text.CPUTimer_setPreScaler
-                0x00000000006053e0       0x28 ./src_board/hal.o
+                0x000000000060553a       0x28 ./src_board/hal.o
  .text.CPUTimer_setPeriod
-                0x0000000000605408       0x28 ./src_board/hal.o
+                0x0000000000605562       0x28 ./src_board/hal.o
  .text.CPUTimer_startTimer
-                0x0000000000605430       0x3e ./src_board/hal.o
+                0x000000000060558a       0x3e ./src_board/hal.o
  .text.DMA_initController
-                0x000000000060546e       0x1a ./src_board/hal.o
+                0x00000000006055c8       0x1a ./src_board/hal.o
  .text.DMA_setEmulationMode
-                0x0000000000605488       0x2e ./src_board/hal.o
+                0x00000000006055e2       0x2e ./src_board/hal.o
  .text.HAL_setMtrCMPSSDACValue
-                0x00000000006054b6       0x58 ./src_board/hal.o
-                0x00000000006054b6                HAL_setMtrCMPSSDACValue
+                0x0000000000605610       0x58 ./src_board/hal.o
+                0x0000000000605610                HAL_setMtrCMPSSDACValue
  .text.HAL_setTriggerPrams
-                0x000000000060550e       0x48 ./src_board/hal.o
-                0x000000000060550e                HAL_setTriggerPrams
+                0x0000000000605668       0x48 ./src_board/hal.o
+                0x0000000000605668                HAL_setTriggerPrams
  .text.ADC_isBaseValid
-                0x0000000000605556       0x22 ./src_board/hal.o
+                0x00000000006056b0       0x22 ./src_board/hal.o
  .text.EQEP_isBaseValid
-                0x0000000000605578       0x1e ./src_board/hal.o
+                0x00000000006056d2       0x1e ./src_board/hal.o
  .text.CMPSS_isBaseValid
-                0x0000000000605596       0x38 ./src_board/hal.o
+                0x00000000006056f0       0x38 ./src_board/hal.o
  .text.SPI_isBaseValid
-                0x00000000006055ce       0x1e ./src_board/hal.o
+                0x0000000000605728       0x1e ./src_board/hal.o
  .text.EPWM_isBaseValid
-                0x00000000006055ec       0x5c ./src_board/hal.o
+                0x0000000000605746       0x5c ./src_board/hal.o
  .text.GPIO_isPinValid
-                0x0000000000605648       0x2a ./src_board/hal.o
+                0x00000000006057a2       0x2a ./src_board/hal.o
  .text.SCI_isBaseValid
-                0x0000000000605672       0x18 ./src_board/hal.o
+                0x00000000006057cc       0x18 ./src_board/hal.o
  .text.CPUTimer_isBaseValid
-                0x000000000060568a       0x28 ./src_board/hal.o
+                0x00000000006057e4       0x28 ./src_board/hal.o
  .text.USER_setMotor1Params
-                0x00000000006056b2      0x462 ./src_board/user_mtr1.o
-                0x00000000006056b2                USER_setMotor1Params
- .text.main     0x0000000000605b14      0x290 ./src/main.o
-                0x0000000000605b14                main
+                0x000000000060580c      0x462 ./src_board/user_mtr1.o
+                0x000000000060580c                USER_setMotor1Params
+ .text.main     0x0000000000605c6e      0x2bc ./src/main.o
+                0x0000000000605c6e                main
  .text.HAL_initIntVectorTable
-                0x0000000000605da4       0x2a ./src/main.o
+                0x0000000000605f2a       0x2a ./src/main.o
  .text.HAL_getCPUTimerStatus
-                0x0000000000605dce       0x1a ./src/main.o
+                0x0000000000605f54       0x1a ./src/main.o
  .text.HAL_clearCPUTimerFlag
-                0x0000000000605de8       0x1a ./src/main.o
+                0x0000000000605f6e       0x1a ./src/main.o
  .text.calcMotorOverCurrentThreshold
-                0x0000000000605e02       0x54 ./src/main.o
+                0x0000000000605f88       0x54 ./src/main.o
  .text.HAL_disablePWM
-                0x0000000000605e56       0x2a ./src/main.o
+                0x0000000000605fdc       0x2a ./src/main.o
  .text.Interrupt_register
-                0x0000000000605e80       0x3c ./src/main.o
+                0x0000000000606006       0x3c ./src/main.o
  .text.CPUTimer_getTimerOverflowStatus
-                0x0000000000605ebc       0x28 ./src/main.o
+                0x0000000000606042       0x28 ./src/main.o
  .text.CPUTimer_isBaseValid
-                0x0000000000605ee4       0x28 ./src/main.o
+                0x000000000060606a       0x28 ./src/main.o
  .text.CPUTimer_clearOverflowFlag
-                0x0000000000605f0c       0x2c ./src/main.o
+                0x0000000000606092       0x2c ./src/main.o
  .text.GPIO_togglePin
-                0x0000000000605f38       0x40 ./src/main.o
+                0x00000000006060be       0x40 ./src/main.o
  .text.GPIO_isPinValid
-                0x0000000000605f78       0x2a ./src/main.o
+                0x00000000006060fe       0x2a ./src/main.o
  .text.EPWM_forceTripZoneEvent
-                0x0000000000605fa2       0x56 ./src/main.o
+                0x0000000000606128       0x56 ./src/main.o
  .text.EPWM_isBaseValid
-                0x0000000000605ff8       0x5c ./src/main.o
+                0x000000000060617e       0x5c ./src/main.o
  .text.handle_trap
-                0x0000000000606054        0xe ./haawking-drivers/haawking-dsc280025_edc-board/common/syscalls.o
-                0x0000000000606054                handle_trap
+                0x00000000006061da        0xe ./haawking-drivers/haawking-dsc280025_edc-board/common/syscalls.o
+                0x00000000006061da                handle_trap
  .text._clean_bss
-                0x0000000000606062       0x2c ./haawking-drivers/haawking-dsc280025_edc-board/common/syscalls.o
-                0x0000000000606062                _clean_bss
+                0x00000000006061e8       0x2c ./haawking-drivers/haawking-dsc280025_edc-board/common/syscalls.o
+                0x00000000006061e8                _clean_bss
  .text._init_data_LS4567
-                0x000000000060608e       0x44 ./haawking-drivers/haawking-dsc280025_edc-board/common/syscalls.o
-                0x000000000060608e                _init_data_LS4567
+                0x0000000000606214       0x44 ./haawking-drivers/haawking-dsc280025_edc-board/common/syscalls.o
+                0x0000000000606214                _init_data_LS4567
  .text._init_data_gs0
-                0x00000000006060d2       0x44 ./haawking-drivers/haawking-dsc280025_edc-board/common/syscalls.o
-                0x00000000006060d2                _init_data_gs0
- .text._init    0x0000000000606116       0x1a ./haawking-drivers/haawking-dsc280025_edc-board/common/syscalls.o
-                0x0000000000606116                _init
+                0x0000000000606258       0x44 ./haawking-drivers/haawking-dsc280025_edc-board/common/syscalls.o
+                0x0000000000606258                _init_data_gs0
+ .text._init    0x000000000060629c       0x1a ./haawking-drivers/haawking-dsc280025_edc-board/common/syscalls.o
+                0x000000000060629c                _init
  .text.SysCtl_disableWatchdog
-                0x0000000000606130       0x1e ./haawking-drivers/haawking-dsc280025_edc-board/common/syscalls.o
+                0x00000000006062b6       0x1e ./haawking-drivers/haawking-dsc280025_edc-board/common/syscalls.o
  .text.SysCtl_enableWatchdog
-                0x000000000060614e       0x22 ./haawking-drivers/haawking-dsc280025_edc-board/common/syscalls.o
+                0x00000000006062d4       0x22 ./haawking-drivers/haawking-dsc280025_edc-board/common/syscalls.o
  .text.CMPSS_configFilterHigh
-                0x0000000000606170       0xac ./haawking-drivers/haawking-dsc280025_edc-board/cmpss.o
-                0x0000000000606170                CMPSS_configFilterHigh
+                0x00000000006062f6       0xac ./haawking-drivers/haawking-dsc280025_edc-board/cmpss.o
+                0x00000000006062f6                CMPSS_configFilterHigh
  .text.CMPSS_isBaseValid
-                0x000000000060621c       0x38 ./haawking-drivers/haawking-dsc280025_edc-board/cmpss.o
+                0x00000000006063a2       0x38 ./haawking-drivers/haawking-dsc280025_edc-board/cmpss.o
  .text.CMPSS_configFilterLow
-                0x0000000000606254       0xb0 ./haawking-drivers/haawking-dsc280025_edc-board/cmpss.o
-                0x0000000000606254                CMPSS_configFilterLow
+                0x00000000006063da       0xb0 ./haawking-drivers/haawking-dsc280025_edc-board/cmpss.o
+                0x00000000006063da                CMPSS_configFilterLow
  .text.CPUTimer_setEmulationMode
-                0x0000000000606304       0x34 ./haawking-drivers/haawking-dsc280025_edc-board/cputimer.o
-                0x0000000000606304                CPUTimer_setEmulationMode
+                0x000000000060648a       0x34 ./haawking-drivers/haawking-dsc280025_edc-board/cputimer.o
+                0x000000000060648a                CPUTimer_setEmulationMode
  .text.CPUTimer_isBaseValid
-                0x0000000000606338       0x28 ./haawking-drivers/haawking-dsc280025_edc-board/cputimer.o
+                0x00000000006064be       0x28 ./haawking-drivers/haawking-dsc280025_edc-board/cputimer.o
  .text.EPWM_setEmulationMode
-                0x0000000000606360       0x36 ./haawking-drivers/haawking-dsc280025_edc-board/epwm.o
-                0x0000000000606360                EPWM_setEmulationMode
+                0x00000000006064e6       0x36 ./haawking-drivers/haawking-dsc280025_edc-board/epwm.o
+                0x00000000006064e6                EPWM_setEmulationMode
  .text.EPWM_isBaseValid
-                0x0000000000606396       0x5c ./haawking-drivers/haawking-dsc280025_edc-board/epwm.o
+                0x000000000060651c       0x5c ./haawking-drivers/haawking-dsc280025_edc-board/epwm.o
  .text.EQEP_isBaseValid
-                0x00000000006063f2       0x1e ./haawking-drivers/haawking-dsc280025_edc-board/eqep.o
+                0x0000000000606578       0x1e ./haawking-drivers/haawking-dsc280025_edc-board/eqep.o
  .text.EQEP_setInputPolarity
-                0x0000000000606410       0xa2 ./haawking-drivers/haawking-dsc280025_edc-board/eqep.o
-                0x0000000000606410                EQEP_setInputPolarity
+                0x0000000000606596       0xa2 ./haawking-drivers/haawking-dsc280025_edc-board/eqep.o
+                0x0000000000606596                EQEP_setInputPolarity
  .text.Flash_isCtrlBaseValid
-                0x00000000006064b2       0x14 ./haawking-drivers/haawking-dsc280025_edc-board/flash.o
+                0x0000000000606638       0x14 ./haawking-drivers/haawking-dsc280025_edc-board/flash.o
  .text.Flash_isECCBaseValid
-                0x00000000006064c6       0x18 ./haawking-drivers/haawking-dsc280025_edc-board/flash.o
+                0x000000000060664c       0x18 ./haawking-drivers/haawking-dsc280025_edc-board/flash.o
  .text.GPIO_setDirectionMode
-                0x00000000006064de       0x64 ./haawking-drivers/haawking-dsc280025_edc-board/gpio.o
-                0x00000000006064de                GPIO_setDirectionMode
+                0x0000000000606664       0x64 ./haawking-drivers/haawking-dsc280025_edc-board/gpio.o
+                0x0000000000606664                GPIO_setDirectionMode
  .text.GPIO_isPinValid
-                0x0000000000606542       0x2a ./haawking-drivers/haawking-dsc280025_edc-board/gpio.o
+                0x00000000006066c8       0x2a ./haawking-drivers/haawking-dsc280025_edc-board/gpio.o
  .text.GPIO_setInterruptPin
-                0x000000000060656c       0x6a ./haawking-drivers/haawking-dsc280025_edc-board/gpio.o
-                0x000000000060656c                GPIO_setInterruptPin
+                0x00000000006066f2       0x6a ./haawking-drivers/haawking-dsc280025_edc-board/gpio.o
+                0x00000000006066f2                GPIO_setInterruptPin
  .text.XBAR_setInputPin
-                0x00000000006065d6       0x74 ./haawking-drivers/haawking-dsc280025_edc-board/gpio.o
+                0x000000000060675c       0x74 ./haawking-drivers/haawking-dsc280025_edc-board/gpio.o
  .text.GPIO_setPadConfig
-                0x000000000060664a       0xaa ./haawking-drivers/haawking-dsc280025_edc-board/gpio.o
-                0x000000000060664a                GPIO_setPadConfig
+                0x00000000006067d0       0xaa ./haawking-drivers/haawking-dsc280025_edc-board/gpio.o
+                0x00000000006067d0                GPIO_setPadConfig
  .text.GPIO_setQualificationMode
-                0x00000000006066f4      0x1a0 ./haawking-drivers/haawking-dsc280025_edc-board/gpio.o
-                0x00000000006066f4                GPIO_setQualificationMode
+                0x000000000060687a      0x1a0 ./haawking-drivers/haawking-dsc280025_edc-board/gpio.o
+                0x000000000060687a                GPIO_setQualificationMode
  .text.GPIO_setPinConfig
-                0x0000000000606894       0x6c ./haawking-drivers/haawking-dsc280025_edc-board/gpio.o
-                0x0000000000606894                GPIO_setPinConfig
+                0x0000000000606a1a       0x6c ./haawking-drivers/haawking-dsc280025_edc-board/gpio.o
+                0x0000000000606a1a                GPIO_setPinConfig
  .text.XBAR_isBaseValid
-                0x0000000000606900       0x3c ./haawking-drivers/haawking-dsc280025_edc-board/gpio.o
+                0x0000000000606a86       0x3c ./haawking-drivers/haawking-dsc280025_edc-board/gpio.o
  .text.Interrupt_initModule
-                0x000000000060693c       0x8a ./haawking-drivers/haawking-dsc280025_edc-board/interrupt.o
-                0x000000000060693c                Interrupt_initModule
+                0x0000000000606ac2       0x8a ./haawking-drivers/haawking-dsc280025_edc-board/interrupt.o
+                0x0000000000606ac2                Interrupt_initModule
  .text.Interrupt_disableGlobal
-                0x00000000006069c6       0x14 ./haawking-drivers/haawking-dsc280025_edc-board/interrupt.o
+                0x0000000000606b4c       0x14 ./haawking-drivers/haawking-dsc280025_edc-board/interrupt.o
  .text.Interrupt_initVectorTable
-                0x00000000006069da       0x4c ./haawking-drivers/haawking-dsc280025_edc-board/interrupt.o
-                0x00000000006069da                Interrupt_initVectorTable
+                0x0000000000606b60       0x4c ./haawking-drivers/haawking-dsc280025_edc-board/interrupt.o
+                0x0000000000606b60                Interrupt_initVectorTable
  .text.Interrupt_defaultHandler
-                0x0000000000606a26        0xe ./haawking-drivers/haawking-dsc280025_edc-board/interrupt.o
+                0x0000000000606bac        0xe ./haawking-drivers/haawking-dsc280025_edc-board/interrupt.o
  .text.Interrupt_nmiHandler
-                0x0000000000606a34        0x6 ./haawking-drivers/haawking-dsc280025_edc-board/interrupt.o
+                0x0000000000606bba        0x6 ./haawking-drivers/haawking-dsc280025_edc-board/interrupt.o
  .text.Interrupt_enable
-                0x0000000000606a3a       0x8c ./haawking-drivers/haawking-dsc280025_edc-board/interrupt.o
-                0x0000000000606a3a                Interrupt_enable
+                0x0000000000606bc0       0x8c ./haawking-drivers/haawking-dsc280025_edc-board/interrupt.o
+                0x0000000000606bc0                Interrupt_enable
  .text.Interrupt_enableGlobal
-                0x0000000000606ac6       0x14 ./haawking-drivers/haawking-dsc280025_edc-board/interrupt.o
+                0x0000000000606c4c       0x14 ./haawking-drivers/haawking-dsc280025_edc-board/interrupt.o
  .text.SCI_setConfig
-                0x0000000000606ada       0x86 ./haawking-drivers/haawking-dsc280025_edc-board/sci.o
-                0x0000000000606ada                SCI_setConfig
+                0x0000000000606c60       0x86 ./haawking-drivers/haawking-dsc280025_edc-board/sci.o
+                0x0000000000606c60                SCI_setConfig
  .text.SCI_isBaseValid
-                0x0000000000606b60       0x18 ./haawking-drivers/haawking-dsc280025_edc-board/sci.o
+                0x0000000000606ce6       0x18 ./haawking-drivers/haawking-dsc280025_edc-board/sci.o
  .text.SCI_disableModule
-                0x0000000000606b78       0x36 ./haawking-drivers/haawking-dsc280025_edc-board/sci.o
+                0x0000000000606cfe       0x36 ./haawking-drivers/haawking-dsc280025_edc-board/sci.o
  .text.SCI_enableModule
-                0x0000000000606bae       0x2c ./haawking-drivers/haawking-dsc280025_edc-board/sci.o
+                0x0000000000606d34       0x2c ./haawking-drivers/haawking-dsc280025_edc-board/sci.o
  .text.SCI_clearInterruptStatus
-                0x0000000000606bda       0x78 ./haawking-drivers/haawking-dsc280025_edc-board/sci.o
-                0x0000000000606bda                SCI_clearInterruptStatus
+                0x0000000000606d60       0x78 ./haawking-drivers/haawking-dsc280025_edc-board/sci.o
+                0x0000000000606d60                SCI_clearInterruptStatus
  .text.SCI_performSoftwareReset
-                0x0000000000606c52       0x36 ./haawking-drivers/haawking-dsc280025_edc-board/sci.o
+                0x0000000000606dd8       0x36 ./haawking-drivers/haawking-dsc280025_edc-board/sci.o
  .text.SPI_setConfig
-                0x0000000000606c88       0xe4 ./haawking-drivers/haawking-dsc280025_edc-board/spi.o
-                0x0000000000606c88                SPI_setConfig
+                0x0000000000606e0e       0xe4 ./haawking-drivers/haawking-dsc280025_edc-board/spi.o
+                0x0000000000606e0e                SPI_setConfig
  .text.SPI_isBaseValid
-                0x0000000000606d6c       0x1e ./haawking-drivers/haawking-dsc280025_edc-board/spi.o
+                0x0000000000606ef2       0x1e ./haawking-drivers/haawking-dsc280025_edc-board/spi.o
  .text.SPI_clearInterruptStatus
-                0x0000000000606d8a       0x88 ./haawking-drivers/haawking-dsc280025_edc-board/spi.o
-                0x0000000000606d8a                SPI_clearInterruptStatus
+                0x0000000000606f10       0x88 ./haawking-drivers/haawking-dsc280025_edc-board/spi.o
+                0x0000000000606f10                SPI_clearInterruptStatus
  .text.SysCtl_getClock
-                0x0000000000606e12       0x9c ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
-                0x0000000000606e12                SysCtl_getClock
+                0x0000000000606f98       0x9c ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
+                0x0000000000606f98                SysCtl_getClock
  .text.SysCtl_isMCDClockFailureDetected
-                0x0000000000606eae        0xe ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
+                0x0000000000607034        0xe ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
  .text.SysCtl_setClock
-                0x0000000000606ebc      0x298 ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
-                0x0000000000606ebc                SysCtl_setClock
+                0x0000000000607042      0x298 ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
+                0x0000000000607042                SysCtl_setClock
  .text.SysCtl_selectOscSource
-                0x0000000000607154       0x8c ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
-                0x0000000000607154                SysCtl_selectOscSource
+                0x00000000006072da       0x8c ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
+                0x00000000006072da                SysCtl_selectOscSource
  .text.SysCtl_setPLLSysClk
-                0x00000000006071e0       0x20 ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
+                0x0000000000607366       0x20 ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
  .text.SysCtl_isPLLValid
-                0x0000000000607200      0x204 ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
-                0x0000000000607200                SysCtl_isPLLValid
+                0x0000000000607386      0x204 ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
+                0x0000000000607386                SysCtl_isPLLValid
  .text.SysCtl_selectXTAL
-                0x0000000000607404       0x64 ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
-                0x0000000000607404                SysCtl_selectXTAL
+                0x000000000060758a       0x64 ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
+                0x000000000060758a                SysCtl_selectXTAL
  .text.SysCtl_pollX1Counter
-                0x0000000000607468       0x54 ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
+                0x00000000006075ee       0x54 ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
  .text.SysCtl_resetMCD
-                0x00000000006074bc       0x1a ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
+                0x0000000000607642       0x1a ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
  .text.SysCtl_selectXTALSingleEnded
-                0x00000000006074d6       0x4c ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
-                0x00000000006074d6                SysCtl_selectXTALSingleEnded
+                0x000000000060765c       0x4c ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
+                0x000000000060765c                SysCtl_selectXTALSingleEnded
  .text.SysCtl_getLowSpeedClock
-                0x0000000000607522       0x2c ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
-                0x0000000000607522                SysCtl_getLowSpeedClock
+                0x00000000006076a8       0x2c ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
+                0x00000000006076a8                SysCtl_getLowSpeedClock
  .text.SysCtl_enablePeripheral
-                0x000000000060754e       0x3e ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
+                0x00000000006076d4       0x3e ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
  .text.DCC_clearErrorFlag
-                0x000000000060758c       0x30 ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
+                0x0000000000607712       0x30 ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
  .text.DCC_clearDoneFlag
-                0x00000000006075bc       0x30 ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
+                0x0000000000607742       0x30 ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
  .text.DCC_disableModule
-                0x00000000006075ec       0x34 ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
+                0x0000000000607772       0x34 ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
  .text.DCC_disableErrorSignal
-                0x0000000000607620       0x36 ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
+                0x00000000006077a6       0x36 ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
  .text.DCC_disableDoneSignal
-                0x0000000000607656       0x38 ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
+                0x00000000006077dc       0x38 ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
  .text.DCC_setCounter0ClkSource
-                0x000000000060768e       0x3e ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
+                0x0000000000607814       0x3e ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
  .text.DCC_setCounter1ClkSource
-                0x00000000006076cc       0x3e ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
+                0x0000000000607852       0x3e ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
  .text.DCC_setCounterSeeds
-                0x000000000060770a       0xc4 ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
+                0x0000000000607890       0xc4 ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
  .text.DCC_enableSingleShotMode
-                0x00000000006077ce       0x60 ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
+                0x0000000000607954       0x60 ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
  .text.DCC_enableModule
-                0x000000000060782e       0x34 ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
+                0x00000000006079b4       0x34 ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
  .text.DCC_isBaseValid
-                0x0000000000607862       0x20 ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
+                0x00000000006079e8       0x20 ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
  .text.Device_init
-                0x0000000000607882       0x7e ./device/device.o
-                0x0000000000607882                Device_init
+                0x0000000000607a08       0x7e ./device/device.o
+                0x0000000000607a08                Device_init
  .text.SysCtl_disableWatchdog
-                0x0000000000607900       0x1e ./device/device.o
+                0x0000000000607a86       0x1e ./device/device.o
  .text.SysCtl_deviceCal
-                0x000000000060791e       0x1e ./device/device.o
+                0x0000000000607aa4       0x1e ./device/device.o
  .text.SysCtl_setLowSpeedClock
-                0x000000000060793c       0x1e ./device/device.o
+                0x0000000000607ac2       0x1e ./device/device.o
  .text.__error__
-                0x000000000060795a        0xc ./device/device.o
-                0x000000000060795a                __error__
+                0x0000000000607ae0        0xc ./device/device.o
+                0x0000000000607ae0                __error__
  .text.Device_enableAllPeripherals
-                0x0000000000607966      0x100 ./device/device.o
-                0x0000000000607966                Device_enableAllPeripherals
+                0x0000000000607aec      0x100 ./device/device.o
+                0x0000000000607aec                Device_enableAllPeripherals
  .text.ASysCtl_lockVREG
-                0x0000000000607a66       0x1a ./device/device.o
+                0x0000000000607bec       0x1a ./device/device.o
  .text.SysCtl_enablePeripheral
-                0x0000000000607a80       0x3e ./device/device.o
+                0x0000000000607c06       0x3e ./device/device.o
  .text.Device_initGPIO
-                0x0000000000607abe       0x1c ./device/device.o
-                0x0000000000607abe                Device_initGPIO
+                0x0000000000607c44       0x1c ./device/device.o
+                0x0000000000607c44                Device_initGPIO
  .text.GPIO_unlockPortConfig
-                0x0000000000607ada       0x2e ./device/device.o
+                0x0000000000607c60       0x2e ./device/device.o
  .text.EST_setParams
-                0x0000000000607b08       0x14 ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
-                0x0000000000607b08                EST_setParams
+                0x0000000000607c8e       0x14 ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
+                0x0000000000607c8e                EST_setParams
  .text.EST_computeTorque_Nm
-                0x0000000000607b1c       0x16 ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
-                0x0000000000607b1c                EST_computeTorque_Nm
+                0x0000000000607ca2       0x16 ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
+                0x0000000000607ca2                EST_computeTorque_Nm
  .text.EST_disable
-                0x0000000000607b32       0x16 ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
-                0x0000000000607b32                EST_disable
+                0x0000000000607cb8       0x16 ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
+                0x0000000000607cb8                EST_disable
  .text.EST_disableTraj
-                0x0000000000607b48       0x16 ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
-                0x0000000000607b48                EST_disableTraj
+                0x0000000000607cce       0x16 ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
+                0x0000000000607cce                EST_disableTraj
  .text.EST_getFlag_enableRsOnLine
-                0x0000000000607b5e       0x16 ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
-                0x0000000000607b5e                EST_getFlag_enableRsOnLine
+                0x0000000000607ce4       0x16 ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
+                0x0000000000607ce4                EST_getFlag_enableRsOnLine
  .text.EST_getFlux_Wb
-                0x0000000000607b74       0x16 ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
-                0x0000000000607b74                EST_getFlux_Wb
+                0x0000000000607cfa       0x16 ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
+                0x0000000000607cfa                EST_getFlux_Wb
  .text.EST_getIdRated_A
-                0x0000000000607b8a       0x16 ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
-                0x0000000000607b8a                EST_getIdRated_A
+                0x0000000000607d10       0x16 ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
+                0x0000000000607d10                EST_getIdRated_A
  .text.EST_getLs_d_H
-                0x0000000000607ba0       0x16 ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
-                0x0000000000607ba0                EST_getLs_d_H
+                0x0000000000607d26       0x16 ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
+                0x0000000000607d26                EST_getLs_d_H
  .text.EST_getLs_q_H
-                0x0000000000607bb6       0x16 ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
-                0x0000000000607bb6                EST_getLs_q_H
+                0x0000000000607d3c       0x16 ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
+                0x0000000000607d3c                EST_getLs_q_H
  .text.EST_getRoverL_rps
-                0x0000000000607bcc       0x16 ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
-                0x0000000000607bcc                EST_getRoverL_rps
+                0x0000000000607d52       0x16 ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
+                0x0000000000607d52                EST_getRoverL_rps
  .text.EST_getRr_Ohm
-                0x0000000000607be2       0x16 ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
-                0x0000000000607be2                EST_getRr_Ohm
+                0x0000000000607d68       0x16 ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
+                0x0000000000607d68                EST_getRr_Ohm
  .text.EST_getRs_Ohm
-                0x0000000000607bf8       0x16 ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
-                0x0000000000607bf8                EST_getRs_Ohm
+                0x0000000000607d7e       0x16 ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
+                0x0000000000607d7e                EST_getRs_Ohm
  .text.EST_getRsOnLine_Ohm
-                0x0000000000607c0e       0x16 ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
-                0x0000000000607c0e                EST_getRsOnLine_Ohm
+                0x0000000000607d94       0x16 ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
+                0x0000000000607d94                EST_getRsOnLine_Ohm
  .text.EST_getState
-                0x0000000000607c24       0x16 ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
-                0x0000000000607c24                EST_getState
+                0x0000000000607daa       0x16 ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
+                0x0000000000607daa                EST_getState
  .text.EST_getTrajState
-                0x0000000000607c3a       0x16 ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
-                0x0000000000607c3a                EST_getTrajState
+                0x0000000000607dc0       0x16 ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
+                0x0000000000607dc0                EST_getTrajState
  .text.EST_setFlag_bypassLockRotor
-                0x0000000000607c50       0x1a ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
-                0x0000000000607c50                EST_setFlag_bypassLockRotor
+                0x0000000000607dd6       0x1a ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
+                0x0000000000607dd6                EST_setFlag_bypassLockRotor
  .text.EST_setFlag_enableForceAngle
-                0x0000000000607c6a       0x1a ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
-                0x0000000000607c6a                EST_setFlag_enableForceAngle
+                0x0000000000607df0       0x1a ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
+                0x0000000000607df0                EST_setFlag_enableForceAngle
  .text.EST_setFlag_enablePowerWarp
-                0x0000000000607c84       0x1a ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
-                0x0000000000607c84                EST_setFlag_enablePowerWarp
+                0x0000000000607e0a       0x1a ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
+                0x0000000000607e0a                EST_setFlag_enablePowerWarp
  .text.EST_setFlag_enableRsOnLine
-                0x0000000000607c9e       0x1a ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
-                0x0000000000607c9e                EST_setFlag_enableRsOnLine
+                0x0000000000607e24       0x1a ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
+                0x0000000000607e24                EST_setFlag_enableRsOnLine
  .text.EST_setFlag_enableRsRecalc
-                0x0000000000607cb8       0x1a ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
-                0x0000000000607cb8                EST_setFlag_enableRsRecalc
+                0x0000000000607e3e       0x1a ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
+                0x0000000000607e3e                EST_setFlag_enableRsRecalc
  .text.EST_setFlag_updateRs
-                0x0000000000607cd2       0x1a ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
-                0x0000000000607cd2                EST_setFlag_updateRs
+                0x0000000000607e58       0x1a ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
+                0x0000000000607e58                EST_setFlag_updateRs
  .text.EST_setRsOnLine_Ohm
-                0x0000000000607cec       0x18 ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
-                0x0000000000607cec                EST_setRsOnLine_Ohm
+                0x0000000000607e72       0x18 ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
+                0x0000000000607e72                EST_setRsOnLine_Ohm
  .text.EST_setRsOnLineId_A
-                0x0000000000607d04       0x18 ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
-                0x0000000000607d04                EST_setRsOnLineId_A
+                0x0000000000607e8a       0x18 ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
+                0x0000000000607e8a                EST_setRsOnLineId_A
  .text.EST_setRsOnLineId_mag_A
-                0x0000000000607d1c       0x18 ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
-                0x0000000000607d1c                EST_setRsOnLineId_mag_A
+                0x0000000000607ea2       0x18 ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
+                0x0000000000607ea2                EST_setRsOnLineId_mag_A
  .text.EST_updateId_ref_A
-                0x0000000000607d34       0x18 ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
-                0x0000000000607d34                EST_updateId_ref_A
+                0x0000000000607eba       0x18 ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
+                0x0000000000607eba                EST_updateId_ref_A
  .text.EST_setOneOverFluxGain_sf
-                0x0000000000607d4c       0x1a ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
-                0x0000000000607d4c                EST_setOneOverFluxGain_sf
+                0x0000000000607ed2       0x1a ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
+                0x0000000000607ed2                EST_setOneOverFluxGain_sf
  .text.EST_setFreqLFP_sf
-                0x0000000000607d66       0x1a ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
-                0x0000000000607d66                EST_setFreqLFP_sf
+                0x0000000000607eec       0x1a ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
+                0x0000000000607eec                EST_setFreqLFP_sf
  .text.EST_setBemf_sf
-                0x0000000000607d80       0x1a ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
-                0x0000000000607d80                EST_setBemf_sf
+                0x0000000000607f06       0x1a ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
+                0x0000000000607f06                EST_setBemf_sf
  .text.USER_setParams_priv
-                0x0000000000607d9a       0x16 ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
-                0x0000000000607d9a                USER_setParams_priv
- .text.sqrtf    0x0000000000607db0        0x6 D:/Haawking-IDE_V2.3.3Pre/haawking-tools/segger_lib\libhaawking-segger_imfc.a(floatops.o)
-                0x0000000000607db0                sqrtf
+                0x0000000000607f20       0x16 ../lib\libHXFASTLib_HX280025_libV2.0.a(estlib.o)
+                0x0000000000607f20                USER_setParams_priv
+ .text.sqrtf    0x0000000000607f36        0x6 D:/Haawking-IDE_V2.3.3Pre/haawking-tools/segger_lib\libhaawking-segger_imfc.a(floatops.o)
+                0x0000000000607f36                sqrtf
  *(.rodata .rodata.*)
- *fill*         0x0000000000607db6        0x2 
+ *fill*         0x0000000000607f3c        0x0 
  .rodata.motor1CtrlISR
-                0x0000000000607db8       0x30 ./src_control/motor1_drive.o
+                0x0000000000607f3c       0x30 ./src_control/motor1_drive.o
  .rodata.str1.1
-                0x0000000000607de8      0x11b ./src_control/motor1_drive.o
+                0x0000000000607f6c      0x11b ./src_control/motor1_drive.o
  .rodata.str1.1
-                0x0000000000607f03       0x38 ./src_control/motor_common.o
+                0x0000000000608087       0x38 ./src_control/motor_common.o
                                          0x70 (size before relaxing)
  .rodata.str1.1
-                0x0000000000607f3b       0x6f ./src_board/drv8323s.o
+                0x00000000006080bf       0x6f ./src_board/drv8323s.o
  .rodata.str1.1
-                0x0000000000607faa       0x73 ./src_board/hal.o
+                0x000000000060812e       0x73 ./src_board/hal.o
                                         0x235 (size before relaxing)
  .rodata.str1.1
-                0x000000000060801d       0xac ./src/main.o
+                0x00000000006081a1       0xac ./src/main.o
  .rodata.str1.1
-                0x000000000060801d       0x39 ./haawking-drivers/haawking-dsc280025_edc-board/cmpss.o
+                0x00000000006081a1       0x39 ./haawking-drivers/haawking-dsc280025_edc-board/cmpss.o
  .rodata.str1.1
-                0x0000000000608056       0x3c ./haawking-drivers/haawking-dsc280025_edc-board/cputimer.o
+                0x00000000006081da       0x3c ./haawking-drivers/haawking-dsc280025_edc-board/cputimer.o
  .rodata.str1.1
-                0x0000000000608092       0x38 ./haawking-drivers/haawking-dsc280025_edc-board/epwm.o
+                0x0000000000608216       0x38 ./haawking-drivers/haawking-dsc280025_edc-board/epwm.o
                                          0x70 (size before relaxing)
  .rodata.str1.1
-                0x00000000006080ca       0x38 ./haawking-drivers/haawking-dsc280025_edc-board/eqep.o
+                0x000000000060824e       0x38 ./haawking-drivers/haawking-dsc280025_edc-board/eqep.o
  .rodata.str1.1
-                0x0000000000608102       0x72 ./haawking-drivers/haawking-dsc280025_edc-board/flash.o
+                0x0000000000608286       0x72 ./haawking-drivers/haawking-dsc280025_edc-board/flash.o
  .rodata.GPIO_setInterruptPin
-                0x0000000000608174       0x44 ./haawking-drivers/haawking-dsc280025_edc-board/gpio.o
+                0x00000000006082f8       0x44 ./haawking-drivers/haawking-dsc280025_edc-board/gpio.o
  .rodata.str1.1
-                0x00000000006081b8       0x38 ./haawking-drivers/haawking-dsc280025_edc-board/gpio.o
+                0x000000000060833c       0x38 ./haawking-drivers/haawking-dsc280025_edc-board/gpio.o
                                          0x70 (size before relaxing)
  .rodata.str1.1
-                0x00000000006081f0       0x6e ./haawking-drivers/haawking-dsc280025_edc-board/sci.o
+                0x0000000000608374       0x6e ./haawking-drivers/haawking-dsc280025_edc-board/sci.o
  .rodata.str1.1
-                0x000000000060825e       0x6e ./haawking-drivers/haawking-dsc280025_edc-board/spi.o
+                0x00000000006083e2       0x6e ./haawking-drivers/haawking-dsc280025_edc-board/spi.o
  .rodata.str1.1
-                0x00000000006082cc       0x71 ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
+                0x0000000000608450       0x71 ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
  .rodata.str1.1
-                0x000000000060833d       0x4d ./device/device.o
+                0x00000000006084c1       0x4d ./device/device.o
 
-.rela.dyn       0x000000000060838c        0x0
+.rela.dyn       0x0000000000608510        0x0
  .rela.text.init
-                0x000000000060838c        0x0 ./src_control/motor1_drive.o
+                0x0000000000608510        0x0 ./src_control/motor1_drive.o
  .rela.text._clean_bss
-                0x000000000060838c        0x0 ./src_control/motor1_drive.o
+                0x0000000000608510        0x0 ./src_control/motor1_drive.o
  .rela.text._init_data_LS4567
-                0x000000000060838c        0x0 ./src_control/motor1_drive.o
+                0x0000000000608510        0x0 ./src_control/motor1_drive.o
  .rela.text._init_data_gs0
-                0x000000000060838c        0x0 ./src_control/motor1_drive.o
+                0x0000000000608510        0x0 ./src_control/motor1_drive.o
 
 .FLASH_LS4567_DATA
-                0x0000000000608390        0x0
-                0x0000000000608390                __flash_start = .
+                0x0000000000608510        0x0
+                0x0000000000608510                __flash_start = .
 
 .FLASH_GS0_DATA
-                0x0000000000608390        0x0
-                0x000000000060a428                __gs_flash_start = (__flash_start + (__data_end - __data_start))
+                0x0000000000608510        0x0
+                0x000000000060a5a0                __gs_flash_start = (__flash_start + (__data_end - __data_start))
                 0x00000000007a0000                . = 0x7a0000
 
 .USER_OTP_TABLE
@@ -3449,29 +3452,29 @@ OUTPUT(Sanding_PMSMControl_HX0025EDC_v1.3.elf elf32-littleriscv)
  .debug_abbrev  0x00000000000015e6      0x161 ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
  .debug_abbrev  0x0000000000001747      0x11a ./device/device.o
 
-.debug_info     0x0000000000000000    0x144a4
- .debug_info    0x0000000000000000     0x4311 ./src_control/motor1_drive.o
- .debug_info    0x0000000000004311     0x3435 ./src_control/motor_common.o
- .debug_info    0x0000000000007746     0x1295 ./src_board/drv8323s.o
- .debug_info    0x00000000000089db     0x3f2e ./src_board/hal.o
- .debug_info    0x000000000000c909      0x7c7 ./src_board/user_mtr1.o
- .debug_info    0x000000000000d0d0     0x2a4e ./src/main.o
- .debug_info    0x000000000000fb1e      0x191 ./haawking-drivers/haawking-dsc280025_edc-board/common/crt.o
- .debug_info    0x000000000000fcaf     0x11df ./haawking-drivers/haawking-dsc280025_edc-board/common/syscalls.o
- .debug_info    0x0000000000010e8e      0x173 ./haawking-drivers/haawking-dsc280025_edc-board/SysCtl_delay.o
- .debug_info    0x0000000000011001      0x182 ./haawking-drivers/haawking-dsc280025_edc-board/__disable_interrputs.o
- .debug_info    0x0000000000011183      0x180 ./haawking-drivers/haawking-dsc280025_edc-board/__enable_interrupts.o
- .debug_info    0x0000000000011303      0x1ea ./haawking-drivers/haawking-dsc280025_edc-board/cmpss.o
- .debug_info    0x00000000000114ed       0xe8 ./haawking-drivers/haawking-dsc280025_edc-board/cputimer.o
- .debug_info    0x00000000000115d5      0x617 ./haawking-drivers/haawking-dsc280025_edc-board/epwm.o
- .debug_info    0x0000000000011bec      0x146 ./haawking-drivers/haawking-dsc280025_edc-board/eqep.o
- .debug_info    0x0000000000011d32      0x2af ./haawking-drivers/haawking-dsc280025_edc-board/flash.o
- .debug_info    0x0000000000011fe1      0x54d ./haawking-drivers/haawking-dsc280025_edc-board/gpio.o
- .debug_info    0x000000000001252e      0x1f8 ./haawking-drivers/haawking-dsc280025_edc-board/interrupt.o
- .debug_info    0x0000000000012726      0x519 ./haawking-drivers/haawking-dsc280025_edc-board/sci.o
- .debug_info    0x0000000000012c3f      0x9b1 ./haawking-drivers/haawking-dsc280025_edc-board/spi.o
- .debug_info    0x00000000000135f0      0xa4b ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
- .debug_info    0x000000000001403b      0x469 ./device/device.o
+.debug_info     0x0000000000000000    0x1455b
+ .debug_info    0x0000000000000000     0x432d ./src_control/motor1_drive.o
+ .debug_info    0x000000000000432d     0x34b4 ./src_control/motor_common.o
+ .debug_info    0x00000000000077e1     0x1295 ./src_board/drv8323s.o
+ .debug_info    0x0000000000008a76     0x3f2e ./src_board/hal.o
+ .debug_info    0x000000000000c9a4      0x7c7 ./src_board/user_mtr1.o
+ .debug_info    0x000000000000d16b     0x2a6a ./src/main.o
+ .debug_info    0x000000000000fbd5      0x191 ./haawking-drivers/haawking-dsc280025_edc-board/common/crt.o
+ .debug_info    0x000000000000fd66     0x11df ./haawking-drivers/haawking-dsc280025_edc-board/common/syscalls.o
+ .debug_info    0x0000000000010f45      0x173 ./haawking-drivers/haawking-dsc280025_edc-board/SysCtl_delay.o
+ .debug_info    0x00000000000110b8      0x182 ./haawking-drivers/haawking-dsc280025_edc-board/__disable_interrputs.o
+ .debug_info    0x000000000001123a      0x180 ./haawking-drivers/haawking-dsc280025_edc-board/__enable_interrupts.o
+ .debug_info    0x00000000000113ba      0x1ea ./haawking-drivers/haawking-dsc280025_edc-board/cmpss.o
+ .debug_info    0x00000000000115a4       0xe8 ./haawking-drivers/haawking-dsc280025_edc-board/cputimer.o
+ .debug_info    0x000000000001168c      0x617 ./haawking-drivers/haawking-dsc280025_edc-board/epwm.o
+ .debug_info    0x0000000000011ca3      0x146 ./haawking-drivers/haawking-dsc280025_edc-board/eqep.o
+ .debug_info    0x0000000000011de9      0x2af ./haawking-drivers/haawking-dsc280025_edc-board/flash.o
+ .debug_info    0x0000000000012098      0x54d ./haawking-drivers/haawking-dsc280025_edc-board/gpio.o
+ .debug_info    0x00000000000125e5      0x1f8 ./haawking-drivers/haawking-dsc280025_edc-board/interrupt.o
+ .debug_info    0x00000000000127dd      0x519 ./haawking-drivers/haawking-dsc280025_edc-board/sci.o
+ .debug_info    0x0000000000012cf6      0x9b1 ./haawking-drivers/haawking-dsc280025_edc-board/spi.o
+ .debug_info    0x00000000000136a7      0xa4b ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
+ .debug_info    0x00000000000140f2      0x469 ./device/device.o
 
 .debug_ranges   0x0000000000000000      0xf58
  .debug_ranges  0x0000000000000000      0x1a8 ./src_control/motor1_drive.o
@@ -3493,42 +3496,42 @@ OUTPUT(Sanding_PMSMControl_HX0025EDC_v1.3.elf elf32-littleriscv)
  .debug_ranges  0x0000000000000df8       0xe8 ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
  .debug_ranges  0x0000000000000ee0       0x78 ./device/device.o
 
-.debug_str      0x0000000000000000     0x92ce
- .debug_str     0x0000000000000000     0x35ff ./src_control/motor1_drive.o
-                                       0x3733 (size before relaxing)
- .debug_str     0x00000000000035ff      0x2b5 ./src_control/motor_common.o
-                                       0x303e (size before relaxing)
- .debug_str     0x00000000000038b4      0x599 ./src_board/drv8323s.o
+.debug_str      0x0000000000000000     0x931e
+ .debug_str     0x0000000000000000     0x361b ./src_control/motor1_drive.o
+                                       0x374f (size before relaxing)
+ .debug_str     0x000000000000361b      0x2e9 ./src_control/motor_common.o
+                                       0x308e (size before relaxing)
+ .debug_str     0x0000000000003904      0x599 ./src_board/drv8323s.o
                                        0x1684 (size before relaxing)
- .debug_str     0x0000000000003e4d     0x3343 ./src_board/hal.o
+ .debug_str     0x0000000000003e9d     0x3343 ./src_board/hal.o
                                        0x5128 (size before relaxing)
- .debug_str     0x0000000000007190      0x2a3 ./src_board/user_mtr1.o
+ .debug_str     0x00000000000071e0      0x2a3 ./src_board/user_mtr1.o
                                         0xc5e (size before relaxing)
- .debug_str     0x0000000000007433      0x2a4 ./src/main.o
-                                       0x30c2 (size before relaxing)
- .debug_str     0x00000000000076d7      0x316 ./haawking-drivers/haawking-dsc280025_edc-board/common/syscalls.o
+ .debug_str     0x0000000000007483      0x2a4 ./src/main.o
+                                       0x30de (size before relaxing)
+ .debug_str     0x0000000000007727      0x316 ./haawking-drivers/haawking-dsc280025_edc-board/common/syscalls.o
                                         0x58f (size before relaxing)
- .debug_str     0x00000000000079ed      0x104 ./haawking-drivers/haawking-dsc280025_edc-board/cmpss.o
+ .debug_str     0x0000000000007a3d      0x104 ./haawking-drivers/haawking-dsc280025_edc-board/cmpss.o
                                         0x263 (size before relaxing)
- .debug_str     0x0000000000007af1       0x6d ./haawking-drivers/haawking-dsc280025_edc-board/cputimer.o
+ .debug_str     0x0000000000007b41       0x6d ./haawking-drivers/haawking-dsc280025_edc-board/cputimer.o
                                         0x236 (size before relaxing)
- .debug_str     0x0000000000007b5e      0x118 ./haawking-drivers/haawking-dsc280025_edc-board/epwm.o
+ .debug_str     0x0000000000007bae      0x118 ./haawking-drivers/haawking-dsc280025_edc-board/epwm.o
                                         0xa49 (size before relaxing)
- .debug_str     0x0000000000007c76       0xa7 ./haawking-drivers/haawking-dsc280025_edc-board/eqep.o
+ .debug_str     0x0000000000007cc6       0xa7 ./haawking-drivers/haawking-dsc280025_edc-board/eqep.o
                                         0x208 (size before relaxing)
- .debug_str     0x0000000000007d1d      0x1bf ./haawking-drivers/haawking-dsc280025_edc-board/flash.o
+ .debug_str     0x0000000000007d6d      0x1bf ./haawking-drivers/haawking-dsc280025_edc-board/flash.o
                                         0x31d (size before relaxing)
- .debug_str     0x0000000000007edc      0x1eb ./haawking-drivers/haawking-dsc280025_edc-board/gpio.o
+ .debug_str     0x0000000000007f2c      0x1eb ./haawking-drivers/haawking-dsc280025_edc-board/gpio.o
                                         0x518 (size before relaxing)
- .debug_str     0x00000000000080c7      0x103 ./haawking-drivers/haawking-dsc280025_edc-board/interrupt.o
+ .debug_str     0x0000000000008117      0x103 ./haawking-drivers/haawking-dsc280025_edc-board/interrupt.o
                                         0x289 (size before relaxing)
- .debug_str     0x00000000000081ca      0x179 ./haawking-drivers/haawking-dsc280025_edc-board/sci.o
+ .debug_str     0x000000000000821a      0x179 ./haawking-drivers/haawking-dsc280025_edc-board/sci.o
                                         0x52f (size before relaxing)
- .debug_str     0x0000000000008343      0x3df ./haawking-drivers/haawking-dsc280025_edc-board/spi.o
+ .debug_str     0x0000000000008393      0x3df ./haawking-drivers/haawking-dsc280025_edc-board/spi.o
                                         0x7f2 (size before relaxing)
- .debug_str     0x0000000000008722      0x976 ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
+ .debug_str     0x0000000000008772      0x976 ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
                                         0xfbb (size before relaxing)
- .debug_str     0x0000000000009098      0x236 ./device/device.o
+ .debug_str     0x00000000000090e8      0x236 ./device/device.o
                                         0x9aa (size before relaxing)
 
 .comment        0x0000000000000000       0xe3
@@ -3659,29 +3662,29 @@ OUTPUT(Sanding_PMSMControl_HX0025EDC_v1.3.elf elf32-littleriscv)
  .debug_frame   0x000000000000260c      0x290 ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
  .debug_frame   0x000000000000289c      0x144 ./device/device.o
 
-.debug_line     0x0000000000000000    0x1a540
- .debug_line    0x0000000000000000     0x5844 ./src_control/motor1_drive.o
- .debug_line    0x0000000000005844     0x2834 ./src_control/motor_common.o
- .debug_line    0x0000000000008078     0x118f ./src_board/drv8323s.o
- .debug_line    0x0000000000009207     0x5664 ./src_board/hal.o
- .debug_line    0x000000000000e86b      0xc39 ./src_board/user_mtr1.o
- .debug_line    0x000000000000f4a4      0xd40 ./src/main.o
- .debug_line    0x00000000000101e4      0x12f ./haawking-drivers/haawking-dsc280025_edc-board/common/crt.o
- .debug_line    0x0000000000010313     0x2e37 ./haawking-drivers/haawking-dsc280025_edc-board/common/syscalls.o
- .debug_line    0x000000000001314a       0x80 ./haawking-drivers/haawking-dsc280025_edc-board/SysCtl_delay.o
- .debug_line    0x00000000000131ca       0x78 ./haawking-drivers/haawking-dsc280025_edc-board/__disable_interrputs.o
- .debug_line    0x0000000000013242       0x77 ./haawking-drivers/haawking-dsc280025_edc-board/__enable_interrupts.o
- .debug_line    0x00000000000132b9      0x5b2 ./haawking-drivers/haawking-dsc280025_edc-board/cmpss.o
- .debug_line    0x000000000001386b      0x1fc ./haawking-drivers/haawking-dsc280025_edc-board/cputimer.o
- .debug_line    0x0000000000013a67      0xd98 ./haawking-drivers/haawking-dsc280025_edc-board/epwm.o
- .debug_line    0x00000000000147ff      0x3cc ./haawking-drivers/haawking-dsc280025_edc-board/eqep.o
- .debug_line    0x0000000000014bcb      0x56f ./haawking-drivers/haawking-dsc280025_edc-board/flash.o
- .debug_line    0x000000000001513a      0xe82 ./haawking-drivers/haawking-dsc280025_edc-board/gpio.o
- .debug_line    0x0000000000015fbc      0x782 ./haawking-drivers/haawking-dsc280025_edc-board/interrupt.o
- .debug_line    0x000000000001673e      0xc16 ./haawking-drivers/haawking-dsc280025_edc-board/sci.o
- .debug_line    0x0000000000017354     0x13ea ./haawking-drivers/haawking-dsc280025_edc-board/spi.o
- .debug_line    0x000000000001873e     0x17c6 ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
- .debug_line    0x0000000000019f04      0x63c ./device/device.o
+.debug_line     0x0000000000000000    0x1a45f
+ .debug_line    0x0000000000000000     0x5834 ./src_control/motor1_drive.o
+ .debug_line    0x0000000000005834     0x2715 ./src_control/motor_common.o
+ .debug_line    0x0000000000007f49     0x118f ./src_board/drv8323s.o
+ .debug_line    0x00000000000090d8     0x5664 ./src_board/hal.o
+ .debug_line    0x000000000000e73c      0xc39 ./src_board/user_mtr1.o
+ .debug_line    0x000000000000f375      0xd8e ./src/main.o
+ .debug_line    0x0000000000010103      0x12f ./haawking-drivers/haawking-dsc280025_edc-board/common/crt.o
+ .debug_line    0x0000000000010232     0x2e37 ./haawking-drivers/haawking-dsc280025_edc-board/common/syscalls.o
+ .debug_line    0x0000000000013069       0x80 ./haawking-drivers/haawking-dsc280025_edc-board/SysCtl_delay.o
+ .debug_line    0x00000000000130e9       0x78 ./haawking-drivers/haawking-dsc280025_edc-board/__disable_interrputs.o
+ .debug_line    0x0000000000013161       0x77 ./haawking-drivers/haawking-dsc280025_edc-board/__enable_interrupts.o
+ .debug_line    0x00000000000131d8      0x5b2 ./haawking-drivers/haawking-dsc280025_edc-board/cmpss.o
+ .debug_line    0x000000000001378a      0x1fc ./haawking-drivers/haawking-dsc280025_edc-board/cputimer.o
+ .debug_line    0x0000000000013986      0xd98 ./haawking-drivers/haawking-dsc280025_edc-board/epwm.o
+ .debug_line    0x000000000001471e      0x3cc ./haawking-drivers/haawking-dsc280025_edc-board/eqep.o
+ .debug_line    0x0000000000014aea      0x56f ./haawking-drivers/haawking-dsc280025_edc-board/flash.o
+ .debug_line    0x0000000000015059      0xe82 ./haawking-drivers/haawking-dsc280025_edc-board/gpio.o
+ .debug_line    0x0000000000015edb      0x782 ./haawking-drivers/haawking-dsc280025_edc-board/interrupt.o
+ .debug_line    0x000000000001665d      0xc16 ./haawking-drivers/haawking-dsc280025_edc-board/sci.o
+ .debug_line    0x0000000000017273     0x13ea ./haawking-drivers/haawking-dsc280025_edc-board/spi.o
+ .debug_line    0x000000000001865d     0x17c6 ./haawking-drivers/haawking-dsc280025_edc-board/sysctl.o
+ .debug_line    0x0000000000019e23      0x63c ./device/device.o
 
 .debug_loc      0x0000000000000000       0x28
  .debug_loc     0x0000000000000000       0x28 ./src_board/hal.o
@@ -3700,48 +3703,51 @@ OUTPUT(Sanding_PMSMControl_HX0025EDC_v1.3.elf elf32-littleriscv)
 00010000 00000000 T __data_start
 00010000 00000024 T cpuTime
 00010024 00000004 T cpuTimeHandle
-00010028 000002d0 T motorVars_M1
-000102f8 00000004 T motorHandle_M1
-000102fc 00000214 T userParams_M1
-00010510 00000010 T systemVars
-00010520 000000a4 T motorSetVars_M1
-000105c4 00000044 T halMtr_M1
-00010608 00000024 T drvicVars_M1
-0001062c 0000000c T clarke_V_M1
-00010638 0000000c T clarke_I_M1
-00010644 00000008 T ipark_V_M1
-0001064c 00000008 T park_I_M1
-00010654 00000008 T park_V_M1
-0001065c 00000030 T svgen_M1
-0001068c 00000024 T pi_Id_M1
-000106b0 00000024 T pi_Iq_M1
-000106d4 00000024 T pi_spd_M1
-000106f8 00000024 T pi_pos_M1
-0001071c 00000014 T traj_spd_M1
-000107d4 00000004 T speedSampleCount
-000107d8 00000004 T speedSampleTime
-000107dc 00000004 T testDelta_rad
+00010028 000002d8 T motorVars_M1
+00010300 00000004 T motorHandle_M1
+00010304 00000214 T userParams_M1
+00010518 00000010 T systemVars
+00010528 000000a4 T motorSetVars_M1
+000105cc 00000044 T halMtr_M1
+00010610 00000024 T drvicVars_M1
+00010634 0000000c T clarke_V_M1
+00010640 0000000c T clarke_I_M1
+0001064c 00000008 T ipark_V_M1
+00010654 00000008 T park_I_M1
+0001065c 00000008 T park_V_M1
+00010664 00000030 T svgen_M1
+00010694 00000024 T pi_Id_M1
+000106b8 00000024 T pi_Iq_M1
+000106dc 00000024 T pi_spd_M1
+00010700 00000024 T pi_pos_M1
+00010724 00000014 T traj_spd_M1
+000107dc 00000004 T speedSampleCount
+000107e0 00000004 T speedSampleTime
+000107e4 00000004 T testDelta_rad
 00010800 00000000 T __global_pointer$
-00010848 00001542 T motor1CtrlISR
-00011d8c 00000026 T SysCtl_delay
-00011db4 00000094 T Flash_initModule
-00011e48 00000056 t Flash_setBankPowerMode
-00011e9e 0000003a t Flash_disableCache
-00011ed8 0000003a t Flash_disablePrefetch
-00011f12 00000064 t Flash_setWaitstates
-00011f76 0000003c t Flash_enableCache
-00011fb2 0000003c t Flash_enablePrefetch
-00011fee 00000040 t Flash_enableECC
-0001202e 00000032 T Flash_powerDown
-00012060 00000032 T Flash_wakeFromLPM
-00012098 00000000 T __data_end
+00010814 00000004 T eqep_trimOvertime
+00010818 00000004 T eqep_trimAngle
+0001084c 0000153c T motor1CtrlISR
+00011d88 00000026 T SysCtl_delay
+00011db0 00000094 T Flash_initModule
+00011e44 00000056 t Flash_setBankPowerMode
+00011e9a 0000003a t Flash_disableCache
+00011ed4 0000003a t Flash_disablePrefetch
+00011f0e 00000064 t Flash_setWaitstates
+00011f72 0000003c t Flash_enableCache
+00011fae 0000003c t Flash_enablePrefetch
+00011fea 00000040 t Flash_enableECC
+0001202a 00000032 T Flash_powerDown
+0001205c 00000032 T Flash_wakeFromLPM
+00012090 00000000 T __data_end
 00012100 00000000 B __bss_start
 00012100 00000004 B xint3Count
 00012104 00000005 B receivedChar
 0001210c 00000004 B testFoc_rad
 00012110 00000004 B eqep_count
 00012114 00000004 B eqep_lastCount
-00012118 00000004 B halHandle
+00012118 00000004 B eqepTrimAngleCount
+0001211c 00000004 B halHandle
 00012120 00000044 B hal
 00012164 00000528 B est_motor_1
 00012690 00000000 B __bss_end
@@ -3756,337 +3762,340 @@ OUTPUT(Sanding_PMSMControl_HX0025EDC_v1.3.elf elf32-littleriscv)
 006001e0 00000006 T __disable_interrupts
 006001e8 00000006 T __enable_interrupts
 006001ee 00000048 T initMotor1Handles
-00600236 00000520 T initMotor1CtrlParameters
-00600756 0000000e t TRAJ_setTargetValue
-00600764 0000000e t TRAJ_setMinValue
-00600772 0000000e t TRAJ_setMaxValue
-00600780 0000000e t TRAJ_setMaxDelta
-0060078e 00000030 t HAL_disablePWM
-006007be 000005cc T runMotor1OffsetsCalculation
-00600d8a 00000054 t calcMotorOverCurrentThreshold
-00600dde 0000003c t ADC_setPPBReferenceOffset
-00600e1a 00000068 t HAL_enablePWM
-00600e82 0000002e t ADC_clearInterruptStatus
-00600eb0 0000002e t ADC_getInterruptStatus
-00600ede 0000027a T runMotor1Control
-00601158 0000004e t HAL_clearMtrFaultStatus
-006011a6 00000166 t updateControllers
-0060130c 00000170 T xint3ISR
-0060147c 00000040 t SCI_readCharBlockingFIFO
-006014bc 0000000e t Interrupt_clearACKGroup
-006014ca 0000001a t HAL_readTimerCnt
-006014e4 00000056 t EPWM_forceTripZoneEvent
-0060153a 0000005c t EPWM_isBaseValid
-00601596 00000022 t ADC_isBaseValid
-006015b8 00000028 t EPWM_getTimeBasePeriod
-006015e0 00000064 t EPWM_setCounterCompareValue
-00601644 00000032 t CMPSS_clearFilterLatchHigh
-00601676 00000032 t CMPSS_clearFilterLatchLow
-006016a8 00000056 t EPWM_clearTripZoneFlag
-006016fe 00000038 t CMPSS_isBaseValid
-00601736 0000003c t ADC_readResult
-00601772 00000018 t SCI_isBaseValid
-0060178a 0000002e t SCI_getRxFIFOStatus
-006017b8 00000024 t SCI_getRxStatus
-006017dc 00000024 t CPUTimer_getTimerCount
-00601800 00000028 t CPUTimer_isBaseValid
-00601828 0000000c t TRAJ_getTargetValue
-00601834 0000000c t TRAJ_getMaxDelta
-00601840 0000000c t TRAJ_getMinValue
-0060184c 0000000c t TRAJ_getMaxValue
-00601858 00000040 T setupClarke_V
-00601898 00000018 t CLARKE_setScaleFactors
-006018b0 00000012 t CLARKE_setNumSensors
-006018c2 00000050 T setupClarke_I
-00601912 000000ec T resetMotorControl
-006019fe 0000000e t TRAJ_setTargetValue
-00601a0c 00000030 t HAL_disablePWM
-00601a3c 00000322 T setupControllers
-00601d5e 000000ac t getControllers
-00601e0a 00000060 T CPU_TIME_reset
-00601e6a 0000022a T runMotorMonitor
-00602094 0000021c T calculateRMSData
-006022b0 00000042 T restartMotorControl
-006022f2 00000026 T stopMotorControl
-00602318 000000d2 T runRsOnLine
-006023ea 0000012a T updateGlobalVariables
-00602514 00000114 T collectRMSData
-00602628 00000056 t EPWM_forceTripZoneEvent
-0060267e 0000005c t EPWM_isBaseValid
-006026da 00000016 T DRV8323_init
-006026f0 0000000e t DRV8323_resetRxTimeout
-006026fe 0000000e t DRV8323_resetEnableTimeout
-0060270c 000000b6 T DRV8323_enable
-006027c2 00000050 t GPIO_writePin
-00602812 000000f2 T DRV8323_readSPI
-00602904 0000000e T DRV8323_setSPIHandle
-00602912 0000000e T DRV8323_setGPIOCSNumber
-00602920 0000000e T DRV8323_setGPIOENNumber
-0060292e 000000ca T DRV8323_setupSPI
-006029f8 0000001c t DRV8323_buildCtrlWord
-00602a14 00000036 t SPI_resetRxFIFO
-00602a4a 00000034 t SPI_enableFIFO
-00602a7e 00000036 t SPI_writeDataBlockingNonFIFO
-00602ab4 0000002e t SPI_getRxFIFOStatus
-00602ae2 0000002a t SPI_readDataNonBlocking
-00602b0c 0000009c T DRV8323_writeSPI
-00602ba8 000000be T DRV8323_writeData
-00602c66 0000002a t GPIO_isPinValid
-00602c90 0000001e t SPI_isBaseValid
-00602cae 00000014 t Interrupt_disableGlobal
-00602cc2 0000001e t SysCtl_disableWatchdog
-00602ce0 00000036 T HAL_enableCtrlInts
-00602d16 0000000e t Interrupt_clearACKGroup
-00602d24 00000054 t ADC_enableInterrupt
-00602d78 00000016 t Interrupt_enableInCPU
-00602d8e 00000008 T HAL_enableDebugInt
-00602d96 0000000e T HAL_enableGlobalInts
-00602da4 00000014 t Interrupt_enableGlobal
-00602db8 0000007c T HAL_init
-00602e34 0000007e T HAL_MTR1_init
-00602eb2 00000030 T HAL_setParams
-00602ee2 00000446 T HAL_setupGPIOs
-00603328 000001e4 T HAL_setupADCs
-0060350c 00000046 T HAL_setupTimeBaseTimer
-00603552 00000036 T HAL_setupCPUUsageTimer
-00603588 0000007a T HAL_setupSCIA
-00603602 00000014 T HAL_setupDMA
-00603616 00000034 T HAL_MTR_setParams
-0060364a 00000012 t HAL_setNumCurrentSensors
-0060365c 00000012 t HAL_setNumVoltageSensors
-0060366e 00000370 T HAL_setupPWMs
-006039de 00000190 T HAL_setupCMPSSs
-00603b6e 000000cc T HAL_setupQEP
-00603c3a 00000068 T HAL_setupSPI
-00603ca2 0000002c T HAL_setupGate
-00603cce 00000036 t EQEP_disableInterrupt
-00603d04 0000002e t EQEP_clearInterruptStatus
-00603d32 00000044 t EQEP_selectSource
-00603d76 00000034 t EQEP_setStrobeSource
-00603daa 0000003c t EQEP_setDecoderConfig
-00603de6 0000003c t EQEP_setEmulationMode
-00603e22 00000040 t EQEP_setPositionCounterConfig
-00603e62 0000002a t EQEP_setPosition
-00603e8c 0000002a t EQEP_loadUnitTimer
-00603eb6 0000002a t EQEP_disableUnitTimer
-00603ee0 0000002a t EQEP_disableWatchdog
-00603f0a 00000034 t EQEP_setLatchMode
-00603f3e 00000034 t EQEP_setQMAModuleMode
-00603f72 0000002a t EQEP_disableDirectionChangeDuringIndex
-00603f9c 0000003c t EQEP_setPositionInitMode
-00603fd8 00000042 t EQEP_setSWPositionInit
-0060401a 0000002a t EQEP_setInitialPosition
-00604044 0000002c t EQEP_enableModule
-00604070 00000018 t ASysCtl_disableTemperatureSensor
-00604088 0000003a t ADC_setPrescaler
-006040c2 0000003a t ADC_setInterruptPulseMode
-006040fc 0000003a t ADC_setSOCPriority
-00604136 00000034 t ADC_enableConverter
-0060416a 00000062 t ADC_setInterruptSource
-006041cc 00000074 t ADC_setupSOC
-00604240 0000004a t ASysCtl_selectCMPHPMux
-0060428a 0000004a t ASysCtl_selectCMPLPMux
-006042d4 0000003e t CMPSS_enableModule
-00604312 0000003c t CMPSS_configHighComparator
-0060434e 00000044 t CMPSS_configLowComparator
-00604392 0000003c t CMPSS_configOutputsHigh
-006043ce 00000044 t CMPSS_configOutputsLow
-00604412 00000034 t CMPSS_initFilterHigh
-00604446 00000034 t CMPSS_initFilterLow
-0060447a 00000056 t CMPSS_setHysteresis
-006044d0 0000003c t CMPSS_configDAC
-0060450c 00000040 t CMPSS_setDACValueHigh
-0060454c 00000040 t CMPSS_setDACValueLow
-0060458c 00000034 t CMPSS_clearFilterLatchHigh
-006045c0 00000034 t CMPSS_clearFilterLatchLow
-006045f4 00000014 T HAL_enableDRV
-00604608 00000016 T HAL_writeDRVData
-0060461e 00000016 T HAL_setupDRVSPI
-00604634 0000002c t SPI_disableModule
-00604660 0000002a t SPI_disableLoopback
-0060468a 00000036 t SPI_setEmulationMode
-006046c0 00000036 t SPI_enableFIFO
-006046f6 0000004a t SPI_setTxFifoTransmitDelay
-00604740 0000002c t SPI_enableModule
-0060476c 00000052 t GPIO_writePin
-006047be 00000024 t GPIO_setInterruptType
-006047e2 0000001e t GPIO_enableInterrupt
-00604800 0000003e t SysCtl_enablePeripheral
-0060483e 00000042 t SysCtl_disablePeripheral
-00604880 00000058 t EPWM_forceTripZoneEvent
-006048d8 00000032 t EPWM_setTimeBaseCounterMode
-0060490a 0000002a t EPWM_disablePhaseShiftLoad
-00604934 0000003a t EPWM_setPeriodLoadMode
-0060496e 0000004a t EPWM_enableSyncOutPulseSource
-006049b8 00000044 t EPWM_setClockPrescaler
-006049fc 00000042 t EPWM_setCountModeAfterSync
-00604a3e 00000040 t EPWM_setPhaseShift
-00604a7e 0000002a t EPWM_setTimeBaseCounter
-00604aa8 0000002e t EPWM_setTimeBasePeriod
-00604ad6 00000094 t EPWM_setCounterCompareShadowLoadMode
-00604b6a 00000084 t EPWM_setActionQualifierAction
-00604bee 00000058 t EPWM_setDeadBandDelayMode
-00604c46 00000054 t EPWM_setRisingEdgeDeadBandDelayInput
-00604c9a 00000050 t EPWM_setDeadBandDelayPolarity
-00604cea 00000046 t EPWM_setRisingEdgeDelayCount
-00604d30 00000046 t EPWM_setFallingEdgeDelayCount
-00604d76 0000002c t EPWM_disableChopper
-00604da2 0000003e t EPWM_disableTripZoneSignals
-00604de0 000000d8 t EPWM_setInterruptSource
-00604eb8 00000032 t EPWM_enableInterrupt
-00604eea 00000134 t EPWM_setADCTriggerSource
-0060501e 00000044 t EPWM_enableADCTrigger
-00605062 0000005e t EPWM_setInterruptEventCount
-006050c0 00000082 t EPWM_setADCTriggerEventPrescale
-00605142 00000030 t EPWM_clearEventTriggerInterruptFlag
-00605172 0000003a t EPWM_clearADCTriggerFlag
-006051ac 00000064 t EPWM_setCounterCompareValue
-00605210 0000002a t SCI_clearOverflowStatus
-0060523a 00000036 t SCI_resetTxFIFO
-00605270 00000036 t SCI_resetRxFIFO
-006052a6 00000036 t SCI_resetChannels
-006052dc 00000028 t SCI_disableLoopback
-00605304 00000034 t SCI_performSoftwareReset
-00605338 0000003e t SCI_enableFIFO
-00605376 00000040 t SCI_setFIFOInterruptLevel
-006053b6 0000002a t SCI_enableModule
-006053e0 00000028 t CPUTimer_setPreScaler
-00605408 00000028 t CPUTimer_setPeriod
-00605430 0000003e t CPUTimer_startTimer
-0060546e 0000001a t DMA_initController
-00605488 0000002e t DMA_setEmulationMode
-006054b6 00000058 T HAL_setMtrCMPSSDACValue
-0060550e 00000048 T HAL_setTriggerPrams
-00605556 00000022 t ADC_isBaseValid
-00605578 0000001e t EQEP_isBaseValid
-00605596 00000038 t CMPSS_isBaseValid
-006055ce 0000001e t SPI_isBaseValid
-006055ec 0000005c t EPWM_isBaseValid
-00605648 0000002a t GPIO_isPinValid
-00605672 00000018 t SCI_isBaseValid
-0060568a 00000028 t CPUTimer_isBaseValid
-006056b2 00000462 T USER_setMotor1Params
-00605b14 00000290 T main
-00605da4 0000002a t HAL_initIntVectorTable
-00605dce 0000001a t HAL_getCPUTimerStatus
-00605de8 0000001a t HAL_clearCPUTimerFlag
-00605e02 00000054 t calcMotorOverCurrentThreshold
-00605e56 0000002a t HAL_disablePWM
-00605e80 0000003c t Interrupt_register
-00605ebc 00000028 t CPUTimer_getTimerOverflowStatus
-00605ee4 00000028 t CPUTimer_isBaseValid
-00605f0c 0000002c t CPUTimer_clearOverflowFlag
-00605f38 00000040 t GPIO_togglePin
-00605f78 0000002a t GPIO_isPinValid
-00605fa2 00000056 t EPWM_forceTripZoneEvent
-00605ff8 0000005c t EPWM_isBaseValid
-00606054 0000000e W handle_trap
-00606062 0000002c T _clean_bss
-0060608e 00000044 T _init_data_LS4567
-006060d2 00000044 T _init_data_gs0
-00606116 0000001a T _init
-00606130 0000001e t SysCtl_disableWatchdog
-0060614e 00000022 t SysCtl_enableWatchdog
-00606170 000000ac T CMPSS_configFilterHigh
-0060621c 00000038 t CMPSS_isBaseValid
-00606254 000000b0 T CMPSS_configFilterLow
-00606304 00000034 T CPUTimer_setEmulationMode
-00606338 00000028 t CPUTimer_isBaseValid
-00606360 00000036 T EPWM_setEmulationMode
-00606396 0000005c t EPWM_isBaseValid
-006063f2 0000001e t EQEP_isBaseValid
-00606410 000000a2 T EQEP_setInputPolarity
-006064b2 00000014 t Flash_isCtrlBaseValid
-006064c6 00000018 t Flash_isECCBaseValid
-006064de 00000064 T GPIO_setDirectionMode
-00606542 0000002a t GPIO_isPinValid
-0060656c 0000006a T GPIO_setInterruptPin
-006065d6 00000074 t XBAR_setInputPin
-0060664a 000000aa T GPIO_setPadConfig
-006066f4 000001a0 T GPIO_setQualificationMode
-00606894 0000006c T GPIO_setPinConfig
-00606900 0000003c t XBAR_isBaseValid
-0060693c 0000008a T Interrupt_initModule
-006069c6 00000014 t Interrupt_disableGlobal
-006069da 0000004c T Interrupt_initVectorTable
-00606a26 0000000e t Interrupt_defaultHandler
-00606a34 00000006 t Interrupt_nmiHandler
-00606a3a 0000008c T Interrupt_enable
-00606ac6 00000014 t Interrupt_enableGlobal
-00606ada 00000086 T SCI_setConfig
-00606b60 00000018 t SCI_isBaseValid
-00606b78 00000036 t SCI_disableModule
-00606bae 0000002c t SCI_enableModule
-00606bda 00000078 T SCI_clearInterruptStatus
-00606c52 00000036 t SCI_performSoftwareReset
-00606c88 000000e4 T SPI_setConfig
-00606d6c 0000001e t SPI_isBaseValid
-00606d8a 00000088 T SPI_clearInterruptStatus
-00606e12 0000009c T SysCtl_getClock
-00606eae 0000000e t SysCtl_isMCDClockFailureDetected
-00606ebc 00000298 T SysCtl_setClock
-00607154 0000008c T SysCtl_selectOscSource
-006071e0 00000020 t SysCtl_setPLLSysClk
-00607200 00000204 T SysCtl_isPLLValid
-00607404 00000064 T SysCtl_selectXTAL
-00607468 00000054 t SysCtl_pollX1Counter
-006074bc 0000001a t SysCtl_resetMCD
-006074d6 0000004c T SysCtl_selectXTALSingleEnded
-00607522 0000002c T SysCtl_getLowSpeedClock
-0060754e 0000003e t SysCtl_enablePeripheral
-0060758c 00000030 t DCC_clearErrorFlag
-006075bc 00000030 t DCC_clearDoneFlag
-006075ec 00000034 t DCC_disableModule
-00607620 00000036 t DCC_disableErrorSignal
-00607656 00000038 t DCC_disableDoneSignal
-0060768e 0000003e t DCC_setCounter0ClkSource
-006076cc 0000003e t DCC_setCounter1ClkSource
-0060770a 000000c4 t DCC_setCounterSeeds
-006077ce 00000060 t DCC_enableSingleShotMode
-0060782e 00000034 t DCC_enableModule
-00607862 00000020 t DCC_isBaseValid
-00607882 0000007e T Device_init
-00607900 0000001e t SysCtl_disableWatchdog
-0060791e 0000001e t SysCtl_deviceCal
-0060793c 0000001e t SysCtl_setLowSpeedClock
-0060795a 0000000c T __error__
-00607966 00000100 T Device_enableAllPeripherals
-00607a66 0000001a t ASysCtl_lockVREG
-00607a80 0000003e t SysCtl_enablePeripheral
-00607abe 0000001c T Device_initGPIO
-00607ada 0000002e t GPIO_unlockPortConfig
-00607b08 00000014 T EST_setParams
-00607b1c 00000016 T EST_computeTorque_Nm
-00607b32 00000016 T EST_disable
-00607b48 00000016 T EST_disableTraj
-00607b5e 00000016 T EST_getFlag_enableRsOnLine
-00607b74 00000016 T EST_getFlux_Wb
-00607b8a 00000016 T EST_getIdRated_A
-00607ba0 00000016 T EST_getLs_d_H
-00607bb6 00000016 T EST_getLs_q_H
-00607bcc 00000016 T EST_getRoverL_rps
-00607be2 00000016 T EST_getRr_Ohm
-00607bf8 00000016 T EST_getRs_Ohm
-00607c0e 00000016 T EST_getRsOnLine_Ohm
-00607c24 00000016 T EST_getState
-00607c3a 00000016 T EST_getTrajState
-00607c50 0000001a T EST_setFlag_bypassLockRotor
-00607c6a 0000001a T EST_setFlag_enableForceAngle
-00607c84 0000001a T EST_setFlag_enablePowerWarp
-00607c9e 0000001a T EST_setFlag_enableRsOnLine
-00607cb8 0000001a T EST_setFlag_enableRsRecalc
-00607cd2 0000001a T EST_setFlag_updateRs
-00607cec 00000018 T EST_setRsOnLine_Ohm
-00607d04 00000018 T EST_setRsOnLineId_A
-00607d1c 00000018 T EST_setRsOnLineId_mag_A
-00607d34 00000018 T EST_updateId_ref_A
-00607d4c 0000001a T EST_setOneOverFluxGain_sf
-00607d66 0000001a T EST_setFreqLFP_sf
-00607d80 0000001a T EST_setBemf_sf
-00607d9a 00000016 T USER_setParams_priv
-00607db0 00000006 W sqrtf
-00608390 00000000 T __flash_start
-0060a428 00000000 T __gs_flash_start
+00600236 0000051c T initMotor1CtrlParameters
+00600752 0000000e t TRAJ_setTargetValue
+00600760 0000000e t TRAJ_setMinValue
+0060076e 0000000e t TRAJ_setMaxValue
+0060077c 0000000e t TRAJ_setMaxDelta
+0060078a 00000030 t HAL_disablePWM
+006007ba 000005cc T runMotor1OffsetsCalculation
+00600d86 00000054 t calcMotorOverCurrentThreshold
+00600dda 0000003c t ADC_setPPBReferenceOffset
+00600e16 00000068 t HAL_enablePWM
+00600e7e 0000002e t ADC_clearInterruptStatus
+00600eac 0000002e t ADC_getInterruptStatus
+00600eda 0000027a T runMotor1Control
+00601154 0000004e t HAL_clearMtrFaultStatus
+006011a2 00000166 t updateControllers
+00601308 00000170 T xint3ISR
+00601478 00000040 t SCI_readCharBlockingFIFO
+006014b8 0000000e t Interrupt_clearACKGroup
+006014c6 0000001a t HAL_readTimerCnt
+006014e0 00000056 t EPWM_forceTripZoneEvent
+00601536 0000005c t EPWM_isBaseValid
+00601592 00000022 t ADC_isBaseValid
+006015b4 00000028 t EPWM_getTimeBasePeriod
+006015dc 00000064 t EPWM_setCounterCompareValue
+00601640 00000032 t CMPSS_clearFilterLatchHigh
+00601672 00000032 t CMPSS_clearFilterLatchLow
+006016a4 00000056 t EPWM_clearTripZoneFlag
+006016fa 00000038 t CMPSS_isBaseValid
+00601732 0000003c t ADC_readResult
+0060176e 00000018 t SCI_isBaseValid
+00601786 0000002e t SCI_getRxFIFOStatus
+006017b4 00000024 t SCI_getRxStatus
+006017d8 00000024 t CPUTimer_getTimerCount
+006017fc 00000028 t CPUTimer_isBaseValid
+00601824 0000000c t TRAJ_getTargetValue
+00601830 0000000c t TRAJ_getMaxDelta
+0060183c 0000000c t TRAJ_getMinValue
+00601848 0000000c t TRAJ_getMaxValue
+00601854 00000040 T setupClarke_V
+00601894 00000018 t CLARKE_setScaleFactors
+006018ac 00000012 t CLARKE_setNumSensors
+006018be 00000050 T setupClarke_I
+0060190e 000000ec T resetMotorControl
+006019fa 0000000e t TRAJ_setTargetValue
+00601a08 00000030 t HAL_disablePWM
+00601a38 00000316 T setupControllers
+00601d4e 000000ac t getControllers
+00601dfa 00000060 T CPU_TIME_reset
+00601e5a 0000022a T runMotorMonitor
+00602084 0000021c T calculateRMSData
+006022a0 00000128 T posCheckMoinitor
+006023c8 00000024 t EQEP_getPosition
+006023ec 00000042 T restartMotorControl
+0060242e 00000026 T stopMotorControl
+00602454 000000d2 T runRsOnLine
+00602526 0000012a T updateGlobalVariables
+00602650 00000114 T collectRMSData
+00602764 00000056 t EPWM_forceTripZoneEvent
+006027ba 0000005c t EPWM_isBaseValid
+00602816 0000001e t EQEP_isBaseValid
+00602834 00000016 T DRV8323_init
+0060284a 0000000e t DRV8323_resetRxTimeout
+00602858 0000000e t DRV8323_resetEnableTimeout
+00602866 000000b6 T DRV8323_enable
+0060291c 00000050 t GPIO_writePin
+0060296c 000000f2 T DRV8323_readSPI
+00602a5e 0000000e T DRV8323_setSPIHandle
+00602a6c 0000000e T DRV8323_setGPIOCSNumber
+00602a7a 0000000e T DRV8323_setGPIOENNumber
+00602a88 000000ca T DRV8323_setupSPI
+00602b52 0000001c t DRV8323_buildCtrlWord
+00602b6e 00000036 t SPI_resetRxFIFO
+00602ba4 00000034 t SPI_enableFIFO
+00602bd8 00000036 t SPI_writeDataBlockingNonFIFO
+00602c0e 0000002e t SPI_getRxFIFOStatus
+00602c3c 0000002a t SPI_readDataNonBlocking
+00602c66 0000009c T DRV8323_writeSPI
+00602d02 000000be T DRV8323_writeData
+00602dc0 0000002a t GPIO_isPinValid
+00602dea 0000001e t SPI_isBaseValid
+00602e08 00000014 t Interrupt_disableGlobal
+00602e1c 0000001e t SysCtl_disableWatchdog
+00602e3a 00000036 T HAL_enableCtrlInts
+00602e70 0000000e t Interrupt_clearACKGroup
+00602e7e 00000054 t ADC_enableInterrupt
+00602ed2 00000016 t Interrupt_enableInCPU
+00602ee8 00000008 T HAL_enableDebugInt
+00602ef0 0000000e T HAL_enableGlobalInts
+00602efe 00000014 t Interrupt_enableGlobal
+00602f12 0000007c T HAL_init
+00602f8e 0000007e T HAL_MTR1_init
+0060300c 00000030 T HAL_setParams
+0060303c 00000446 T HAL_setupGPIOs
+00603482 000001e4 T HAL_setupADCs
+00603666 00000046 T HAL_setupTimeBaseTimer
+006036ac 00000036 T HAL_setupCPUUsageTimer
+006036e2 0000007a T HAL_setupSCIA
+0060375c 00000014 T HAL_setupDMA
+00603770 00000034 T HAL_MTR_setParams
+006037a4 00000012 t HAL_setNumCurrentSensors
+006037b6 00000012 t HAL_setNumVoltageSensors
+006037c8 00000370 T HAL_setupPWMs
+00603b38 00000190 T HAL_setupCMPSSs
+00603cc8 000000cc T HAL_setupQEP
+00603d94 00000068 T HAL_setupSPI
+00603dfc 0000002c T HAL_setupGate
+00603e28 00000036 t EQEP_disableInterrupt
+00603e5e 0000002e t EQEP_clearInterruptStatus
+00603e8c 00000044 t EQEP_selectSource
+00603ed0 00000034 t EQEP_setStrobeSource
+00603f04 0000003c t EQEP_setDecoderConfig
+00603f40 0000003c t EQEP_setEmulationMode
+00603f7c 00000040 t EQEP_setPositionCounterConfig
+00603fbc 0000002a t EQEP_setPosition
+00603fe6 0000002a t EQEP_loadUnitTimer
+00604010 0000002a t EQEP_disableUnitTimer
+0060403a 0000002a t EQEP_disableWatchdog
+00604064 00000034 t EQEP_setLatchMode
+00604098 00000034 t EQEP_setQMAModuleMode
+006040cc 0000002a t EQEP_disableDirectionChangeDuringIndex
+006040f6 0000003c t EQEP_setPositionInitMode
+00604132 00000042 t EQEP_setSWPositionInit
+00604174 0000002a t EQEP_setInitialPosition
+0060419e 0000002c t EQEP_enableModule
+006041ca 00000018 t ASysCtl_disableTemperatureSensor
+006041e2 0000003a t ADC_setPrescaler
+0060421c 0000003a t ADC_setInterruptPulseMode
+00604256 0000003a t ADC_setSOCPriority
+00604290 00000034 t ADC_enableConverter
+006042c4 00000062 t ADC_setInterruptSource
+00604326 00000074 t ADC_setupSOC
+0060439a 0000004a t ASysCtl_selectCMPHPMux
+006043e4 0000004a t ASysCtl_selectCMPLPMux
+0060442e 0000003e t CMPSS_enableModule
+0060446c 0000003c t CMPSS_configHighComparator
+006044a8 00000044 t CMPSS_configLowComparator
+006044ec 0000003c t CMPSS_configOutputsHigh
+00604528 00000044 t CMPSS_configOutputsLow
+0060456c 00000034 t CMPSS_initFilterHigh
+006045a0 00000034 t CMPSS_initFilterLow
+006045d4 00000056 t CMPSS_setHysteresis
+0060462a 0000003c t CMPSS_configDAC
+00604666 00000040 t CMPSS_setDACValueHigh
+006046a6 00000040 t CMPSS_setDACValueLow
+006046e6 00000034 t CMPSS_clearFilterLatchHigh
+0060471a 00000034 t CMPSS_clearFilterLatchLow
+0060474e 00000014 T HAL_enableDRV
+00604762 00000016 T HAL_writeDRVData
+00604778 00000016 T HAL_setupDRVSPI
+0060478e 0000002c t SPI_disableModule
+006047ba 0000002a t SPI_disableLoopback
+006047e4 00000036 t SPI_setEmulationMode
+0060481a 00000036 t SPI_enableFIFO
+00604850 0000004a t SPI_setTxFifoTransmitDelay
+0060489a 0000002c t SPI_enableModule
+006048c6 00000052 t GPIO_writePin
+00604918 00000024 t GPIO_setInterruptType
+0060493c 0000001e t GPIO_enableInterrupt
+0060495a 0000003e t SysCtl_enablePeripheral
+00604998 00000042 t SysCtl_disablePeripheral
+006049da 00000058 t EPWM_forceTripZoneEvent
+00604a32 00000032 t EPWM_setTimeBaseCounterMode
+00604a64 0000002a t EPWM_disablePhaseShiftLoad
+00604a8e 0000003a t EPWM_setPeriodLoadMode
+00604ac8 0000004a t EPWM_enableSyncOutPulseSource
+00604b12 00000044 t EPWM_setClockPrescaler
+00604b56 00000042 t EPWM_setCountModeAfterSync
+00604b98 00000040 t EPWM_setPhaseShift
+00604bd8 0000002a t EPWM_setTimeBaseCounter
+00604c02 0000002e t EPWM_setTimeBasePeriod
+00604c30 00000094 t EPWM_setCounterCompareShadowLoadMode
+00604cc4 00000084 t EPWM_setActionQualifierAction
+00604d48 00000058 t EPWM_setDeadBandDelayMode
+00604da0 00000054 t EPWM_setRisingEdgeDeadBandDelayInput
+00604df4 00000050 t EPWM_setDeadBandDelayPolarity
+00604e44 00000046 t EPWM_setRisingEdgeDelayCount
+00604e8a 00000046 t EPWM_setFallingEdgeDelayCount
+00604ed0 0000002c t EPWM_disableChopper
+00604efc 0000003e t EPWM_disableTripZoneSignals
+00604f3a 000000d8 t EPWM_setInterruptSource
+00605012 00000032 t EPWM_enableInterrupt
+00605044 00000134 t EPWM_setADCTriggerSource
+00605178 00000044 t EPWM_enableADCTrigger
+006051bc 0000005e t EPWM_setInterruptEventCount
+0060521a 00000082 t EPWM_setADCTriggerEventPrescale
+0060529c 00000030 t EPWM_clearEventTriggerInterruptFlag
+006052cc 0000003a t EPWM_clearADCTriggerFlag
+00605306 00000064 t EPWM_setCounterCompareValue
+0060536a 0000002a t SCI_clearOverflowStatus
+00605394 00000036 t SCI_resetTxFIFO
+006053ca 00000036 t SCI_resetRxFIFO
+00605400 00000036 t SCI_resetChannels
+00605436 00000028 t SCI_disableLoopback
+0060545e 00000034 t SCI_performSoftwareReset
+00605492 0000003e t SCI_enableFIFO
+006054d0 00000040 t SCI_setFIFOInterruptLevel
+00605510 0000002a t SCI_enableModule
+0060553a 00000028 t CPUTimer_setPreScaler
+00605562 00000028 t CPUTimer_setPeriod
+0060558a 0000003e t CPUTimer_startTimer
+006055c8 0000001a t DMA_initController
+006055e2 0000002e t DMA_setEmulationMode
+00605610 00000058 T HAL_setMtrCMPSSDACValue
+00605668 00000048 T HAL_setTriggerPrams
+006056b0 00000022 t ADC_isBaseValid
+006056d2 0000001e t EQEP_isBaseValid
+006056f0 00000038 t CMPSS_isBaseValid
+00605728 0000001e t SPI_isBaseValid
+00605746 0000005c t EPWM_isBaseValid
+006057a2 0000002a t GPIO_isPinValid
+006057cc 00000018 t SCI_isBaseValid
+006057e4 00000028 t CPUTimer_isBaseValid
+0060580c 00000462 T USER_setMotor1Params
+00605c6e 000002bc T main
+00605f2a 0000002a t HAL_initIntVectorTable
+00605f54 0000001a t HAL_getCPUTimerStatus
+00605f6e 0000001a t HAL_clearCPUTimerFlag
+00605f88 00000054 t calcMotorOverCurrentThreshold
+00605fdc 0000002a t HAL_disablePWM
+00606006 0000003c t Interrupt_register
+00606042 00000028 t CPUTimer_getTimerOverflowStatus
+0060606a 00000028 t CPUTimer_isBaseValid
+00606092 0000002c t CPUTimer_clearOverflowFlag
+006060be 00000040 t GPIO_togglePin
+006060fe 0000002a t GPIO_isPinValid
+00606128 00000056 t EPWM_forceTripZoneEvent
+0060617e 0000005c t EPWM_isBaseValid
+006061da 0000000e W handle_trap
+006061e8 0000002c T _clean_bss
+00606214 00000044 T _init_data_LS4567
+00606258 00000044 T _init_data_gs0
+0060629c 0000001a T _init
+006062b6 0000001e t SysCtl_disableWatchdog
+006062d4 00000022 t SysCtl_enableWatchdog
+006062f6 000000ac T CMPSS_configFilterHigh
+006063a2 00000038 t CMPSS_isBaseValid
+006063da 000000b0 T CMPSS_configFilterLow
+0060648a 00000034 T CPUTimer_setEmulationMode
+006064be 00000028 t CPUTimer_isBaseValid
+006064e6 00000036 T EPWM_setEmulationMode
+0060651c 0000005c t EPWM_isBaseValid
+00606578 0000001e t EQEP_isBaseValid
+00606596 000000a2 T EQEP_setInputPolarity
+00606638 00000014 t Flash_isCtrlBaseValid
+0060664c 00000018 t Flash_isECCBaseValid
+00606664 00000064 T GPIO_setDirectionMode
+006066c8 0000002a t GPIO_isPinValid
+006066f2 0000006a T GPIO_setInterruptPin
+0060675c 00000074 t XBAR_setInputPin
+006067d0 000000aa T GPIO_setPadConfig
+0060687a 000001a0 T GPIO_setQualificationMode
+00606a1a 0000006c T GPIO_setPinConfig
+00606a86 0000003c t XBAR_isBaseValid
+00606ac2 0000008a T Interrupt_initModule
+00606b4c 00000014 t Interrupt_disableGlobal
+00606b60 0000004c T Interrupt_initVectorTable
+00606bac 0000000e t Interrupt_defaultHandler
+00606bba 00000006 t Interrupt_nmiHandler
+00606bc0 0000008c T Interrupt_enable
+00606c4c 00000014 t Interrupt_enableGlobal
+00606c60 00000086 T SCI_setConfig
+00606ce6 00000018 t SCI_isBaseValid
+00606cfe 00000036 t SCI_disableModule
+00606d34 0000002c t SCI_enableModule
+00606d60 00000078 T SCI_clearInterruptStatus
+00606dd8 00000036 t SCI_performSoftwareReset
+00606e0e 000000e4 T SPI_setConfig
+00606ef2 0000001e t SPI_isBaseValid
+00606f10 00000088 T SPI_clearInterruptStatus
+00606f98 0000009c T SysCtl_getClock
+00607034 0000000e t SysCtl_isMCDClockFailureDetected
+00607042 00000298 T SysCtl_setClock
+006072da 0000008c T SysCtl_selectOscSource
+00607366 00000020 t SysCtl_setPLLSysClk
+00607386 00000204 T SysCtl_isPLLValid
+0060758a 00000064 T SysCtl_selectXTAL
+006075ee 00000054 t SysCtl_pollX1Counter
+00607642 0000001a t SysCtl_resetMCD
+0060765c 0000004c T SysCtl_selectXTALSingleEnded
+006076a8 0000002c T SysCtl_getLowSpeedClock
+006076d4 0000003e t SysCtl_enablePeripheral
+00607712 00000030 t DCC_clearErrorFlag
+00607742 00000030 t DCC_clearDoneFlag
+00607772 00000034 t DCC_disableModule
+006077a6 00000036 t DCC_disableErrorSignal
+006077dc 00000038 t DCC_disableDoneSignal
+00607814 0000003e t DCC_setCounter0ClkSource
+00607852 0000003e t DCC_setCounter1ClkSource
+00607890 000000c4 t DCC_setCounterSeeds
+00607954 00000060 t DCC_enableSingleShotMode
+006079b4 00000034 t DCC_enableModule
+006079e8 00000020 t DCC_isBaseValid
+00607a08 0000007e T Device_init
+00607a86 0000001e t SysCtl_disableWatchdog
+00607aa4 0000001e t SysCtl_deviceCal
+00607ac2 0000001e t SysCtl_setLowSpeedClock
+00607ae0 0000000c T __error__
+00607aec 00000100 T Device_enableAllPeripherals
+00607bec 0000001a t ASysCtl_lockVREG
+00607c06 0000003e t SysCtl_enablePeripheral
+00607c44 0000001c T Device_initGPIO
+00607c60 0000002e t GPIO_unlockPortConfig
+00607c8e 00000014 T EST_setParams
+00607ca2 00000016 T EST_computeTorque_Nm
+00607cb8 00000016 T EST_disable
+00607cce 00000016 T EST_disableTraj
+00607ce4 00000016 T EST_getFlag_enableRsOnLine
+00607cfa 00000016 T EST_getFlux_Wb
+00607d10 00000016 T EST_getIdRated_A
+00607d26 00000016 T EST_getLs_d_H
+00607d3c 00000016 T EST_getLs_q_H
+00607d52 00000016 T EST_getRoverL_rps
+00607d68 00000016 T EST_getRr_Ohm
+00607d7e 00000016 T EST_getRs_Ohm
+00607d94 00000016 T EST_getRsOnLine_Ohm
+00607daa 00000016 T EST_getState
+00607dc0 00000016 T EST_getTrajState
+00607dd6 0000001a T EST_setFlag_bypassLockRotor
+00607df0 0000001a T EST_setFlag_enableForceAngle
+00607e0a 0000001a T EST_setFlag_enablePowerWarp
+00607e24 0000001a T EST_setFlag_enableRsOnLine
+00607e3e 0000001a T EST_setFlag_enableRsRecalc
+00607e58 0000001a T EST_setFlag_updateRs
+00607e72 00000018 T EST_setRsOnLine_Ohm
+00607e8a 00000018 T EST_setRsOnLineId_A
+00607ea2 00000018 T EST_setRsOnLineId_mag_A
+00607eba 00000018 T EST_updateId_ref_A
+00607ed2 0000001a T EST_setOneOverFluxGain_sf
+00607eec 0000001a T EST_setFreqLFP_sf
+00607f06 0000001a T EST_setBemf_sf
+00607f20 00000016 T USER_setParams_priv
+00607f36 00000006 W sqrtf
+00608510 00000000 T __flash_start
+0060a5a0 00000000 T __gs_flash_start
 007a0000 00000000 T _end
 007e2804 00000000 T IQsinTable
 007e2a04 00000000 T IQcosTable

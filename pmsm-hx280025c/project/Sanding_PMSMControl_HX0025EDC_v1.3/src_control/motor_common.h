@@ -315,12 +315,14 @@ typedef struct _MOTOR_Vars_t_
 	uint8_t   backLevelCtrl;
 	uint8_t	  flagLevelPosSet;
 
+	float32_t directionRef;                    //!< 1.0f->forward, -1.0f->reserve
 	float32_t direction;                    //!< 1.0f->forward, -1.0f->reserve
 
     // Position loop variables
     uint32_t  posCount;
     float32_t pos_machine;
     float32_t posRef_rad;					//!< Refer to Mechanical angular position information, rad
+    float32_t posRefPrev_rad;				//!< Refer to Mechanical angular position information, rad
     float32_t pos_rad;						//!< Current mechanical Angle position information, rad
     float32_t posPrev_rad;					//!< Current mechanical Angle position information, rad
     float32_t posDelta_rad;
