@@ -361,6 +361,7 @@ typedef struct _MOTOR_Vars_t_
     float32_t angleDelta_rad;				//!< 本次控制周期相较上次控制周期的电角度delta值
     float32_t angleDeltaFilter_rad; 		//!< angleDelta_rad经一阶滤波后得到的值
     float32_t angleDeltaSum_rad;			//!< angleDelta_rad多次控制周期下的累加和
+    uint32_t  angleDeltaSumCount;
     float32_t angleENC_rad;					//!< 旋转电机编码器电角度值(rad)
     float32_t angleENCOffset_rad;			//!< 电机Id轴对齐后，电角度的偏移值
 	float32_t angleEST_rad;					//!< 旋转电机估算电角度值(rad)
@@ -595,6 +596,9 @@ static inline void updateControllers(MOTOR_Handle handle)
 	   }
 	   else
 	   {
+		   objSets->Kp_Id = objSets->Kp_Iq;
+		   objSets->Ki_Id = objSets->Ki_Iq;
+
 	        // update the Id controller
 	        PI_setGains(obj->piHandle_Id,objSets->Kp_Id , objSets->Ki_Id);//objSets->Kp_Id
 
@@ -606,6 +610,8 @@ static inline void updateControllers(MOTOR_Handle handle)
 
 	        // update the position controller
 	        PI_setGains(obj->piHandle_pos, objSets->Kp_pos, objSets->Ki_pos);
+
+	        PI_setMinMax(obj->piHandle_pos,-8,8);
 	   }
     }
 }

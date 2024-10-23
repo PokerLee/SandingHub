@@ -222,7 +222,7 @@ void initMotor1CtrlParameters(MOTOR_Handle handle)
     obj->piHandle_Iq  = &pi_Iq_M1;
     obj->piHandle_spd = &pi_spd_M1;
     obj->piHandle_pos = &pi_pos_M1;
-
+    obj->angleDeltaSumCount = 50;
     //
     // SVPWM
     //
@@ -1125,9 +1125,9 @@ __interrupt CODE_SECTION( "ramfuncs") void motor1CtrlISR(void)
 #else
 		    // encoder counter
 		    obj->ENCCount++;
-			if(obj->ENCCount >= 100)
+			if(obj->ENCCount >= obj->angleDeltaSumCount)
 			{
-		        obj->speedENC_Hz = (obj->angleDeltaSum_rad/ (obj->ISRPeriodCountDelta_f*100))/MATH_TWO_PI;
+		        obj->speedENC_Hz = (obj->angleDeltaSum_rad/ (obj->ISRPeriodCountDelta_f*obj->angleDeltaSumCount))/MATH_TWO_PI;
 		        obj->ENCCount = 0;
 		        obj->angleDeltaSum_rad = 0;
 			}
