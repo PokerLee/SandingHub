@@ -764,14 +764,14 @@ void runMotor1Control(MOTOR_Handle handle)
             HAL_enablePWM(obj->halMtrHandle);
         }
 
-		if(obj->speedRef_Hz > 0.0f)
-		{
-			obj->directionRef = 1.0f;
-		}
-		else
-		{
-			obj->directionRef = -1.0f;
-		}
+//		if(obj->speedRef_Hz > 0.0f)
+//		{
+//			obj->directionRef = 1.0f;
+//		}
+//		else
+//		{
+//			obj->directionRef = -1.0f;
+//		}
 
 		TRAJ_setTargetValue(obj->trajHandle_spd, obj->speedRef_Hz);
 
@@ -936,6 +936,15 @@ __interrupt CODE_SECTION( "ramfuncs") void motor1CtrlISR(void)
 
 	if(obj->flagRunIdentAndOnLine == true)
 	{
+		if(obj->speedRef_Hz > 0.0f)
+		{
+			obj->directionRef = 1.0f;
+		}
+		else
+		{
+			obj->directionRef = -1.0f;
+		}
+
 		// Operate mode select
 		if(obj->enableOpenLoopCtrl)
 		{
