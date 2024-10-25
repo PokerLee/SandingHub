@@ -300,8 +300,55 @@ MATH_incrAngle2(const float32_t angle_rad, const float32_t angleDelta_rad)
     return(angleNew_rad);
 }
 
+//*****************************************************************************
+//
+//! \brief     角度限幅值计算(0，2*PI*pairs)
+//!
+//! \param[in] angle_rad      电角度输入
+//!
+//! \param[in] angleDelta_rad 偏置电角度输入
+//!
+//! \param[in] pairs 		  极对数
+//!
+//! \return    电角度(0，2*PI*pairs)限幅值
+//
+//*****************************************************************************
 static __UNUSED ALWAYSINLINE float32_t
 MATH_incrAngle3(const float32_t angle_rad, const float32_t angleDelta_rad, const uint32_t pairs)
+{
+    float32_t angleNew_rad;
+	angleNew_rad = angle_rad + angleDelta_rad;
+
+    while((angleNew_rad > MATH_TWO_PI * pairs)||(angleNew_rad < 0))
+    {
+    	if(angleNew_rad > MATH_TWO_PI * pairs)
+    	{
+    		angleNew_rad -= MATH_TWO_PI * pairs;
+    	}
+    	if(angleNew_rad < 0)
+    	{
+    		angleNew_rad += MATH_TWO_PI * pairs;
+    	}
+    }
+
+    return(angleNew_rad);
+}
+
+//*****************************************************************************
+//
+//! \brief     角度限幅值计算(0，2*PI*pairs)
+//!
+//! \param[in] angle_rad      电角度输入
+//!
+//! \param[in] angleDelta_rad 偏置电角度输入
+//!
+//! \param[in] pairs 		  极对数
+//!
+//! \return    电角度(0，2*PI*pairs)限幅值
+//
+//*****************************************************************************
+static __UNUSED ALWAYSINLINE float32_t
+MATH_incrAngle4(const float32_t angle_rad, const float32_t angleDelta_rad, const uint32_t pairs)
 {
     float32_t angleNew_rad;
 	angleNew_rad = angle_rad + angleDelta_rad;

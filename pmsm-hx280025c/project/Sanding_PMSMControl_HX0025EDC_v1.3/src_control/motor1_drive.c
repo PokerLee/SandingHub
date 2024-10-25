@@ -1101,7 +1101,8 @@ __interrupt CODE_SECTION( "ramfuncs") void motor1CtrlISR(void)
 //    		obj->angleFOC_rad = obj->angleEST_rad;
 #endif
 			obj->angleFOC_rad = -(obj->pos_rad*USER_MOTOR1_NUM_POLE_PAIRS - obj->angleENCOffset_rad);
-			obj->angleFOC_rad = MATH_incrAngle1(obj->angleFOC_rad,0);
+//			obj->angleFOC_rad = MATH_incrAngle1(obj->angleFOC_rad,0);
+			obj->angleFOC_rad = MATH_incrAngle3(obj->angleFOC_rad,0,USER_MOTOR1_NUM_POLE_PAIRS);
 
 			obj->angleDelta_rad = obj->angleFOC_rad - obj->angleFOCPrev_rad;
 

@@ -567,6 +567,8 @@ void posCheckMoinitor(MOTOR_Handle handle)
 					if(obj->direction == 0)
 					{
 						PI_setUi(obj->piHandle_spd, 0.0);
+						PI_setUi(obj->piHandle_Iq, 0.0);
+						PI_setUi(obj->piHandle_Id, 0.0);
 					}
 					obj->direction = 1;
 					obj->posRef_rad += eqep_trimAngle;
@@ -576,6 +578,8 @@ void posCheckMoinitor(MOTOR_Handle handle)
 					if(obj->direction == 1)
 					{
 						PI_setUi(obj->piHandle_spd, 0.0);
+						PI_setUi(obj->piHandle_Iq, 0.0);
+						PI_setUi(obj->piHandle_Id, 0.0);
 					}
 					obj->direction = 0;
 					obj->posRef_rad -= eqep_trimAngle;
