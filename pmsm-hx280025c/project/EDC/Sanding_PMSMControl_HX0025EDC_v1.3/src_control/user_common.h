@@ -133,6 +133,13 @@ extern "C"
 // **************************************************************************
 // the typedefs
 
+//! \brief Enumeration for the motor drive control state
+//
+typedef enum
+{
+	UCTRL_TRIM	       = 0,         //!< Initialize run time parameters
+	UCTRL_COARSE   	   = 1,         //!< motor stop with fault
+} UCTRL_State_e;
 
 // **************************************************************************
 // the globals

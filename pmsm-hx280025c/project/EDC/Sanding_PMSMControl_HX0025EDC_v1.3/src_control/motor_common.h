@@ -139,6 +139,18 @@ typedef struct _MOTOR_SetVars_t_
     float32_t Kp_Iq;
     float32_t Ki_Iq;
 
+    float32_t KpTrim_pos;
+    float32_t KiTrim_pos;
+
+    float32_t KpTrim_spd;
+    float32_t KiTrim_spd;
+
+    float32_t KpTrim_Id;
+    float32_t KiTrim_Id;
+
+    float32_t KpTrim_Iq;
+    float32_t KiTrim_Iq;
+
 //    float32_t Kp_fwc;
 //    float32_t Ki_fwc;
 //    float32_t angleFWCMax_rad;
@@ -307,8 +319,10 @@ typedef struct _MOTOR_Vars_t_
     bool flagClearFaults;
     bool flagVIrmsCal;
 
+    UCTRL_State_e  uctrlState;
     MOTOR_Status_e motorState;
     MCTRL_State_e  mctrlState;
+    OPERATE_Mode_e operateMode;
 
 	// 正倒镜180度控制
 	uint8_t   fowardLevelCtrl;
@@ -456,7 +470,6 @@ typedef struct _MOTOR_Vars_t_
 
     FlyingStart_Mode_e flyingStartMode;
     BRAKE_Mode_e brakingMode;
-    OPERATE_Mode_e operateMode;
 
     // 有效值计算
 //    float32_t frswPos_sf;					//!<
@@ -599,19 +612,38 @@ static inline void updateControllers(MOTOR_Handle handle)
 		   objSets->Kp_Id = objSets->Kp_Iq;
 		   objSets->Ki_Id = objSets->Ki_Iq;
 
-	        // update the Id controller
-	        PI_setGains(obj->piHandle_Id,objSets->Kp_Id , objSets->Ki_Id);//objSets->Kp_Id
+		   if(obj->uctrlState == UCTRL_TRIM)
+		   {
+		        // update the Id controller
+		        PI_setGains(obj->piHandle_Id,objSets->KpTrim_Id , objSets->KiTrim_Id);//objSets->Kp_Id
 
-	        // update the Iq controller
-	        PI_setGains(obj->piHandle_Iq, objSets->Kp_Iq, objSets->Ki_Iq);
+		        // update the Iq controller
+		        PI_setGains(obj->piHandle_Iq, objSets->KpTrim_Iq, objSets->KiTrim_Iq);
 
-	        // update the speed controller
-	        PI_setGains(obj->piHandle_spd, objSets->Kp_spd, objSets->Ki_spd);
+		        // update the speed controller
+		        PI_setGains(obj->piHandle_spd, objSets->KpTrim_spd, objSets->KiTrim_spd);
 
-	        // update the position controller
-	        PI_setGains(obj->piHandle_pos, objSets->Kp_pos, objSets->Ki_pos);
+		        // update the position controller
+		        PI_setGains(obj->piHandle_pos, objSets->KpTrim_pos, objSets->KiTrim_pos);
 
-	        PI_setMinMax(obj->piHandle_pos,-10,10);
+		        PI_setMinMax(obj->piHandle_pos,-10,10);
+		   }
+		   else if(obj->uctrlState == UCTRL_COARSE)
+		   {
+		        // update the Id controller
+		        PI_setGains(obj->piHandle_Id,objSets->Kp_Id , objSets->Ki_Id);//objSets->Kp_Id
+
+		        // update the Iq controller
+		        PI_setGains(obj->piHandle_Iq, objSets->Kp_Iq, objSets->Ki_Iq);
+
+		        // update the speed controller
+		        PI_setGains(obj->piHandle_spd, objSets->Kp_spd, objSets->Ki_spd);
+
+		        // update the position controller
+		        PI_setGains(obj->piHandle_pos, objSets->Kp_pos, objSets->Ki_pos);
+
+		        PI_setMinMax(obj->piHandle_pos,-10,10);
+		   }
 	   }
     }
 }

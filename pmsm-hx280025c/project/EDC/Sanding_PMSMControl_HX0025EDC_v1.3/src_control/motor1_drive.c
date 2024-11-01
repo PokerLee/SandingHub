@@ -1165,7 +1165,8 @@ __interrupt CODE_SECTION( "ramfuncs") void motor1CtrlISR(void)
 		            {
 	                	obj->counterSpeed = 0;
 //		            	PI_run(obj->piHandle_spd,obj->speed_int_Hz,obj->speedFilter_Hz,(float32_t *)&obj->IsRef_A);
-	                	PI_run(obj->piHandle_spd,obj->speed_int_Hz,obj->speed_Hz,(float32_t *)&obj->IsRef_A);
+//	                	PI_run(obj->piHandle_spd,obj->speed_int_Hz,obj->speed_Hz,(float32_t *)&obj->IsRef_A);
+	                	PI_run(obj->piHandle_spd,obj->speedRef_Hz,obj->speed_Hz,(float32_t *)&obj->IsRef_A);
 		            }
 		    		break;
 		    	case OPERATE_MODE_SPEED:

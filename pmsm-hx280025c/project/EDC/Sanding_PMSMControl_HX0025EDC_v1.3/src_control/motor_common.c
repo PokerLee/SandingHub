@@ -136,46 +136,47 @@ void resetMotorControl(MOTOR_Handle handle)
 void setupControllers(MOTOR_Handle handle)
 {
     MOTOR_Vars_t *obj = (MOTOR_Vars_t *)handle;
+    MOTOR_SetVars_t *objSets = (MOTOR_SetVars_t *)(handle->motorSetsHandle);
     USER_Params *objUser = (USER_Params *)(handle->userParamsHandle);
 
-    /* parameter self-tuning */
-    // current pid controller
-    float32_t Ls_d_H = objUser->motor_Ls_d_H;
-    float32_t Ls_q_H = objUser->motor_Ls_q_H;
-    float32_t Rs_Ohm = objUser->motor_Rs_Ohm;
-    float32_t RdoverLd_rps = Rs_Ohm / Ls_d_H;
-    float32_t RqoverLq_rps = Rs_Ohm / Ls_q_H;
-    float32_t BWc_rps = objUser->BWc_rps;
-    float32_t currentCtrlPeriod_sec = (float32_t)objUser->numCtrlTicksPerCurrentTick / objUser->ctrlFreq_Hz;
+//    /* parameter self-tuning */
+//    // current pid controller
+//    float32_t Ls_d_H = objUser->motor_Ls_d_H;
+//    float32_t Ls_q_H = objUser->motor_Ls_q_H;
+//    float32_t Rs_Ohm = objUser->motor_Rs_Ohm;
+//    float32_t RdoverLd_rps = Rs_Ohm / Ls_d_H;
+//    float32_t RqoverLq_rps = Rs_Ohm / Ls_q_H;
+//    float32_t BWc_rps = objUser->BWc_rps;
+//    float32_t currentCtrlPeriod_sec = (float32_t)objUser->numCtrlTicksPerCurrentTick / objUser->ctrlFreq_Hz;
     float32_t outMax_V = objUser->Vd_sf * objUser->maxVsMag_V;
-
-    // speed pid controller
-    float32_t speedCtrlPeriod_sec = (float32_t)objUser->numCtrlTicksPerSpeedTick / objUser->ctrlFreq_Hz;
-    float32_t BWdelta = objUser->BWdelta;
-    float32_t Kctrl_Wb_p_kgm2 = objUser->Kctrl_Wb_p_kgm2;
-
-    /* gain calculation */
-    // setup Id gain
-    float32_t Kp_Id = Ls_d_H * BWc_rps;
-    float32_t Ki_Id = 0.25f * RdoverLd_rps * currentCtrlPeriod_sec;
-
-    // setup Iq gain
-    float32_t Kp_Iq = Ls_q_H * BWc_rps;
-    float32_t Ki_Iq = 0.25f * RqoverLq_rps * currentCtrlPeriod_sec;
-
-    // setup speed gain
-    float32_t Kp_spd = 0.0f;
-    float32_t Ki_spd = 0.0f;
-    if(objUser->Kctrl_Wb_p_kgm2 <= 0.01f)
-    {
-        Kp_spd = 2.5f * objUser->maxCurrent_A / objUser->maxFrequency_Hz;
-        Ki_spd = 5.0f * objUser->maxCurrent_A * objUser->ctrlPeriod_sec;
-    }
-    else
-    {
-        Kp_spd = BWc_rps / (BWdelta * Kctrl_Wb_p_kgm2);
-        Ki_spd = BWc_rps * speedCtrlPeriod_sec / (BWdelta * BWdelta);
-    }
+//
+//    // speed pid controller
+//    float32_t speedCtrlPeriod_sec = (float32_t)objUser->numCtrlTicksPerSpeedTick / objUser->ctrlFreq_Hz;
+//    float32_t BWdelta = objUser->BWdelta;
+//    float32_t Kctrl_Wb_p_kgm2 = objUser->Kctrl_Wb_p_kgm2;
+//
+//    /* gain calculation */
+//    // setup Id gain
+//    float32_t Kp_Id = Ls_d_H * BWc_rps;
+//    float32_t Ki_Id = 0.25f * RdoverLd_rps * currentCtrlPeriod_sec;
+//
+//    // setup Iq gain
+//    float32_t Kp_Iq = Ls_q_H * BWc_rps;
+//    float32_t Ki_Iq = 0.25f * RqoverLq_rps * currentCtrlPeriod_sec;
+//
+//    // setup speed gain
+//    float32_t Kp_spd = 0.0f;
+//    float32_t Ki_spd = 0.0f;
+//    if(objUser->Kctrl_Wb_p_kgm2 <= 0.01f)
+//    {
+//        Kp_spd = 2.5f * objUser->maxCurrent_A / objUser->maxFrequency_Hz;
+//        Ki_spd = 5.0f * objUser->maxCurrent_A * objUser->ctrlPeriod_sec;
+//    }
+//    else
+//    {
+//        Kp_spd = BWc_rps / (BWdelta * Kctrl_Wb_p_kgm2);
+//        Ki_spd = BWc_rps * speedCtrlPeriod_sec / (BWdelta * BWdelta);
+//    }
 
     /* setup controller */
     // set the Id controller
@@ -215,6 +216,22 @@ void setupControllers(MOTOR_Handle handle)
 
     // copy the Id, Iq , speed and position controller parameters to motorVars
     getControllers(handle);
+
+    // Get the Id controller parameters
+    objSets->KpTrim_Id = 1.5f;
+    objSets->KiTrim_Id = 0.1f;
+
+    // Get the Iq controller parameters
+    objSets->KpTrim_Iq = 1.5f;
+    objSets->KiTrim_Iq = 0.1f;
+
+    // Get the speed controller parameters
+    objSets->KpTrim_spd = 2.5;
+    objSets->KiTrim_spd = 0.03;
+
+    // Get the speed controller parameters
+    objSets->KpTrim_pos = 100.0f;
+    objSets->KiTrim_pos = 0.0f;
 
     return;
 } // end of setupControllers() function
@@ -510,9 +527,13 @@ void calculateRMSData(MOTOR_Handle handle)
 int eqep_count = 0;
 int eqep_lastCount = 0;
 int eqepTrimAngleCount = 0;
+int eqepTrimMonitor = 0;
 
 int eqep_trimOvertime = 100000;
-float32_t eqep_trimAngle = 0.0001f;
+float32_t eqep_trimAngle = 0.0003f;
+float32_t testTrimSpeedUi = 0.15;
+float32_t testTrimIqUi = 0.05;
+
 void posCheckMoinitor(MOTOR_Handle handle)
 {
 	MOTOR_Vars_t *obj = (MOTOR_Vars_t *)handle;
@@ -560,25 +581,31 @@ void posCheckMoinitor(MOTOR_Handle handle)
 
 			eqep_count = EQEP_getPosition(MTR1_EQEP_ENCODER_BASE);
 			// ÊÖÂÖ³ÙÖÍµ÷½Ú
-			if(((eqep_count-eqep_lastCount)>1.0f) || ((eqep_count-eqep_lastCount)<-1.0f))
+			if(((eqep_count-eqep_lastCount)>=1.0f) || ((eqep_count-eqep_lastCount)<=-1.0f))
 			{
-				if(eqep_count-eqep_lastCount>0)
+				eqepTrimMonitor = 0;
+
+				if(((eqep_count-eqep_lastCount>0)&&(eqep_count-eqep_lastCount<=2000))
+						||(eqep_count-eqep_lastCount<-2000))
 				{
+					obj->uctrlState = UCTRL_TRIM;
 					if(obj->direction == 0)
 					{
-						PI_setUi(obj->piHandle_spd, 0.0);
-						PI_setUi(obj->piHandle_Iq, 0.0);
+						PI_setUi(obj->piHandle_spd, testTrimSpeedUi);
+						PI_setUi(obj->piHandle_Iq, testTrimIqUi);
 						PI_setUi(obj->piHandle_Id, 0.0);
 					}
 					obj->direction = 1;
 					obj->posRef_rad += eqep_trimAngle;
 				}
-				else
+				else if(((eqep_count-eqep_lastCount<0)&&(eqep_count-eqep_lastCount>=-2000))
+						||(eqep_count-eqep_lastCount>2000))
 				{
+					obj->uctrlState = UCTRL_TRIM;
 					if(obj->direction == 1)
 					{
-						PI_setUi(obj->piHandle_spd, 0.0);
-						PI_setUi(obj->piHandle_Iq, 0.0);
+						PI_setUi(obj->piHandle_spd, -testTrimSpeedUi);
+						PI_setUi(obj->piHandle_Iq, -testTrimIqUi);
 						PI_setUi(obj->piHandle_Id, 0.0);
 					}
 					obj->direction = 0;
@@ -586,6 +613,16 @@ void posCheckMoinitor(MOTOR_Handle handle)
 				}
 
 				eqep_lastCount = eqep_count;
+			}
+			else if(eqep_count-eqep_lastCount == 0)
+			{
+				eqep_lastCount = eqep_count;
+
+				eqepTrimMonitor++;
+				if(eqepTrimMonitor>=10000)
+				{
+					obj->uctrlState = UCTRL_COARSE;
+				}
 			}
 
 //			if(obj->posRef_rad == obj->posRefPrev_rad)
