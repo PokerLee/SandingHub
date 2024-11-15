@@ -889,8 +889,8 @@ __interrupt CODE_SECTION( "ramfuncs") void motor1CtrlISR(void)
 
 	// Determine whether the position loop tends to stabilize within each precision interval
 	float32_t tempPosAcc_rad = fabsf(obj->posRef_rad-obj->pos_rad);
-	(tempPosAcc_rad<(1.93925472E-5f))?(obj->posSTrimStableCount++):(obj->posSTrimStableCount=0); // 2deg
-	(tempPosAcc_rad<(1.93925472E-5f*5))?(obj->posTrimStableCount++):(obj->posTrimStableCount=0); // 10deg
+	(tempPosAcc_rad<(9.6962736E-6f*5))?(obj->posSTrimStableCount++):(obj->posSTrimStableCount=0); // 5deg
+	(tempPosAcc_rad<(9.6962736E-6f*10))?(obj->posTrimStableCount++):(obj->posTrimStableCount=0); // 10deg
 
 	(obj->posSTrimStableCount>=2000)?(obj->flagPosSTrimStable = 1):(obj->flagPosSTrimStable = 0);// warning
 	(obj->posTrimStableCount>=2000)?(obj->flagPosTrimStable = 1):(obj->flagPosTrimStable = 0);// warning

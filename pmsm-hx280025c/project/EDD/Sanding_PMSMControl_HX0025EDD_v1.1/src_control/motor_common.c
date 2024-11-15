@@ -230,7 +230,7 @@ void setupControllers(MOTOR_Handle handle)
     objSets->KiTrim_spd = 0.018f;
 
     // Get the speed controller parameters
-    objSets->KpTrim_pos = 600.0f;
+    objSets->KpTrim_pos = 2000.0f;
     objSets->KiTrim_pos = 0.0f;
 
     // Get the Id controller parameters
@@ -246,7 +246,7 @@ void setupControllers(MOTOR_Handle handle)
     objSets->KiSuTrim_spd = 0.2f;
 
     // Get the speed controller parameters
-    objSets->KpSuTrim_pos = 100.0f;
+    objSets->KpSuTrim_pos = 1000.0f;
     objSets->KiSuTrim_pos = 0.0f;
 
     return;
@@ -546,13 +546,18 @@ int eqepHWInputPrev = 0;
 int eqepTrimAngleCount = 0;
 int eqepTrimMonitor = 0;
 
-int eqep_trimOvertime = 100000;
 float32_t eqep_trimAngle = 0.000005f; // 1.0313240312354817757823667866539 sec
 //float32_t eqep_trimAngle = 0.00001f; // 2.062648 sec
-float32_t testTrimSpeedUi_c = 0.95;
-float32_t testTrimIqUi_c = 0.12;
-float32_t testTrimSpeedUi_ac = -0.25;
-float32_t testTrimIqUi_ac = -0.03;
+
+float32_t testSTrimSpeedUi_c = 0.7071541;
+float32_t testSTrimIqUi_c = 0.086293444;
+float32_t testTrimSpeedUi_c = 0.7071541;
+float32_t testTrimIqUi_c = 0.086293444;
+
+float32_t testSTrimSpeedUi_ac = -0.2674385;
+float32_t testSTrimIqUi_ac = -0.03476479;
+float32_t testTrimSpeedUi_ac = -0.2674385;
+float32_t testTrimIqUi_ac = -0.03476479;
 
 void posCheckMoinitor(MOTOR_Handle handle)
 {
@@ -564,7 +569,33 @@ void posCheckMoinitor(MOTOR_Handle handle)
 	if(obj->flagPosSwitch == 1)
 	{
 		eqepTrimMonitor++;
-		obj->uCtrlState = UCTRL_SUPER_TRIM;
+//		obj->uCtrlState = UCTRL_TRIM;
+		if(tempEqepCountDelta!=0)
+		{
+			if(((tempEqepCountDelta>0)&&(tempEqepCountDelta<=2000))
+					||(tempEqepCountDelta<-2000))
+			{
+				if(obj->direction == 0)
+				{
+					obj->flagPosSwitch = 1;
+					eqepTrimMonitor = 0;
+				}
+				obj->direction = 1;
+				obj->posRef_rad += eqep_trimAngle;
+			}
+			else if(((tempEqepCountDelta<0)&&(tempEqepCountDelta>=-2000))
+					||(tempEqepCountDelta>2000))
+			{
+				if(obj->direction == 1)
+				{
+					obj->flagPosSwitch = 1;
+					eqepTrimMonitor = 0;
+				}
+				obj->direction = 0;
+				obj->posRef_rad -= eqep_trimAngle;
+			}
+		}
+		eqepHWInputLast = eqepHWInput;
 	}
 	else if(tempEqepCountDelta!=0)
 	{
@@ -592,10 +623,18 @@ void posCheckMoinitor(MOTOR_Handle handle)
 			if(obj->direction == 0)
 			{
 				obj->flagPosSwitch = 1;
-				PI_setUi(obj->piHandle_spd, testTrimSpeedUi_c);
-				PI_setUi(obj->piHandle_Iq, testTrimIqUi_c);
-//				PI_setUi(obj->piHandle_Id, 0.0);
-				obj->uCtrlState = UCTRL_SUPER_TRIM;
+				if(obj->uENCState == UENC_SLOW)
+				{
+					PI_setUi(obj->piHandle_spd, testSTrimSpeedUi_c);
+					PI_setUi(obj->piHandle_Iq, testSTrimIqUi_c);
+					PI_setUi(obj->piHandle_Id, 0.0);
+				}
+				else if(obj->uENCState == UENC_FAST)
+				{
+					PI_setUi(obj->piHandle_spd, testTrimSpeedUi_c);
+					PI_setUi(obj->piHandle_Iq, testTrimIqUi_c);
+					PI_setUi(obj->piHandle_Id, 0.0);
+				}
 			}
 			obj->direction = 1;
 			obj->posRef_rad += eqep_trimAngle;
@@ -623,11 +662,18 @@ void posCheckMoinitor(MOTOR_Handle handle)
 			if(obj->direction == 1)
 			{
 				obj->flagPosSwitch = 1;
-				PI_setUi(obj->piHandle_spd, testTrimSpeedUi_ac);
-				PI_setUi(obj->piHandle_Iq, testTrimIqUi_ac);
-//				PI_setUi(obj->piHandle_Id, 0.0);
-				obj->uCtrlState = UCTRL_SUPER_TRIM;
-
+				if(obj->uENCState == UENC_SLOW)
+				{
+					PI_setUi(obj->piHandle_spd, testSTrimSpeedUi_ac);
+					PI_setUi(obj->piHandle_Iq, testSTrimIqUi_ac);
+					PI_setUi(obj->piHandle_Id, 0.0);
+				}
+				else if(obj->uENCState == UENC_FAST)
+				{
+					PI_setUi(obj->piHandle_spd, testTrimSpeedUi_ac);
+					PI_setUi(obj->piHandle_Iq, testTrimIqUi_ac);
+					PI_setUi(obj->piHandle_Id, 0.0);
+				}
 			}
 			obj->direction = 0;
 			obj->posRef_rad -= eqep_trimAngle;
@@ -670,7 +716,7 @@ void encoderHandwheelSpeedDetection(MOTOR_Handle handle)
 {
 	MOTOR_Vars_t *obj = (MOTOR_Vars_t *)handle;
 
-	if(eqepHWInput_Count>=500)//0.5s
+	if(eqepHWInput_Count>=200)//0.2s
 	{
 		eqepHWInput_Count = 0;
 
