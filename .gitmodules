@@ -1,3 +1,0 @@
-[submodule "pmsm-hx280025c/screen/project/display_st7789v/components/lvgl"]
-	path = pmsm-hx280025c/screen/project/display_st7789v/components/lvgl
-	url = https://github.com/lvgl/lvgl.git
