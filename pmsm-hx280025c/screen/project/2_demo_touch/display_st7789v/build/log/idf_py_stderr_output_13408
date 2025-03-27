@@ -1,0 +1,7 @@
+CMake Warning at D:/workspace_vscode/esp32/v5.3.2/esp-idf/tools/cmake/component.cmake:294 (message):
+  No source files found for SRC_DIRS entry 'gt911_driver'.
+Call Stack (most recent call first):
+  D:/workspace_vscode/esp32/v5.3.2/esp-idf/tools/cmake/component.cmake:444 (__component_add_sources)
+  components/bsp/CMakeLists.txt:18 (idf_component_register)
+
+
