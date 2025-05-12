@@ -1,0 +1,20 @@
+st7789v屏幕转接板 + ESP32S3开发板 + CAN收发器
+
+st7789v屏幕转接板 -- ESP32S3开发板
+【IIC】
+SCL	-->0
+SDA	-->1
+【四线SPI】
+SDA -->11
+DC 	-->9
+RST 	-->14
+BL 	-->16
+VDD -->3.3
+GND -->G
+CS 	-->10
+SCL 	-->12
+
+CAN收发器 -- ESP32S3开发板
+CANTX -->40
+CANRX -->41
+GND -->G

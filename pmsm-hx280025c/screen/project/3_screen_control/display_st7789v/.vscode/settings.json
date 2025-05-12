@@ -1,0 +1,40 @@
+{
+    "C_Cpp.intelliSenseEngine": "default",
+    "idf.espIdfPathWin": "d:\\workspace_vscode\\esp32\\v5.3.2\\esp-idf",
+    "idf.pythonInstallPath": "d:\\workspace_vscode\\esp32\\Espressif\\tools\\idf-python\\3.11.2\\python.exe",
+    "idf.openOcdConfigs": [
+        "board/esp32s3-builtin.cfg"
+    ],
+    "idf.portWin": "COM16",
+    "idf.toolsPathWin": "d:\\workspace_vscode\\esp32\\Espressif",
+    "idf.customExtraVars": {
+        "IDF_TARGET": "esp32s3"
+    },
+    "idf.flashType": "JTAG",
+    "files.associations": {
+        "stdbool.h": "c",
+        "stdio.h": "c",
+        "lv_port_disp.h": "c",
+        "st7789_driver.h": "c",
+        "lv_demos.h": "c",
+        "lv_demo_widgets.h": "c",
+        "string": "c",
+        "semphr.h": "c",
+        "esp_lcd_panel_commands.h": "c",
+        "esp_log.h": "c",
+        "stdlib.h": "c",
+        "esp_lcd_panel_interface.h": "c",
+        "esp_check.h": "c",
+        "lv_demo_benchmark.h": "c",
+        "random": "c",
+        "lv_port_indev.h": "c",
+        "esp_lcd_touch_gt911.h": "c",
+        "esp_lcd_touch.h": "c",
+        "lvgl.h": "c",
+        "custom.h": "c",
+        "gui_guider.h": "c",
+        "lv_btnmatrix.h": "c",
+        "i2c_master.h": "c"
+    },
+    "C_Cpp.errorSquiggles": "disabled"
+}
